@@ -51,7 +51,6 @@ end package MUXes;
 library ieee;
 use ieee.std_logic_1164.all;
 library work;
-use work.Gates.all;
 
 entity MUX1_2x1 is
 	port (
@@ -68,7 +67,6 @@ end arch;
 library ieee;
 use ieee.std_logic_1164.all;
 library work;
-use work.Gates.all;
 
 entity MUX1_4x1 is
 	port (
@@ -88,7 +86,6 @@ end arch;
 library ieee;
 use ieee.std_logic_1164.all;
 library work;
-use work.Gates.all;
 
 entity MUX3_2x1 is
 	port (
@@ -113,7 +110,6 @@ end arch;
 library ieee;
 use ieee.std_logic_1164.all;
 library work;
-use work.Gates.all;
 
 entity MUX3_4x1 is
 	port (
@@ -138,7 +134,6 @@ end arch;
 library ieee;
 use ieee.std_logic_1164.all;
 library work;
-use work.Gates.all;
 
 entity MUX16_2x1 is
 	port (
@@ -163,7 +158,6 @@ end arch;
 library ieee;
 use ieee.std_logic_1164.all;
 library work;
-use work.Gates.all;
 
 entity MUX16_4x1 is
 	port (
