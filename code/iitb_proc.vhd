@@ -28,7 +28,7 @@ architecture struct of iitb_proc is
 			Reg_dataout    : out std_logic);
 	end component;
 
-	component Register16 is
+	component SixteenBitRegister is
 		port (
 			Reg_datain     : in std_logic_vector(15 downto 0);
 			clk, Reg_wrbar : in std_logic;
@@ -136,7 +136,7 @@ begin
 		y => M1_out
 	);
 
-	PC : Register16
+	PC : SixteenBitRegister
 	port map(
 		-- in
 		Reg_datain => M1_out, clk => clk,
@@ -166,7 +166,7 @@ begin
 		Mem_dataout => Mem_out
 	);
 
-	IR : Register16
+	IR : SixteenBitRegister
 	port map(
 		-- in
 		Reg_datain => Mem_out, clk => clk,
@@ -258,7 +258,7 @@ begin
 		y => M6_out
 	);
 
-	T1_reg : Register16
+	T1_reg : SixteenBitRegister
 	port map(
 		-- in
 		Reg_datain => M8_out, clk => clk,
@@ -268,7 +268,7 @@ begin
 		Reg_dataout => T1_out
 	);
 
-	T2_reg : Register16
+	T2_reg : SixteenBitRegister
 	port map(
 		-- in
 		Reg_datain => M7_out, clk => clk,
@@ -278,7 +278,7 @@ begin
 		Reg_dataout => T2_out
 	);
 
-	T3_reg : Register16
+	T3_reg : SixteenBitRegister
 	port map(
 		-- in
 		Reg_datain => M6_out, clk => clk,
