@@ -4,13 +4,6 @@ use work.all;
 library ieee;
 use ieee.std_logic_1164.all;
 
-library std;
-use std.standard.all;
-
-use ieee.numeric_std.all;
-use ieee.std_logic_arith.all;
-use ieee.std_logic_unsigned.all;
-
 entity SixteenBitRegister is
 	port (
 		Reg_datain     : in std_logic_vector(15 downto 0);
