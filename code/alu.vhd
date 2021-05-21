@@ -17,7 +17,8 @@ architecture Struct of alu is
 		port (
 		    a : in std_logic_vector (15 downto 0);
 		    b : in std_logic_vector (15 downto 0);
-		    sum : out std_logic_vector (16 downto 0) -- MSB is cout
+		    sum : out std_logic_vector (15 downto 0);
+		    cout: out std_logic
 		);
 	end component SixteenBitAdder;
 
@@ -47,8 +48,8 @@ begin
 	c1 : SixteenBitAdder port map(
 		a => A, 
 		b => B, 
-		sum(15 downto 0) => t1, 
-		sum(16) => t4
+		sum => t1, 
+		cout => t4
 	);
 
 	c2 : nandbit port map(A, B, t2);

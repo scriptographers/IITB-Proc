@@ -8,7 +8,8 @@ entity SixteenBitAdder is
   port (
     a : in std_logic_vector (15 downto 0);
     b : in std_logic_vector (15 downto 0);
-    sum : out std_logic_vector (16 downto 0) -- MSB is cout
+    sum : out std_logic_vector (15 downto 0);
+    cout: out std_logic
   );
 end SixteenBitAdder;
 
@@ -27,7 +28,7 @@ begin
 
   carry(0) <= '0'; -- cin is 0
 
-  add_loop : for i in 15 downto 0 generate
+  add_loop : for i in 0 to 15 generate
     bit_i : OneBitAdder 
     port map(
       a => a(i), 
@@ -38,6 +39,6 @@ begin
     );
   end generate add_loop;
 
-  sum(16) <= carry(16);
+  cout <= carry(16);
 
 end architecture;
