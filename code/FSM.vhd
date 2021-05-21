@@ -16,7 +16,7 @@ end entity;
 
 architecture struct of FSM is
 
-	type StateSymbol is (S0, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16, S18, S_alpha);
+	type StateSymbol is (S0, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16, S17, S18, S_alpha);
 	signal fsm_state_symbol : StateSymbol;
 
 begin
@@ -96,7 +96,7 @@ begin
 				elsif (instruction(15 downto 12) = "0001") then
 					state_v := S4;
 				elsif (instruction(15 downto 12) = "1100" and (T1 = T2)) then
-					state_v := S15;
+					state_v := S17;
 				elsif (instruction(15 downto 12) = "0110") then
 					state_v := S11;
 				elsif (instruction(15 downto 12) = "0111") then
@@ -305,6 +305,16 @@ begin
 				else
 					state_v := S18;
 				end if;
+
+			when S17 =>
+				W1_v := '0';
+				M90_v := '1';
+				M91_v := '0';
+				M100_v := '1';
+				M101_v := '0';
+				M1_v := '0';
+				state_v := s0;
+				done_v := '1';
 
 			when S18 =>
 				W1_v := '0';
