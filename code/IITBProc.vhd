@@ -4,14 +4,14 @@ use work.all;
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity iitb_proc is
+entity IITBProc is
 	port (
 		clk, reset : in std_logic;
 		O          : out std_logic_vector(15 downto 0);
 		done       : out std_logic);
 end entity;
 
-architecture struct of iitb_proc is
+architecture struct of IITBProc is
 
 	component RegisterFile is
 		port (

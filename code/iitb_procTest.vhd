@@ -6,7 +6,7 @@ entity iitb_procTest is
 end entity;
 
 architecture tb of iitb_procTest is
-	component iitb_proc is
+	component IITBProc is
 		port (
 			clk, reset : in std_logic;
 			O          : out std_logic_vector(15 downto 0);
@@ -19,7 +19,7 @@ architecture tb of iitb_procTest is
 	signal d : std_logic;
 
 begin
-	dut_instance : iitb_proc
+	dut_instance : IITBProc
 	port map(clk => clk, reset => rst, O => o, done => d);
 
 	clk <= not clk after 5 ns;
