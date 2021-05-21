@@ -8,10 +8,11 @@ entity SixteenBitRegister is
 	port (
 		Reg_datain     : in std_logic_vector(15 downto 0);
 		clk, Reg_wrbar : in std_logic;
-		Reg_dataout    : out std_logic_vector(15 downto 0));
+		Reg_dataout    : out std_logic_vector(15 downto 0)
+	);
 end entity;
 
-architecture struct of SixteenBitRegister is
+architecture arch of SixteenBitRegister is
 
 	signal R : std_logic_vector(15 downto 0) := (others => '0');
 
@@ -27,4 +28,4 @@ begin
 		end if;
 	end process;
 
-end struct;
+end architecture;

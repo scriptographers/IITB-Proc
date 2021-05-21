@@ -23,9 +23,9 @@ architecture struct of IITBProc is
 
 	component OneBitRegister is
 		port (
-			Reg_datain     : in std_logic;
-			clk, Reg_wrbar : in std_logic;
-			Reg_dataout    : out std_logic);
+			clk, write_flag, data_write : in std_logic;
+			data_read : out std_logic
+		);
 	end component;
 
 	component SixteenBitRegister is
@@ -322,11 +322,12 @@ begin
 	C : OneBitRegister
 	port map(
 		-- in
-		Reg_datain => C_out, clk => clk,
+		data_write => C_out, 
+		clk => clk,
 		-- control pin
-		Reg_wrbar => WC,
+		write_flag => WC,
 		-- out
-		Reg_dataout => Cr_out
+		data_read => Cr_out
 	);
 
 	T1_zero <= not(T1_out(0) or T1_out(1) or T1_out(2) or T1_out(3) or T1_out(4) or T1_out(5) or T1_out(6) or T1_out(7)
@@ -345,11 +346,12 @@ begin
 	Z : OneBitRegister
 	port map(
 		-- in
-		Reg_datain => M11_out, clk => clk,
+		data_write => M11_out, 
+		clk => clk,
 		-- control pin
-		Reg_wrbar => WZ,
+		write_flag => WZ,
 		--out
-		Reg_dataout => Zr_out
+		data_read => Zr_out
 	);
 
 	MUX12 : MUX16_2x1
