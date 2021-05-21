@@ -78,7 +78,7 @@ architecture struct of iitb_proc is
 		);
 	end component;
 
-	component Memory_asyncread_syncwrite is
+	component MemoryReadWrite is
 		port (
 			address, Mem_datain : in std_logic_vector(15 downto 0);
 			clk, Mem_wrbar      : in std_logic;
@@ -155,7 +155,7 @@ begin
 		y => M2_out
 	);
 
-	Mem1 : Memory_asyncread_syncwrite
+	Mem1 : MemoryReadWrite
 	port map(
 		-- in
 		address => M2_out, Mem_datain => M12_out, clk => clk,

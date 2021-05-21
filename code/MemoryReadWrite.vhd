@@ -14,14 +14,14 @@ use ieee.std_logic_unsigned.all;
 -- since The Memory is asynchronous read, there is no read signal, but you can use it based on your preference.
 -- this memory gives 16 Bit data in one clock cycle, so edit the file to your requirement.
 
-entity Memory_asyncread_syncwrite is
+entity MemoryReadWrite is
 	port (
 		address, Mem_datain : in std_logic_vector(15 downto 0);
 		clk, Mem_wrbar      : in std_logic;
 		Mem_dataout         : out std_logic_vector(15 downto 0));
 end entity;
 
-architecture struct of Memory_asyncread_syncwrite is
+architecture struct of MemoryReadWrite is
 
 	type regarray is array(31 downto 0) of std_logic_vector(15 downto 0); -- defining a new type
 	signal Memory : regarray := (
