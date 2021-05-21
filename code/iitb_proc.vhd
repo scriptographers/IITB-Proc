@@ -114,38 +114,55 @@ begin
 
 	fsm1 : FSM
 	port map(
-		instruction => irout, T1 => m8out, T2 => m7out, T3 => t3out, r => reset, clk => clk,
-		init_carry => Cr_out, init_zero => Zr_out,
+		-- in
+		instruction => irout, T1 => m8out, T2 => m7out, T3 => t3out,
+		r => reset, clk => clk, init_carry => Cr_out, init_zero => Zr_out,
+		-- out
 		w1 => W1, w2 => W2, w3 => W3, w4 => W4, w5 => W5, w6 => W6, w7 => W7,
-		m1 => M1, m20 => M20, m21 => M21, m30 => M30, m31 => M31, m4 => M4, m50 => M50,
-		m51 => M51,
-		m8 => M8, m70 => M70, m71 => M71, m61 => M61, m60 => M60, m91 => M91, m90 => M90,
-		m100 => M100, m101 => M101, mux => Mux, carry => WC,
-		zero => WZ, done => Done, alucont => alu_control, mem => memout, m12 => M12);
+		m1 => M1, m20 => M20, m21 => M21, m30 => M30, m31 => M31, m4 => M4,
+		m50 => M50, m51 => M51,	m8 => M8, m70 => M70, m71 => M71, m61 => M61, m60 => M60,
+		m91 => M91, m90 => M90,	m100 => M100, m101 => M101, mux => Mux, carry => WC,
+		zero => WZ, done => Done, alucont => alu_control, mem => memout, m12 => M12
+	);
 
 	Mux1 : Mux16_2_1
-	port map(A => alu_c, B => t2out, S0 => M1, y => m1out);
+	port map(
+		-- in
+		A => alu_c, B => t2out, S0 => M1,
+		-- out
+		y => m1out
+	);
 
 	PC : Register16
-	port map(Reg_datain => m1out, clk => clk, Reg_wrbar => W1, Reg_dataout => pcout);
+	port map(
+		Reg_datain => m1out, clk => clk, Reg_wrbar => W1, Reg_dataout => pcout
+	);
 
 	Mux2 : Mux16_4_1
-	port map(A => t2out, B => pcout, C => alu_c, D => t1out, S1 => M21, S0 => M20, y => m2out);
+	port map(
+		A => t2out, B => pcout, C => alu_c, D => t1out, S1 => M21, S0 => M20, y => m2out
+	);
 
-	Mem1 : Memory_asyncread_syncwrite port map(
+	Mem1 : Memory_asyncread_syncwrite
+	port map(
 		address => m2out, Mem_datain => m12out, Mem_dataout => memout,
 		clk => clk, Mem_wrbar => W2);
 
 	IR : Register16
-	port map(Reg_datain => memout, clk => clk, Reg_wrbar => W3, Reg_dataout => irout);
+	port map(
+		Reg_datain => memout, clk => clk, Reg_wrbar => W3, Reg_dataout => irout
+	);
 
 	Mux4 : Mux3_2_1
-	port map(A => irout(11 downto 9), B => t3out(2 downto 0), S0 => M4, y => tm4out);
+	port map(
+		A => irout(11 downto 9), B => t3out(2 downto 0), S0 => M4, y => tm4out
+	);
 
 	Mux3 : Mux3_4_1
 	port map(
 		A => irout(11 downto 9), B => irout(8 downto 6), C => irout(5 downto 3),
-		D => t3out(2 downto 0), S1 => M31, S0 => M30, y => tm3out);
+		D => t3out(2 downto 0), S1 => M31, S0 => M30, y => tm3out
+	);
 
 	Imm9e16 <= irout(8 downto 0) & "0000000";
 
@@ -166,50 +183,77 @@ begin
 	port map(
 		address1 => tm4out, address2 => irout(8 downto 6), address3 => tm3out,
 		Reg_datain3 => m5out, clk => clk, Reg_wrbar => W4,
-		Reg_dataout1 => D1out, Reg_dataout2 => D2out);
+		Reg_dataout1 => D1out, Reg_dataout2 => D2out
+	);
 
 	Mux8 : Mux16_2_1
-	port map(A => D1out, B => alu_c, S0 => M8, y => m8out);
+	port map(
+		A => D1out, B => alu_c, S0 => M8, y => m8out
+	);
 
 	Mux7 : Mux16_4_1
-	port map(A => D1out, B => D2out, C => alu_c, D => memout, S0 => M70, S1 => M71, y => m7out);
+	port map(
+		A => D1out, B => D2out, C => alu_c, D => memout, S0 => M70, S1 => M71, y => m7out
+	);
 
 	Mux6 : Mux16_4_1
-	port map(A => memout, B => Z16, C => alu_c, D => Z16, S1 => M61, S0 => M60, y => m6out);
+	port map(
+		A => memout, B => Z16, C => alu_c, D => Z16, S1 => M61, S0 => M60, y => m6out
+	);
 
 	T1_reg : Register16
-	port map(Reg_datain => m8out, clk => clk, Reg_wrbar => W7, Reg_dataout => t1out);
+	port map(
+		Reg_datain => m8out, clk => clk, Reg_wrbar => W7, Reg_dataout => t1out
+	);
 
 	T2_reg : Register16
-	port map(Reg_datain => m7out, clk => clk, Reg_wrbar => W6, Reg_dataout => t2out);
+	port map(
+		Reg_datain => m7out, clk => clk, Reg_wrbar => W6, Reg_dataout => t2out
+	);
 
 	T3_reg : Register16
-	port map(Reg_datain => m6out, clk => clk, Reg_wrbar => W5, Reg_dataout => t3out);
+	port map(
+		Reg_datain => m6out, clk => clk, Reg_wrbar => W5, Reg_dataout => t3out
+	);
 
 	Mux9 : Mux16_4_1
-	port map(A => seImm9, B => seImm6, C => t2out, D => O16, S1 => M91, S0 => M90, y => alu_b);
+	port map(
+		A => seImm9, B => seImm6, C => t2out, D => O16, S1 => M91, S0 => M90, y => alu_b
+	);
 
 	Mux10 : Mux16_4_1
-	port map(A => t3out, B => pcout, C => t1out, D => t2out, S1 => M101, S0 => M100, y => alu_a);
+	port map(
+		A => t3out, B => pcout, C => t1out, D => t2out, S1 => M101, S0 => M100, y => alu_a
+	);
 
 	ALU_en : alu
-	port map(A => alu_a, B => alu_b, C => alu_c, op => alu_control, Z => Z_out, Cout => C_out);
+	port map(
+		A => alu_a, B => alu_b, C => alu_c, op => alu_control, Z => Z_out, Cout => C_out
+	);
 
 	C : Register1
-	port map(Reg_datain => C_out, clk => clk, Reg_wrbar => WC, Reg_dataout => Cr_out);
+	port map(
+		Reg_datain => C_out, clk => clk, Reg_wrbar => WC, Reg_dataout => Cr_out
+	);
 
-	T1_zero <= not(t1out(0) or t1out(1) or t1out(2) or t1out(3) or t1out(4) or t1out(5) or t1out(6) or t1out(7) or t1out(8)
-		or t1out(9) or t1out(10) or t1out(11) or t1out(12) or t1out(13) or t1out(14) or t1out(15));
+	T1_zero <= not(t1out(0) or t1out(1) or t1out(2) or t1out(3) or t1out(4) or t1out(5) or t1out(6) or t1out(7)
+		or t1out(8) or t1out(9) or t1out(10) or t1out(11) or t1out(12) or t1out(13) or t1out(14) or t1out(15));
 
 	Mux11 : Mux1_2_1
-	port map(A => Z_out, B => T1_zero, S0 => Mux, y => M11_out);
+	port map(
+		A => Z_out, B => T1_zero, S0 => Mux, y => M11_out
+	);
 
 	Z : Register1
-	port map(Reg_datain => M11_out, clk => clk, Reg_wrbar => WZ, Reg_dataout => Zr_out);
-
-	O <= memout;
+	port map(
+		Reg_datain => M11_out, clk => clk, Reg_wrbar => WZ, Reg_dataout => Zr_out
+	);
 
 	Mux12 : Mux16_2_1
-	port map(A => t1out, B => t2out, S0 => M12, y => m12out);
+	port map(
+		A => t1out, B => t2out, S0 => M12, y => m12out
+	);
+
+	O <= memout;
 
 end Form;
