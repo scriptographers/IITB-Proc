@@ -2,42 +2,49 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 package Muxes is
-   component Mux1_2_1 is
-      port (
-         A, B, S0 : in std_logic;
-         y        : out std_logic);
-   end component Mux1_2_1;
+	component Mux1_2_1 is
+		port (
+			A, B, S0 : in std_logic;
+			y        : out std_logic);
+	end component Mux1_2_1;
 
-   component Mux1_4_1 is
-      port (
-         A, B, C, D, S1, S0 : in std_logic;
-         y                  : out std_logic);
-   end component Mux1_4_1;
+	component Mux1_4_1 is
+		port (
+			A, B, C, D, S1, S0 : in std_logic;
+			y                  : out std_logic);
+	end component Mux1_4_1;
 
-   component Mux3_2_1 is
-      port (
-         A, B : in std_logic_vector(2 downto 0);
-         S0   : in std_logic;
-         y    : out std_logic_vector(2 downto 0));
-   end component Mux3_2_1;
+	component Mux3_2_1 is
+		port (
+			A, B : in std_logic_vector(2 downto 0);
+			S0   : in std_logic;
+			y    : out std_logic_vector(2 downto 0));
+	end component Mux3_2_1;
 
-   component Mux3_4_1 is
-      port (
-         A, B, C, D : in std_logic_vector(2 downto 0);
-         S1, S0     : in std_logic;
-         y          : out std_logic_vector(2 downto 0));
-   end component Mux3_4_1;
+	component Mux3_4_1 is
+		port (
+			A, B, C, D : in std_logic_vector(2 downto 0);
+			S1, S0     : in std_logic;
+			y          : out std_logic_vector(2 downto 0));
+	end component Mux3_4_1;
 
-   component Mux16_2_1 is
-      port (
-         A, B : in std_logic_vector(15 downto 0);
-         S0   : in std_logic;
-         y    : out std_logic_vector(15 downto 0));
-   end component Mux16_2_1;
+	component Mux16_2_1 is
+		port (
+			A, B : in std_logic_vector(15 downto 0);
+			S0   : in std_logic;
+			y    : out std_logic_vector(15 downto 0));
+	end component Mux16_2_1;
+
+	component Mux16_4_1 is
+		port (
+			A, B, C, D : in std_logic_vector(15 downto 0);
+			S1, S0     : in std_logic;
+			y          : out std_logic_vector(15 downto 0));
+	end component Mux16_4_1;
 
 end package Muxes;
 
-
+-- Mux1_2_1
 library ieee;
 use ieee.std_logic_1164.all;
 library work;
@@ -54,7 +61,7 @@ begin
 	y <= (A and not S0) or (B and S0);
 end arch;
 
-
+-- Mux1_4_1
 library ieee;
 use ieee.std_logic_1164.all;
 library work;
@@ -74,7 +81,7 @@ begin
 		or (D and (S1) and (S0));
 end arch;
 
-
+-- Mux3_2_1
 library ieee;
 use ieee.std_logic_1164.all;
 library work;
@@ -99,7 +106,7 @@ begin
 	end generate muxg;
 end arch;
 
-
+-- Mux3_4_1
 library ieee;
 use ieee.std_logic_1164.all;
 library work;
@@ -124,7 +131,7 @@ begin
 	end generate muxg;
 end arch;
 
-
+-- Mux16_2_1
 library ieee;
 use ieee.std_logic_1164.all;
 library work;
@@ -149,7 +156,7 @@ begin
 	end generate muxg;
 end arch;
 
-
+-- Mux16_4_1
 library ieee;
 use ieee.std_logic_1164.all;
 library work;
