@@ -16,9 +16,9 @@ architecture struct of IITBProc is
 	component RegisterFile is
 		port (
 			address1, address2, address3 : in std_logic_vector(2 downto 0);
-			Reg_datain3                  : in std_logic_vector(15 downto 0);
+			data_write3                  : in std_logic_vector(15 downto 0);
 			clk, write_flag               : in std_logic;
-			Reg_dataout1, Reg_dataout2   : out std_logic_vector(15 downto 0));
+			data_read1, data_read2   : out std_logic_vector(15 downto 0));
 	end component;
 
 	component OneBitRegister is
@@ -220,11 +220,11 @@ begin
 	port map(
 		-- in
 		address1 => M4_out, address2 => IR_out(8 downto 6), address3 => M3_out,
-		Reg_datain3 => M5_out, clk => clk,
+		data_write3 => M5_out, clk => clk,
 		-- control pin
 		write_flag => W4,
 		-- out
-		Reg_dataout1 => D1_out, Reg_dataout2 => D2_out
+		data_read1 => D1_out, data_read2 => D2_out
 	);
 
 	MUX8 : MUX16_2x1
