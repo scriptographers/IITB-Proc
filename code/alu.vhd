@@ -16,7 +16,7 @@ end ALU;
 architecture arch of ALU is
 
 	signal carry: std_logic;
-	signal addition_result, nand_result, extended_op, temp : std_logic_vector(15 downto 0);
+	signal addition_result, nand_result, temp : std_logic_vector(15 downto 0);
 
 	component SixteenBitAdder is
 		port (
@@ -34,9 +34,15 @@ architecture arch of ALU is
 	    );
 	end component SixteenBitNand;
 
-begin
+	component MUX16_2x1 is
+		port (
+			A, B : in std_logic_vector(15 downto 0);
+			S0   : in std_logic;
+			y    : out std_logic_vector(15 downto 0)
+		);
+	end component MUX16_2x1;
 
-	extended_op <= (others => op); -- Repeats op value at each of the 16 positions of extended_op
+begin
 
 	op_add : SixteenBitAdder 
 	port map(
@@ -52,7 +58,13 @@ begin
 	port map(a => a, b => b, output => nand_result);
 
 	-- If op = 1, then return nand result, else return addition result
-	temp <= (extended_op and nand_result) or (addition_result and not extended_op);
+	selector: MUX16_2x1
+	port map(
+		A => addition_result,
+		B => nand_result,
+		S0 => op,
+		y => temp
+	);
 
 	-- zero is 1 iff all bits of the output are 0
 	zero <= not(
