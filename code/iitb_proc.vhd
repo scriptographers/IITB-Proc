@@ -69,7 +69,7 @@ architecture Form of iitb_proc is
 			y          : out std_logic_vector(15 downto 0));
 	end component;
 
-	component alu is
+	component ALU is
 		port (
 			A, B    : in std_logic_vector(15 downto 0);
 			op      : in std_logic;
@@ -226,7 +226,7 @@ begin
 		A => t3out, B => pcout, C => t1out, D => t2out, S1 => M101, S0 => M100, y => alu_a
 	);
 
-	ALU_en : alu
+	ALU_en : ALU
 	port map(
 		A => alu_a, B => alu_b, C => alu_c, op => alu_control, Z => Z_out, Cout => C_out
 	);

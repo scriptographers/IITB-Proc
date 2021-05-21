@@ -4,16 +4,16 @@ use work.all;
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity alu is
+entity ALU is
 	port (
 		A, B    : in std_logic_vector(15 downto 0);
 		op      : in std_logic;
 		C       : out std_logic_vector(15 downto 0);
 		Z, Cout : out std_logic
 	);
-end alu;
+end ALU;
 
-architecture arch of alu is
+architecture arch of ALU is
 
 	signal t1, t2, t3, t7 : std_logic_vector(15 downto 0);
 	signal t4, t5, t6 : std_logic;
