@@ -70,16 +70,12 @@ begin
 
 				if (mem(15 downto 12) = "0011") then
 					state_v := S6;
-
 				elsif (mem(15 downto 13) = "100") then
 					state_v := S16;
-
 				elsif (mem(15 downto 12) = "1111") then
 					state_v := S0;
-
 				else
 					state_v := S1;
-
 				end if;
 
 			when S1 =>
@@ -91,27 +87,22 @@ begin
 				M70_v := '1';
 				M71_v := '0';
 				M8_v := '0';
+
 				if (instruction(15 downto 13) = "010") then
 					state_v := S7;
 				elsif ((instruction(15 downto 12) = "0000" or instruction(15 downto 12) = "0010")
 					and ((instruction(1 downto 0) = "10" and init_carry = '1') or (instruction(1 downto 0) = "01" and init_zero = '1') or (instruction(1 downto 0) = "00"))) then
 					state_v := S2;
-
 				elsif (instruction(15 downto 12) = "0001") then
 					state_v := S4;
-
 				elsif (instruction(15 downto 12) = "1100" and (T1 = T2)) then
 					state_v := S15;
-
 				elsif (instruction(15 downto 12) = "0110") then
 					state_v := S11;
-
 				elsif (instruction(15 downto 12) = "0111") then
 					state_v := S13;
-
 				else
 					state_v := S_alpha;
-
 				end if;
 
 			when S2 =>
@@ -132,6 +123,7 @@ begin
 					alu_v := '0';
 				end if;
 				state_v := S3;
+
 			when S3 =>
 				W4_v := '0';
 				M50_v := '1';
@@ -140,6 +132,7 @@ begin
 				M31_v := '1';
 
 				state_v := S_alpha;
+
 			when S4 =>
 				W5_v := '0';
 				M90_v := '1';
@@ -152,6 +145,7 @@ begin
 				zero_v := '0';
 
 				state_v := S5;
+
 			when S5 =>
 				W4_v := '0';
 				M30_v := '1';
@@ -160,6 +154,7 @@ begin
 				M51_v := '1';
 
 				state_v := S_alpha;
+
 			when S6 =>
 				W4_v := '0';
 				M30_v := '0';
@@ -168,6 +163,7 @@ begin
 				M51_v := '0';
 
 				state_v := S_alpha;
+
 			when S7 =>
 				W6_v := '0';
 				M90_v := '1';
@@ -179,11 +175,8 @@ begin
 
 				if (instruction(15 downto 12) = "0100") then
 					state_v := S8;
-
 				else
-					-- sb7 : 0101
 					state_v := S9;
-
 				end if;
 
 			when S8 =>
@@ -214,7 +207,6 @@ begin
 				state_v := S_alpha;
 
 			when S11 =>
-				-- change made here t1->mema
 				W6_v := '0';
 				W7_v := '0';
 				M90_v := '1';
@@ -226,6 +218,7 @@ begin
 				M70_v := '1';
 				M71_v := '1';
 				M8_v := '1';
+
 				state_v := S12;
 
 			when S12 =>
@@ -244,10 +237,8 @@ begin
 
 				if (T3(2 downto 0) = "111") then
 					state_v := S_alpha;
-
 				else
 					state_v := S11;
-
 				end if;
 
 			when S13 =>
@@ -266,7 +257,6 @@ begin
 				state_v := S14;
 
 			when S14 =>
-				-- changes made
 				W2_v := '0';
 				W7_v := '0';
 				M90_v := '1';
@@ -279,10 +269,8 @@ begin
 				M12_v := '1';
 				if (T3(2 downto 0) = "000") then
 					state_v := S_alpha;
-
 				else
 					state_v := S13;
-
 				end if;
 
 			when S15 =>
@@ -308,11 +296,8 @@ begin
 
 				if (instruction(15 downto 12) = "1000") then
 					state_v := S15;
-
 				else
-					-- opcode : 1001
 					state_v := S18;
-
 				end if;
 
 			when S18 =>
