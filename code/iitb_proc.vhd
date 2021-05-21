@@ -12,6 +12,15 @@ entity iitb_proc is
 end entity;
 
 architecture Form of iitb_proc is
+
+	component Register_file is
+		port (
+			address1, address2, address3 : in std_logic_vector(2 downto 0);
+			Reg_datain3                  : in std_logic_vector(15 downto 0);
+			clk, Reg_wrbar               : in std_logic;
+			Reg_dataout1, Reg_dataout2   : out std_logic_vector(15 downto 0));
+	end component;
+
 	component Register1 is
 		port (
 			Reg_datain     : in std_logic;
@@ -26,19 +35,10 @@ architecture Form of iitb_proc is
 			Reg_dataout    : out std_logic_vector(15 downto 0));
 	end component;
 
-	component Register_file is
+	component Mux1_2_1 is
 		port (
-			address1, address2, address3 : in std_logic_vector(2 downto 0);
-			Reg_datain3                  : in std_logic_vector(15 downto 0);
-			clk, Reg_wrbar               : in std_logic;
-			Reg_dataout1, Reg_dataout2   : out std_logic_vector(15 downto 0));
-	end component;
-
-	component Mux3_4_1 is
-		port (
-			A, B, C, D : in std_logic_vector(2 downto 0);
-			S1, S0     : in std_logic;
-			y          : out std_logic_vector(2 downto 0));
+			A, B, S0 : in std_logic;
+			y        : out std_logic);
 	end component;
 
 	component Mux3_2_1 is
@@ -48,17 +48,11 @@ architecture Form of iitb_proc is
 			y    : out std_logic_vector(2 downto 0));
 	end component;
 
-	component Mux16_4_1 is
+	component Mux3_4_1 is
 		port (
-			A, B, C, D : in std_logic_vector(15 downto 0);
+			A, B, C, D : in std_logic_vector(2 downto 0);
 			S1, S0     : in std_logic;
-			y          : out std_logic_vector(15 downto 0));
-	end component;
-
-	component Mux1_2_1 is
-		port (
-			A, B, S0 : in std_logic;
-			y        : out std_logic);
+			y          : out std_logic_vector(2 downto 0));
 	end component;
 
 	component Mux16_2_1 is
@@ -66,6 +60,13 @@ architecture Form of iitb_proc is
 			A, B : in std_logic_vector(15 downto 0);
 			S0   : in std_logic;
 			y    : out std_logic_vector(15 downto 0));
+	end component;
+
+	component Mux16_4_1 is
+		port (
+			A, B, C, D : in std_logic_vector(15 downto 0);
+			S1, S0     : in std_logic;
+			y          : out std_logic_vector(15 downto 0));
 	end component;
 
 	component alu is
@@ -109,6 +110,7 @@ architecture Form of iitb_proc is
 	constant Z16 : std_logic_vector(15 downto 0) := (others => '0');
 
 	constant O16 : std_logic_vector(15 downto 0) := (0 => '1', others => '0');
+
 begin
 
 	fsm1 : FSM

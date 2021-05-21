@@ -17,12 +17,6 @@ architecture tb of iitb_procTest is
 	signal rst : std_logic := '0';
 	signal o : std_logic_vector(15 downto 0);
 	signal d : std_logic;
-	signal o_t1 : std_logic_vector(15 downto 0);
-	signal o_t2 : std_logic_vector(15 downto 0);
-	signal o_t3 : std_logic_vector(15 downto 0);
-	signal o_t4 : std_logic_vector(15 downto 0);
-	signal o_pc : std_logic_vector(15 downto 0);
-	signal o_ir : std_logic_vector(15 downto 0);
 
 begin
 	dut_instance : iitb_proc
