@@ -308,12 +308,13 @@ begin
 
 			when S17 =>
 				W1_v := '0';
+				M1_v := '0';
 				M90_v := '1';
 				M91_v := '0';
 				M100_v := '1';
 				M101_v := '0';
-				M1_v := '0';
-				state_v := s0;
+
+				state_v := S0;
 				done_v := '1';
 
 			when S18 =>
