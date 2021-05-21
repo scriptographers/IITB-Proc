@@ -1,4 +1,4 @@
--- Component: ALU
+-- Component: Basic Arithmatic and Logical Unit
 library work;
 use work.all;
 library ieee;
