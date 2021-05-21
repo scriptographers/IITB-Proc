@@ -71,9 +71,9 @@ architecture struct of iitb_proc is
 
 	component ALU is
 		port (
-			a, b    : in std_logic_vector(15 downto 0);
-			op      : in std_logic;
-			output  : out std_logic_vector(15 downto 0);
+			a, b       : in std_logic_vector(15 downto 0);
+			op         : in std_logic;
+			output     : out std_logic_vector(15 downto 0);
 			zero, cout : out std_logic
 		);
 	end component;
@@ -87,11 +87,11 @@ architecture struct of iitb_proc is
 
 	component FSM is
 		port (
-			instruction, T1, T2, T3, mem  : in std_logic_vector(15 downto 0);
-			r, clk, init_carry, init_zero : in std_logic;
+			instruction, T1, T2, T3, mem    : in std_logic_vector(15 downto 0);
+			rst, clk, init_carry, init_zero : in std_logic;
 			w1, w2, w3, w4, w5, w6, w7,
-			m1, m20, m21, m30, m31, m4, m50, m51, m60, m61, m70, m71, m8, m90, m91, m100, m101, mux,
-			carry, zero, done, alucont, m12 : out std_logic);
+			m1, m20, m21, m30, m31, m4, m50, m51, m60, m61, m70, m71, m8, m90, m91, m100, m101, m12,
+			carry, zero, mux, done, alucont : out std_logic);
 	end component;
 
 	signal PC_out, IR_out, ALU_a, ALU_b, ALU_c, T1_out, T2_out, T3_out, Mem_out, D1_out, D2_out,
@@ -116,14 +116,14 @@ begin
 	FSM_en : FSM
 	port map(
 		-- in
-		instruction => IR_out, T1 => M8_out, T2 => M7_out, T3 => T3_out,
-		r => reset, clk => clk, init_carry => Cr_out, init_zero => Zr_out,
+		instruction => IR_out, T1 => M8_out, T2 => M7_out, T3 => T3_out, mem => Mem_out,
+		rst => reset, clk => clk, init_carry => Cr_out, init_zero => Zr_out,
 		-- out
 		w1 => W1, w2 => W2, w3 => W3, w4 => W4, w5 => W5, w6 => W6, w7 => W7,
 		m1 => M1, m20 => M20, m21 => M21, m30 => M30, m31 => M31, m4 => M4,
 		m50 => M50, m51 => M51, m8 => M8, m70 => M70, m71 => M71, m61 => M61, m60 => M60,
-		m91 => M91, m90 => M90, m100 => M100, m101 => M101, mux => mux, carry => WC,
-		zero => WZ, done => Done, alucont => alu_control, mem => Mem_out, m12 => M12
+		m91 => M91, m90 => M90, m100 => M100, m101 => M101, m12 => M12, carry => WC,
+		zero => WZ, mux => mux, done => Done, alucont => alu_control
 	);
 
 	MUX1 : MUX16_2x1

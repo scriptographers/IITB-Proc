@@ -6,11 +6,11 @@ use ieee.std_logic_1164.all;
 
 entity FSM is
 	port (
-		instruction, T1, T2, T3, mem  : in std_logic_vector(15 downto 0);
-		r, clk, init_carry, init_zero : in std_logic;
+		instruction, T1, T2, T3, mem    : in std_logic_vector(15 downto 0);
+		rst, clk, init_carry, init_zero : in std_logic;
 		w1, w2, w3, w4, w5, w6, w7,
-		m1, m20, m21, m30, m31, m4, m50, m51, m60, m61, m70, m71, m8, m90, m91, m100, m101, mux,
-		carry, zero, done, alucont, m12 : out std_logic);
+		m1, m20, m21, m30, m31, m4, m50, m51, m60, m61, m70, m71, m8, m90, m91, m100, m101, m12,
+		carry, zero, mux, done, alucont : out std_logic);
 end entity;
 
 architecture struct of FSM is
