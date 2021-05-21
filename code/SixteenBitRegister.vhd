@@ -1,4 +1,4 @@
--- Component: 16 bit register
+-- Component: Async 16 bit register
 library work;
 use work.all;
 library ieee;
@@ -6,24 +6,24 @@ use ieee.std_logic_1164.all;
 
 entity SixteenBitRegister is
 	port (
-		Reg_datain     : in std_logic_vector(15 downto 0);
-		clk, Reg_wrbar : in std_logic;
-		Reg_dataout    : out std_logic_vector(15 downto 0)
+		clk, write_flag : in std_logic;
+		data_write : in std_logic_vector(15 downto 0);
+		data_read : out std_logic_vector(15 downto 0)
 	);
 end entity;
 
 architecture arch of SixteenBitRegister is
 
-	signal R : std_logic_vector(15 downto 0) := (others => '0');
+	signal r : std_logic_vector(15 downto 0) := (others => '0');
 
 begin
-	Reg_dataout <= R;
-	Reg_write :
-	process (Reg_wrbar, Reg_datain, clk)
+
+	data_read <= r;
+	proc_write : process (write_flag, data_write, clk)
 	begin
-		if (Reg_wrbar = '0') then
+		if (write_flag = '0') then
 			if (rising_edge(clk)) then
-				R <= Reg_datain;
+				r <= data_write;
 			end if;
 		end if;
 	end process;

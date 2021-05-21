@@ -15,7 +15,7 @@ entity RegisterFile is
 	port (
 		address1, address2, address3 : in std_logic_vector(2 downto 0);
 		Reg_datain3                  : in std_logic_vector(15 downto 0);
-		clk, Reg_wrbar               : in std_logic;
+		clk, write_flag              : in std_logic;
 		Reg_dataout1, Reg_dataout2   : out std_logic_vector(15 downto 0));
 end entity;
 
@@ -29,9 +29,9 @@ begin
 	Reg_dataout1 <= RegisterF(conv_integer(address1));
 	Reg_dataout2 <= RegisterF(conv_integer(address2));
 
-	A : process (Reg_wrbar, Reg_datain3, address3, clk)
+	A : process (write_flag, Reg_datain3, address3, clk)
 	begin
-		if (Reg_wrbar = '0') then
+		if (write_flag = '0') then
 			if (rising_edge(clk)) then
 				RegisterF(conv_integer(address3)) <= Reg_datain3;
 			end if;

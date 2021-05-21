@@ -17,7 +17,7 @@ architecture struct of IITBProc is
 		port (
 			address1, address2, address3 : in std_logic_vector(2 downto 0);
 			Reg_datain3                  : in std_logic_vector(15 downto 0);
-			clk, Reg_wrbar               : in std_logic;
+			clk, write_flag               : in std_logic;
 			Reg_dataout1, Reg_dataout2   : out std_logic_vector(15 downto 0));
 	end component;
 
@@ -30,9 +30,9 @@ architecture struct of IITBProc is
 
 	component SixteenBitRegister is
 		port (
-			Reg_datain     : in std_logic_vector(15 downto 0);
-			clk, Reg_wrbar : in std_logic;
-			Reg_dataout    : out std_logic_vector(15 downto 0));
+			data_write     : in std_logic_vector(15 downto 0);
+			clk, write_flag : in std_logic;
+			data_read    : out std_logic_vector(15 downto 0));
 	end component;
 
 	component MUX1_2x1 is
@@ -138,11 +138,11 @@ begin
 	PC : SixteenBitRegister
 	port map(
 		-- in
-		Reg_datain => M1_out, clk => clk,
+		data_write => M1_out, clk => clk,
 		-- control pin
-		Reg_wrbar => W1,
+		write_flag => W1,
 		-- out
-		Reg_dataout => PC_out
+		data_read => PC_out
 	);
 
 	MUX2 : MUX16_4x1
@@ -168,11 +168,11 @@ begin
 	IR : SixteenBitRegister
 	port map(
 		-- in
-		Reg_datain => Mem_out, clk => clk,
+		data_write => Mem_out, clk => clk,
 		-- control pin
-		Reg_wrbar => W3,
+		write_flag => W3,
 		--out
-		Reg_dataout => IR_out
+		data_read => IR_out
 	);
 
 	MUX4 : MUX3_2x1
@@ -222,7 +222,7 @@ begin
 		address1 => M4_out, address2 => IR_out(8 downto 6), address3 => M3_out,
 		Reg_datain3 => M5_out, clk => clk,
 		-- control pin
-		Reg_wrbar => W4,
+		write_flag => W4,
 		-- out
 		Reg_dataout1 => D1_out, Reg_dataout2 => D2_out
 	);
@@ -260,31 +260,31 @@ begin
 	T1_reg : SixteenBitRegister
 	port map(
 		-- in
-		Reg_datain => M8_out, clk => clk,
+		data_write => M8_out, clk => clk,
 		-- control pin
-		Reg_wrbar => W7,
+		write_flag => W7,
 		--out
-		Reg_dataout => T1_out
+		data_read => T1_out
 	);
 
 	T2_reg : SixteenBitRegister
 	port map(
 		-- in
-		Reg_datain => M7_out, clk => clk,
+		data_write => M7_out, clk => clk,
 		-- control pin
-		Reg_wrbar => W6,
+		write_flag => W6,
 		--out
-		Reg_dataout => T2_out
+		data_read => T2_out
 	);
 
 	T3_reg : SixteenBitRegister
 	port map(
 		-- in
-		Reg_datain => M6_out, clk => clk,
+		data_write => M6_out, clk => clk,
 		-- control pin
-		Reg_wrbar => W5,
+		write_flag => W5,
 		-- out
-		Reg_dataout => T3_out
+		data_read => T3_out
 	);
 
 	MUX9 : MUX16_4x1
