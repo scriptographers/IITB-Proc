@@ -13,7 +13,7 @@ end entity;
 
 architecture struct of iitb_proc is
 
-	component Register_file is
+	component RegisterFile is
 		port (
 			address1, address2, address3 : in std_logic_vector(2 downto 0);
 			Reg_datain3                  : in std_logic_vector(15 downto 0);
@@ -216,7 +216,7 @@ begin
 		y => M5_out
 	);
 
-	Rf : Register_file
+	Rf : RegisterFile
 	port map(
 		-- in
 		address1 => M4_out, address2 => IR_out(8 downto 6), address3 => M3_out,

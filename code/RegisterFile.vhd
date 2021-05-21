@@ -14,7 +14,7 @@ use ieee.std_logic_unsigned.all;
 -- since The Memory is asynchronous read, there is no read signal, but you can use it based on your preference.
 -- this memory gives 16 Bit data in one clock cycle, so edit the file to your requirement.
 
-entity Register_file is
+entity RegisterFile is
 	port (
 		address1, address2, address3 : in std_logic_vector(2 downto 0);
 		Reg_datain3                  : in std_logic_vector(15 downto 0);
@@ -22,7 +22,7 @@ entity Register_file is
 		Reg_dataout1, Reg_dataout2   : out std_logic_vector(15 downto 0));
 end entity;
 
-architecture struct of Register_file is
+architecture struct of RegisterFile is
 	type regarray is array(7 downto 0) of std_logic_vector(15 downto 0); -- defining a new type
 	signal RegisterF : regarray := (1 => x"0000", 2 => x"0000", 3 => x"0000",
 	4 => x"0000", 5 => x"0000", 6 => x"0000", 7 => x"0000", others => x"0000");
