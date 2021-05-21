@@ -24,8 +24,9 @@ architecture Struct of alu is
 
 	component SixteenBitNand is
 		port (
-			A, B : in std_logic_vector(15 downto 0);
-			C    : out std_logic_vector(15 downto 0));
+			a, b : in std_logic_vector(15 downto 0);
+			output : out std_logic_vector(15 downto 0)
+	    );
 	end component SixteenBitNand;
 
 	signal t1, t2, t3, t7 : std_logic_vector(15 downto 0);
@@ -40,7 +41,7 @@ begin
 		cout => t4
 	);
 
-	c2 : SixteenBitNand port map(A, B, t2);
+	c2 : SixteenBitNand port map(a => A, b => B, output => t2);
 
 	t3 <= (others => op);
 	t7 <= (t3 and t2) or (t1 and not t3);
