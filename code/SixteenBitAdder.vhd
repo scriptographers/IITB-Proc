@@ -27,7 +27,7 @@ begin
 
   carry(0) <= '0'; -- cin is 0
 
-  loop : for i in 15 downto 0 generate
+  add_loop : for i in 15 downto 0 generate
     bit_i : OneBitAdder 
     port map(
       a => a(i), 
@@ -36,7 +36,7 @@ begin
       sum => sum(i), 
       cout => carry(i + 1)
     );
-  end generate loop;
+  end generate add_loop;
 
   sum(16) <= carry(16);
 
