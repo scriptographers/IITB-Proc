@@ -1,6 +1,10 @@
-library ieee, std;
+-- Testbench used
+
+library ieee;
 use ieee.std_logic_1164.all;
 use ieee.std_logic_textio.all;
+
+library std;
 
 entity Testbench is
 end entity;
