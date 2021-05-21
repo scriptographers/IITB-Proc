@@ -11,7 +11,7 @@ entity OneBitAdder is
   );
 end OneBitAdder;
 
-architecture Struct of OneBitAdder is
+architecture arch of OneBitAdder is
 begin
   
   sum <= a xor b xor cin;

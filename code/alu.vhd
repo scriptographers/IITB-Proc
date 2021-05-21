@@ -15,9 +15,10 @@ architecture Struct of alu is
 
 	component SixteenBitAdder is
 		port (
-			in_a : in std_logic_vector (15 downto 0);
-			in_b : in std_logic_vector (15 downto 0);
-			sum  : out std_logic_vector (16 downto 0));
+		    a : in std_logic_vector (15 downto 0);
+		    b : in std_logic_vector (15 downto 0);
+		    sum : out std_logic_vector (16 downto 0) -- MSB is cout
+		);
 	end component SixteenBitAdder;
 
 	component nandbit is
@@ -42,7 +43,14 @@ architecture Struct of alu is
 	signal t4, t5, t6 : std_logic;
 
 begin
-	c1 : SixteenBitAdder port map(in_a => A, in_b => B, sum(15 downto 0) => t1, sum(16) => t4);
+
+	c1 : SixteenBitAdder port map(
+		a => A, 
+		b => B, 
+		sum(15 downto 0) => t1, 
+		sum(16) => t4
+	);
+
 	c2 : nandbit port map(A, B, t2);
 	--c3: two_to_one_mux_16 port map (t1,t2,op,t3); 
 	t3 <= (others => op);

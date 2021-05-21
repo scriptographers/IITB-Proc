@@ -6,13 +6,15 @@ use ieee.std_logic_1164.all;
 
 entity SixteenBitAdder is
   port (
-    in_a : in std_logic_vector (15 downto 0);
-    in_b : in std_logic_vector (15 downto 0);
-    sum  : out std_logic_vector (16 downto 0)
+    a : in std_logic_vector (15 downto 0);
+    b : in std_logic_vector (15 downto 0);
+    sum : out std_logic_vector (16 downto 0) -- MSB is cout
   );
 end SixteenBitAdder;
 
-architecture Struct of SixteenBitAdder is
+architecture arch of SixteenBitAdder is
+
+  signal carry : std_logic_vector(16 downto 0);
 
   component OneBitAdder is
     port (
@@ -21,17 +23,21 @@ architecture Struct of SixteenBitAdder is
     );
   end component OneBitAdder;
 
-  signal tC : std_logic_vector(16 downto 0);
-
 begin
 
-  tC(0) <= '0';
+  carry(0) <= '0'; -- cin is 0
 
-  add : for i in 15 downto 0 generate
-    ax : OneBitAdder 
-    port map(a => in_a(i), b => in_b(i), cin => tC(i), sum => sum(i), cout => tC(i + 1));
-  end generate add;
+  loop : for i in 15 downto 0 generate
+    bit_i : OneBitAdder 
+    port map(
+      a => a(i), 
+      b => b(i), 
+      cin => carry(i), 
+      sum => sum(i), 
+      cout => carry(i + 1)
+    );
+  end generate loop;
 
-  sum(16) <= tC(16);
+  sum(16) <= carry(16);
 
-end Struct;
+end architecture;
