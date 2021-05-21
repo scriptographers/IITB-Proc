@@ -1,17 +1,22 @@
+-- Component: ALU
+library work;
+use work.all;
 library ieee;
 use ieee.std_logic_1164.all;
-library work;
-use work.Gates.all;
 
 entity alu is
 	port (
 		A, B    : in std_logic_vector(15 downto 0);
 		op      : in std_logic;
 		C       : out std_logic_vector(15 downto 0);
-		Z, Cout : out std_logic);
+		Z, Cout : out std_logic
+	);
 end alu;
 
-architecture Struct of alu is
+architecture arch of alu is
+
+	signal t1, t2, t3, t7 : std_logic_vector(15 downto 0);
+	signal t4, t5, t6 : std_logic;
 
 	component SixteenBitAdder is
 		port (
@@ -29,19 +34,18 @@ architecture Struct of alu is
 	    );
 	end component SixteenBitNand;
 
-	signal t1, t2, t3, t7 : std_logic_vector(15 downto 0);
-	signal t4, t5, t6 : std_logic;
-
 begin
 
-	c1 : SixteenBitAdder port map(
+	c1 : SixteenBitAdder 
+	port map(
 		a => A, 
 		b => B, 
 		sum => t1, 
 		cout => t4
 	);
 
-	c2 : SixteenBitNand port map(a => A, b => B, output => t2);
+	c2 : SixteenBitNand 
+	port map(a => A, b => B, output => t2);
 
 	t3 <= (others => op);
 	t7 <= (t3 and t2) or (t1 and not t3);
@@ -54,4 +58,4 @@ begin
 
 	Z <= t6;
 
-end Struct;
+end architecture;
