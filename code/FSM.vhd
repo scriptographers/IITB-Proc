@@ -19,365 +19,377 @@ architecture struct of FSM is
 	signal fsm_state_symbol : StateSymbol;
 
 begin
-	process (r, clk, instruction, init_carry, init_zero, T1, T2, T3, fsm_state_symbol)
-		variable nq_var : StateSymbol;
-		variable w1_var, w2_var, w3_var, w4_var, w5_var, w6_var, w7_var,
-		m1_var, m20_var, m21_var, m30_var, m31_var, m4_var, m50_var, m51_var, m60_var, m61_var, m70_var, m71_var, m8_var, m90_var, m91_var, m100_var, m101_var,
-		carry_var, zero_var, mux_var, done_var, alu_var, m12_var : std_logic;
+	process (rst, clk, instruction, init_carry, init_zero, T1, T2, T3, fsm_state_symbol)
+		variable next_state : StateSymbol;
+		variable W1_v, W2_v, W3_v, W4_v, W5_v, W6_v, W7_v,
+		M1_v, M20_v, M21_v, M30_v, M31_v, M4_v, M50_v, M51_v, M60_v, M61_v,
+		M70_v, M71_v, M8_v, M90_v, M91_v, M100_v, M101_v, M12_v,
+		carry_v, zero_v, mux_v, done_v, alu_v : std_logic;
 
 	begin
 
-		nq_var := fsm_state_symbol;
-		w1_var := '1';
-		w2_var := '1';
-		w3_var := '1';
-		w4_var := '1';
-		w5_var := '1';
-		w6_var := '1';
-		w7_var := '1';
-		m1_var := '0';
-		m20_var := '1';
-		m21_var := '0';
-		m30_var := '0';
-		m31_var := '0';
-		m4_var := '0';
-		m50_var := '0';
-		m51_var := '0';
-		m60_var := '0';
-		m61_var := '0';
-		m70_var := '0';
-		m71_var := '0';
-		m8_var := '0';
-		m90_var := '0';
-		m91_var := '0';
-		m100_var := '0';
-		m101_var := '0';
-		carry_var := '1';
-		zero_var := '1';
-		mux_var := '0';
-		done_var := '0';
-		alu_var := '0';
-		m12_var := '0';
+		next_state := fsm_state_symbol;
+		W1_v := '1';
+		W2_v := '1';
+		W3_v := '1';
+		W4_v := '1';
+		W5_v := '1';
+		W6_v := '1';
+		W7_v := '1';
+		M1_v := '0';
+		M20_v := '1';
+		M21_v := '0';
+		M30_v := '0';
+		M31_v := '0';
+		M4_v := '0';
+		M50_v := '0';
+		M51_v := '0';
+		M60_v := '0';
+		M61_v := '0';
+		M70_v := '0';
+		M71_v := '0';
+		M8_v := '0';
+		M90_v := '0';
+		M91_v := '0';
+		M100_v := '0';
+		M101_v := '0';
+		carry_v := '1';
+		zero_v := '1';
+		mux_v := '0';
+		done_v := '0';
+		alu_v := '0';
+		M12_v := '0';
+
 		-- compute next-state, output
 		case fsm_state_symbol is
 			when s0 =>
-				w3_var := '0';
-				m20_var := '1';
-				m21_var := '0';
+				W3_v := '0';
+				M20_v := '1';
+				M21_v := '0';
 
 				if (mem(15 downto 12) = "0011") then
-					nq_var := s6;
+					next_state := s6;
 
 				elsif (mem(15 downto 13) = "100") then
-					nq_var := s16;
+					next_state := s16;
 
 				elsif (mem(15 downto 12) = "1111") then
-					nq_var := s0;
+					next_state := s0;
 
 				else
-					nq_var := s1;
+					next_state := s1;
 
 				end if;
 
 			when s1 =>
-				w5_var := '0';
-				w6_var := '0';
-				w7_var := '0';
-				m60_var := '1';
-				m61_var := '0';
-				m70_var := '1';
-				m71_var := '0';
-				m8_var := '0';
+				W5_v := '0';
+				W6_v := '0';
+				W7_v := '0';
+				M60_v := '1';
+				M61_v := '0';
+				M70_v := '1';
+				M71_v := '0';
+				M8_v := '0';
 				if (instruction(15 downto 13) = "010") then
-					nq_var := s7;
+					next_state := s7;
 				elsif ((instruction(15 downto 12) = "0000" or instruction(15 downto 12) = "0010")
 					and ((instruction(1 downto 0) = "10" and init_carry = '1') or (instruction(1 downto 0) = "01" and init_zero = '1') or (instruction(1 downto 0) = "00"))) then
-					nq_var := s2;
+					next_state := s2;
 
 				elsif (instruction(15 downto 12) = "0001") then
-					nq_var := s4;
+					next_state := s4;
 
 				elsif (instruction(15 downto 12) = "1100" and (T1 = T2)) then
-					nq_var := s17;
+					next_state := s17;
 
 				elsif (instruction(15 downto 12) = "0110") then
-					nq_var := s11;
+					next_state := s11;
 
 				elsif (instruction(15 downto 12) = "0111") then
-					nq_var := s13;
+					next_state := s13;
 
 				else
-					nq_var := sa;
+					next_state := sa;
 
 				end if;
 
 			when s2 =>
-				w5_var := '0';
-				m90_var := '0';
-				m91_var := '1';
-				m100_var := '0';
-				m101_var := '1';
-				m60_var := '0';
-				m61_var := '1';
+				W5_v := '0';
+				M90_v := '0';
+				M91_v := '1';
+				M100_v := '0';
+				M101_v
+				:= '1';
+				M60_v := '0';
+				M61_v := '1';
 				if (instruction(15 downto 12) = "0000") then
-					carry_var := '0';
+					carry_v := '0';
 				end if;
-				zero_var := '0';
+				zero_v := '0';
 				if (instruction(15 downto 12) = "0010") then
-					alu_var := '1';
+					alu_v := '1';
 				else
-					alu_var := '0';
+					alu_v := '0';
 				end if;
-				nq_var := s3;
+				next_state := s3;
 			when s3 =>
-				w4_var := '0';
-				m50_var := '1';
-				m51_var := '1';
-				m30_var := '0';
-				m31_var := '1';
+				W4_v := '0';
+				M50_v := '1';
+				M51_v := '1';
+				M30_v := '0';
+				M31_v := '1';
 
-				nq_var := sa;
+				next_state := sa;
 			when s4 =>
-				w5_var := '0';
-				m90_var := '1';
-				m91_var := '0';
-				m100_var := '0';
-				m101_var := '1';
-				m60_var := '0';
-				m61_var := '1';
-				carry_var := '0';
-				zero_var := '0';
+				W5_v := '0';
+				M90_v := '1';
+				M91_v := '0';
+				M100_v := '0';
+				M101_v
+				:= '1';
+				M60_v := '0';
+				M61_v := '1';
+				carry_v := '0';
+				zero_v := '0';
 
-				nq_var := s5;
+				next_state := s5;
 			when s5 =>
-				w4_var := '0';
-				m30_var := '1';
-				m31_var := '0';
-				m50_var := '1';
-				m51_var := '1';
+				W4_v := '0';
+				M30_v := '1';
+				M31_v := '0';
+				M50_v := '1';
+				M51_v := '1';
 
-				nq_var := sa;
+				next_state := sa;
 			when s6 =>
-				w4_var := '0';
-				m30_var := '0';
-				m31_var := '0';
-				m50_var := '1';
-				m51_var := '0';
+				W4_v := '0';
+				M30_v := '0';
+				M31_v := '0';
+				M50_v := '1';
+				M51_v := '0';
 
-				nq_var := sa;
+				next_state := sa;
 			when s7 =>
-				w6_var := '0';
-				m90_var := '1';
-				m91_var := '0';
-				m100_var := '1';
-				m101_var := '1';
-				m70_var := '0';
-				m71_var := '1';
+				W6_v := '0';
+				M90_v := '1';
+				M91_v := '0';
+				M100_v := '1';
+				M101_v
+				:= '1';
+				M70_v := '0';
+				M71_v := '1';
 
 				if (instruction(15 downto 12) = "0100") then
-					nq_var := s8;
+					next_state := s8;
 
 				else
 					-- sb7 : 0101
-					nq_var := s9;
+					next_state := s9;
 
 				end if;
 
 			when s8 =>
-				w5_var := '0';
-				m20_var := '0';
-				m21_var := '0';
-				m60_var := '0';
+				W5_v := '0';
+				M20_v := '0';
+				M21_v := '0';
+				M60_v := '0';
 
-				m61_var := '0';
-				zero_var := '0';
-				mux_var := '1';
+				M61_v := '0';
+				zero_v := '0';
+				mux_v := '1';
 
-				nq_var := s10;
+				next_state := s10;
 
 			when s9 =>
-				w2_var := '0';
-				m20_var := '0';
-				m21_var := '0';
+				W2_v := '0';
+				M20_v := '0';
+				M21_v := '0';
 
-				nq_var := sa;
+				next_state := sa;
 			when s10 =>
-				w4_var := '0';
-				m30_var := '0';
-				m31_var := '0';
-				m50_var := '1';
-				m51_var := '1';
+				W4_v := '0';
+				M30_v := '0';
+				M31_v := '0';
+				M50_v := '1';
+				M51_v := '1';
 
-				nq_var := sa;
+				next_state := sa;
 			when s11 =>
 				-- change made here t1->mema
-				w6_var := '0';
-				w7_var := '0';
-				m90_var := '1';
-				m91_var := '1';
-				m100_var := '0';
-				m101_var := '1';
-				m20_var := '1';
-				m21_var := '1';
-				m70_var := '1';
-				m71_var := '1';
-				m8_var := '1';
-				nq_var := s12;
+				W6_v := '0';
+				W7_v := '0';
+				M90_v := '1';
+				M91_v := '1';
+				M100_v := '0';
+				M101_v
+				:= '1';
+				M20_v := '1';
+				M21_v := '1';
+				M70_v := '1';
+				M71_v := '1';
+				M8_v := '1';
+				next_state := s12;
 			when s12 =>
-				w4_var := '0';
-				w5_var := '0';
-				m90_var := '1';
-				m91_var := '1';
-				m100_var := '0';
-				m101_var := '0';
-				m30_var := '1';
-				m31_var := '1';
-				m50_var := '0';
-				m51_var := '1';
-				m60_var := '0';
-				m61_var := '1';
+				W4_v := '0';
+				W5_v := '0';
+				M90_v := '1';
+				M91_v := '1';
+				M100_v := '0';
+				M101_v
+				:= '0';
+				M30_v := '1';
+				M31_v := '1';
+				M50_v := '0';
+				M51_v := '1';
+				M60_v := '0';
+				M61_v := '1';
 
 				if (T3(2 downto 0) = "111") then
-					nq_var := sa;
+					next_state := sa;
 
 				else
-					nq_var := s11;
+					next_state := s11;
 
 				end if;
 
 			when s13 =>
-				w6_var := '0';
-				w5_var := '0';
-				m90_var := '1';
-				m91_var := '1';
-				m100_var := '0';
-				m101_var := '0';
-				m60_var := '0';
-				m61_var := '1';
-				m70_var := '0';
-				m71_var := '0';
-				m4_var := '1';
+				W6_v := '0';
+				W5_v := '0';
+				M90_v := '1';
+				M91_v := '1';
+				M100_v := '0';
+				M101_v
+				:= '0';
+				M60_v := '0';
+				M61_v := '1';
+				M70_v := '0';
+				M71_v := '0';
+				M4_v := '1';
 
-				nq_var := s14;
+				next_state := s14;
 
 			when s14 =>
 				-- changes made
-				w2_var := '0';
-				w7_var := '0';
-				m90_var := '1';
-				m91_var := '1';
-				m100_var := '0';
-				m101_var := '1';
-				m20_var := '1';
-				m21_var := '1';
-				m8_var := '1';
-				m12_var := '1';
+				W2_v := '0';
+				W7_v := '0';
+				M90_v := '1';
+				M91_v := '1';
+				M100_v := '0';
+				M101_v
+				:= '1';
+				M20_v := '1';
+				M21_v := '1';
+				M8_v := '1';
+				M12_v := '1';
 				if (T3(2 downto 0) = "000") then
-					nq_var := sa;
+					next_state := sa;
 
 				else
-					nq_var := s13;
+					next_state := s13;
 
 				end if;
 
 			when s15 =>
-				w1_var := '0';
-				m90_var := '0';
-				m91_var := '0';
-				m100_var := '1';
-				m101_var := '0';
-				m1_var := '0';
+				W1_v := '0';
+				M90_v := '0';
+				M91_v := '0';
+				M100_v := '1';
+				M101_v
+				:= '0';
+				M1_v := '0';
 
-				nq_var := s0;
-				done_var := '1';
+				next_state := s0;
+				done_v := '1';
 
 			when s16 =>
-				w4_var := '0';
-				w6_var := '0';
-				m30_var := '0';
-				m31_var := '0';
-				m50_var := '0';
-				m51_var := '0';
-				m70_var := '1';
-				m71_var := '0';
+				W4_v := '0';
+				W6_v := '0';
+				M30_v := '0';
+				M31_v := '0';
+				M50_v := '0';
+				M51_v := '0';
+				M70_v := '1';
+				M71_v := '0';
 
 				if (instruction(15 downto 12) = "1000") then
-					nq_var := s15;
+					next_state := s15;
 
 				else
 					-- opcode : 1001
-					nq_var := s18;
+					next_state := s18;
 
 				end if;
 
 			when s17 =>
-				w1_var := '0';
-				m90_var := '1';
-				m91_var := '0';
-				m100_var := '1';
-				m101_var := '0';
-				m1_var := '0';
+				W1_v := '0';
+				M90_v := '1';
+				M91_v := '0';
+				M100_v := '1';
+				M101_v
+				:= '0';
+				M1_v := '0';
 
-				nq_var := s0;
-				done_var := '1';
+				next_state := s0;
+				done_v := '1';
 
 			when s18 =>
-				w1_var := '0';
-				m1_var := '1';
+				W1_v := '0';
+				M1_v := '1';
 
-				nq_var := s0;
-				done_var := '1';
+				next_state := s0;
+				done_v := '1';
 
 			when sa =>
-				w1_var := '0';
-				m90_var := '1';
-				m91_var := '1';
-				m100_var := '1';
-				m101_var := '0';
-				m1_var := '0';
+				W1_v := '0';
+				M90_v := '1';
+				M91_v := '1';
+				M100_v := '1';
+				M101_v
+				:= '0';
+				M1_v := '0';
 
-				nq_var := s0;
-				done_var := '1';
+				next_state := s0;
+				done_v := '1';
 
 			when others => null;
 
 		end case;
 
-		w1 <= w1_var;
-		w2 <= w2_var;
-		w3 <= w3_var;
-		w4 <= w4_var;
-		w5 <= w5_var;
-		w6 <= w6_var;
-		w7 <= w7_var;
-		m1 <= m1_var;
-		m20 <= m20_var;
-		m21 <= m21_var;
-		m30 <= m30_var;
-		m31 <= m31_var;
-		m4 <= m4_var;
-		m50 <= m50_var;
-		m51 <= m51_var;
-		m60 <= m60_var;
-		m61 <= m61_var;
-		m70 <= m70_var;
-		m71 <= m71_var;
-		m8 <= m8_var;
-		m90 <= m90_var;
-		m91 <= m91_var;
-		m100 <= m100_var;
-		m101 <= m101_var;
-		carry <= carry_var;
-		zero <= zero_var;
-		mux <= mux_var;
-		done <= done_var;
-		alucont <= alu_var;
-		m12 <= m12_var;
+		w1 <= W1_v;
+		w2 <= W2_v;
+		w3 <= W3_v;
+		w4 <= W4_v;
+		w5 <= W5_v;
+		w6 <= W6_v;
+		w7 <= W7_v;
+		m1 <= M1_v;
+		m20 <= M20_v;
+		m21 <= M21_v;
+		m30 <= M30_v;
+		m31 <= M31_v;
+		m4 <= M4_v;
+		m50 <= M50_v;
+		m51 <= M51_v;
+		m60 <= M60_v;
+		m61 <= M61_v;
+		m70 <= M70_v;
+		m71 <= M71_v;
+		m8 <= M8_v;
+		m90 <= M90_v;
+		m91 <= M91_v;
+		m100 <= M100_v;
+		m101 <= M101_v;
+		carry <= carry_v;
+		zero <= zero_v;
+		mux <= mux_v;
+		done <= done_v;
+		alucont <= alu_v;
+		m12 <= M12_v;
 		if (rising_edge(clk)) then
-			if (r = '1') then
+			if (rst = '1') then
 				fsm_state_symbol <= s0;
 			else
-				fsm_state_symbol <= nq_var;
+				fsm_state_symbol <= next_state;
 			end if;
 		end if;
 
