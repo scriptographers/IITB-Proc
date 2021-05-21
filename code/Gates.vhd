@@ -43,13 +43,8 @@ package Gates is
          Y    : out std_logic);
    end component XNOR_2;
 
-   component HALF_ADDER is
-      port (
-         A, B : in std_logic;
-         S, C : out std_logic);
-   end component HALF_ADDER;
-
 end package Gates;
+
 library ieee;
 use ieee.std_logic_1164.all;
 entity INVERTER is
@@ -137,18 +132,4 @@ end entity XNOR_2;
 architecture Equations of XNOR_2 is
 begin
    Y <= not (A xor B);
-end Equations;
-
-library ieee;
-use ieee.std_logic_1164.all;
-entity HALF_ADDER is
-   port (
-      A, B : in std_logic;
-      S, C : out std_logic);
-end entity HALF_ADDER;
-
-architecture Equations of HALF_ADDER is
-begin
-   S <= (A xor B);
-   C <= (A and B);
 end Equations;

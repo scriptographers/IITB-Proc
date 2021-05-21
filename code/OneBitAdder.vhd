@@ -10,16 +10,9 @@ entity OneBitAdder is
 end OneBitAdder;
 
 architecture Struct of OneBitAdder is
-  signal tC, tS, U, V : std_logic;
 begin
-  -- component instances
-  ha : Half_Adder
-  port map(A => A, B => B, S => tS, C => tC);
+  
+  S <= A xor B xor Cin;
+  Cout <= (A and B) or (A and Cin) or (B and Cin);
 
-  -- propagate carry.
-  a1 : AND_2 port map(A => tS, B => Cin, Y => V);
-  o1 : OR_2 port map(A => V, B => tC, Y => Cout);
-
-  -- final sum.
-  x1 : XOR_2 port map(A => tS, B => Cin, Y => S);
 end Struct;
