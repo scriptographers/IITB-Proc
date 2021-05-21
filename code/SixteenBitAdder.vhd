@@ -2,11 +2,13 @@ library ieee;
 use ieee.std_logic_1164.all;
 library work;
 use work.Gates.all;
+
 entity Full_Adder is
   port (
     A, B, Cin : in std_logic;
     S, Cout   : out std_logic);
 end Full_Adder;
+
 architecture Struct of Full_Adder is
   signal tC, tS, U, V : std_logic;
 begin
@@ -27,14 +29,14 @@ use ieee.std_logic_1164.all;
 library work;
 use work.Gates.all;
 
-entity adder16 is
+entity SixteenBitAdder is
   port (
     in_a : in std_logic_vector (15 downto 0);
     in_b : in std_logic_vector (15 downto 0);
     sum  : out std_logic_vector (16 downto 0));
-end adder16;
+end SixteenBitAdder;
 
-architecture Struct of adder16 is
+architecture Struct of SixteenBitAdder is
 
   component Full_Adder is
     port (
