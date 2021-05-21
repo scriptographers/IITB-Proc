@@ -11,7 +11,7 @@ entity iitb_proc is
 		Done       : out std_logic);
 end entity;
 
-architecture Form of iitb_proc is
+architecture struct of iitb_proc is
 
 	component Register_file is
 		port (
@@ -365,4 +365,4 @@ begin
 
 	O <= Mem_out;
 
-end Form;
+end struct;

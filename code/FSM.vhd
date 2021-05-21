@@ -10,11 +10,10 @@ entity FSM is
 		carry, zero, done, alucont, m12 : out std_logic);
 end entity;
 
-architecture Behave4 of FSM is
+architecture struct of FSM is
 
 	type StateSymbol is (s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, sa);
 	signal fsm_state_symbol : StateSymbol;
-	-- constant Z32: std_logic_vector(31 downto 0) := (others => '0');
 
 begin
 	process (r, clk, instruction, init_carry, init_zero, T1, T2, T3, fsm_state_symbol)
@@ -340,7 +339,6 @@ begin
 			when others => null;
 
 		end case;
-		-- y(k)
 
 		w1 <= w1_var;
 		w2 <= w2_var;
@@ -372,7 +370,6 @@ begin
 		done <= done_var;
 		alucont <= alu_var;
 		m12 <= m12_var;
-		-- q(k+1) = nq(k)
 		if (rising_edge(clk)) then
 			if (r = '1') then
 				fsm_state_symbol <= s0;
@@ -383,4 +380,4 @@ begin
 
 	end process;
 
-end Behave4;
+end struct;
