@@ -6,10 +6,10 @@ use ieee.std_logic_1164.all;
 
 entity SixteenBitAdder is
   port (
-    a : in std_logic_vector (15 downto 0);
-    b : in std_logic_vector (15 downto 0);
-    sum : out std_logic_vector (15 downto 0);
-    cout: out std_logic
+    a    : in std_logic_vector (15 downto 0);
+    b    : in std_logic_vector (15 downto 0);
+    sum  : out std_logic_vector (15 downto 0);
+    cout : out std_logic
   );
 end SixteenBitAdder;
 
@@ -29,12 +29,12 @@ begin
   carry(0) <= '0'; -- cin is 0
 
   add_loop : for i in 0 to 15 generate
-    bit_i : OneBitAdder 
+    bit_i : OneBitAdder
     port map(
-      a => a(i), 
-      b => b(i), 
-      cin => carry(i), 
-      sum => sum(i), 
+      a    => a(i),
+      b    => b(i),
+      cin  => carry(i),
+      sum  => sum(i),
       cout => carry(i + 1)
     );
   end generate add_loop;

@@ -6,9 +6,9 @@ use ieee.std_logic_1164.all;
 
 entity SixteenBitNand is
 	port (
-		a, b : in std_logic_vector(15 downto 0);
+		a, b   : in std_logic_vector(15 downto 0);
 		output : out std_logic_vector(15 downto 0)
-    );
+	);
 end entity;
 
 architecture struct of SixteenBitNand is
