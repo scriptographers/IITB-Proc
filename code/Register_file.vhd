@@ -22,7 +22,7 @@ entity Register_file is
 		Reg_dataout1, Reg_dataout2   : out std_logic_vector(15 downto 0));
 end entity;
 
-architecture Form of Register_file is
+architecture struct of Register_file is
 	type regarray is array(7 downto 0) of std_logic_vector(15 downto 0); -- defining a new type
 	signal RegisterF : regarray := (1 => x"0000", 2 => x"0000", 3 => x"0000",
 	4 => x"0000", 5 => x"0000", 6 => x"0000", 7 => x"0000", others => x"0000");
@@ -40,4 +40,4 @@ begin
 		end if;
 	end process;
 
-end Form;
+end struct;

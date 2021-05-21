@@ -13,7 +13,7 @@ entity ALU is
 	);
 end ALU;
 
-architecture arch of ALU is
+architecture struct of ALU is
 
 	signal carry : std_logic;
 	signal addition_result, nand_result, temp : std_logic_vector(15 downto 0);

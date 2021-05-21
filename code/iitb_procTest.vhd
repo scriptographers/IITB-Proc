@@ -10,7 +10,7 @@ architecture tb of iitb_procTest is
 		port (
 			clk, reset : in std_logic;
 			O          : out std_logic_vector(15 downto 0);
-			Done       : out std_logic);
+			done       : out std_logic);
 	end component;
 
 	signal clk : std_logic := '1';
@@ -20,7 +20,7 @@ architecture tb of iitb_procTest is
 
 begin
 	dut_instance : iitb_proc
-	port map(clk => clk, reset => rst, O => o, Done => d);
+	port map(clk => clk, reset => rst, O => o, done => d);
 
 	clk <= not clk after 5 ns;
 	process

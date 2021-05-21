@@ -13,7 +13,7 @@ entity SixteenBitAdder is
   );
 end SixteenBitAdder;
 
-architecture arch of SixteenBitAdder is
+architecture struct of SixteenBitAdder is
 
   signal carry : std_logic_vector(16 downto 0);
 
@@ -41,4 +41,4 @@ begin
 
   cout <= carry(16);
 
-end architecture;
+end struct;

@@ -21,7 +21,7 @@ entity SixteenBitRegister is
 		Reg_dataout    : out std_logic_vector(15 downto 0));
 end entity;
 
-architecture Form of SixteenBitRegister is
+architecture struct of SixteenBitRegister is
 	--type regarray is array(7 downto 0) of std_logic_vector(15 downto 0);   -- defining a new type
 	--signal Register: regarray:=(1 => x"0000",2 => x"0000",3 => x"0000",4 => x"0000",5 => x"0000",6 => x"0000",7 => x"0000");
 	-- you can use the above mentioned way to initialise the memory with the instructions and the data as required to test your processor
@@ -39,4 +39,4 @@ begin
 		end if;
 	end process;
 
-end Form;
+end struct;

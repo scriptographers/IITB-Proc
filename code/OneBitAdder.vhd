@@ -11,10 +11,10 @@ entity OneBitAdder is
   );
 end OneBitAdder;
 
-architecture arch of OneBitAdder is
+architecture struct of OneBitAdder is
 begin
-  
+
   sum <= a xor b xor cin;
   cout <= (a and b) or (a and cin) or (b and cin);
 
-end architecture;
+end struct;
