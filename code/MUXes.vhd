@@ -1,79 +1,79 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-package Muxes is
-	component Mux1_2_1 is
+package MUXes is
+	component MUX1_2x1 is
 		port (
 			A, B, S0 : in std_logic;
 			y        : out std_logic);
-	end component Mux1_2_1;
+	end component MUX1_2x1;
 
-	component Mux1_4_1 is
+	component MUX1_4x1 is
 		port (
 			A, B, C, D, S1, S0 : in std_logic;
 			y                  : out std_logic);
-	end component Mux1_4_1;
+	end component MUX1_4x1;
 
-	component Mux3_2_1 is
+	component MUX3_2x1 is
 		port (
 			A, B : in std_logic_vector(2 downto 0);
 			S0   : in std_logic;
 			y    : out std_logic_vector(2 downto 0));
-	end component Mux3_2_1;
+	end component MUX3_2x1;
 
-	component Mux3_4_1 is
+	component MUX3_4x1 is
 		port (
 			A, B, C, D : in std_logic_vector(2 downto 0);
 			S1, S0     : in std_logic;
 			y          : out std_logic_vector(2 downto 0));
-	end component Mux3_4_1;
+	end component MUX3_4x1;
 
-	component Mux16_2_1 is
+	component MUX16_2x1 is
 		port (
 			A, B : in std_logic_vector(15 downto 0);
 			S0   : in std_logic;
 			y    : out std_logic_vector(15 downto 0));
-	end component Mux16_2_1;
+	end component MUX16_2x1;
 
-	component Mux16_4_1 is
+	component MUX16_4x1 is
 		port (
 			A, B, C, D : in std_logic_vector(15 downto 0);
 			S1, S0     : in std_logic;
 			y          : out std_logic_vector(15 downto 0));
-	end component Mux16_4_1;
+	end component MUX16_4x1;
 
-end package Muxes;
+end package MUXes;
 
--- Mux1_2_1
+-- MUX1_2x1
 library ieee;
 use ieee.std_logic_1164.all;
 library work;
 use work.Gates.all;
 
-entity Mux1_2_1 is
+entity MUX1_2x1 is
 	port (
 		A, B, S0 : in std_logic;
 		y        : out std_logic);
-end Mux1_2_1;
+end MUX1_2x1;
 
-architecture arch of Mux1_2_1 is
+architecture arch of MUX1_2x1 is
 begin
 	y <= (A and not S0) or (B and S0);
 end arch;
 
--- Mux1_4_1
+-- MUX1_4x1
 library ieee;
 use ieee.std_logic_1164.all;
 library work;
 use work.Gates.all;
 
-entity Mux1_4_1 is
+entity MUX1_4x1 is
 	port (
 		A, B, C, D, S1, S0 : in std_logic;
 		y                  : out std_logic);
-end Mux1_4_1;
+end MUX1_4x1;
 
-architecture arch of Mux1_4_1 is
+architecture arch of MUX1_4x1 is
 begin
 	y <= (A and (not S1) and (not S0))
 		or (B and (not S1) and (S0))
@@ -81,102 +81,102 @@ begin
 		or (D and (S1) and (S0));
 end arch;
 
--- Mux3_2_1
+-- MUX3_2x1
 library ieee;
 use ieee.std_logic_1164.all;
 library work;
 use work.Gates.all;
 
-entity Mux3_2_1 is
+entity MUX3_2x1 is
 	port (
 		A, B : in std_logic_vector(2 downto 0);
 		S0   : in std_logic;
 		y    : out std_logic_vector(2 downto 0));
-end Mux3_2_1;
+end MUX3_2x1;
 
-architecture arch of Mux3_2_1 is
-	component Mux1_2_1 is
+architecture arch of MUX3_2x1 is
+	component MUX1_2x1 is
 		port (
 			A, B, S0 : in std_logic;
 			y        : out std_logic);
 	end component;
 begin
-	muxg : for i in 2 downto 0 generate
-		mx : Mux1_2_1 port map(A => A(i), B => B(i), S0 => S0, y => y(i));
-	end generate muxg;
+	MUXg : for i in 2 downto 0 generate
+		mx : MUX1_2x1 port map(A => A(i), B => B(i), S0 => S0, y => y(i));
+	end generate MUXg;
 end arch;
 
--- Mux3_4_1
+-- MUX3_4x1
 library ieee;
 use ieee.std_logic_1164.all;
 library work;
 use work.Gates.all;
 
-entity Mux3_4_1 is
+entity MUX3_4x1 is
 	port (
 		A, B, C, D : in std_logic_vector(2 downto 0);
 		S1, S0     : in std_logic;
 		y          : out std_logic_vector(2 downto 0));
-end Mux3_4_1;
+end MUX3_4x1;
 
-architecture arch of Mux3_4_1 is
-	component Mux1_4_1 is
+architecture arch of MUX3_4x1 is
+	component MUX1_4x1 is
 		port (
 			A, B, C, D, S1, S0 : in std_logic;
 			y                  : out std_logic);
 	end component;
 begin
-	muxg : for i in 2 downto 0 generate
-		mx : Mux1_4_1 port map(A => A(i), B => B(i), C => C(i), D => D(i), S0 => S0, S1 => S1, y => y(i));
-	end generate muxg;
+	MUXg : for i in 2 downto 0 generate
+		mx : MUX1_4x1 port map(A => A(i), B => B(i), C => C(i), D => D(i), S0 => S0, S1 => S1, y => y(i));
+	end generate MUXg;
 end arch;
 
--- Mux16_2_1
+-- MUX16_2x1
 library ieee;
 use ieee.std_logic_1164.all;
 library work;
 use work.Gates.all;
 
-entity Mux16_2_1 is
+entity MUX16_2x1 is
 	port (
 		A, B : in std_logic_vector(15 downto 0);
 		S0   : in std_logic;
 		y    : out std_logic_vector(15 downto 0));
-end Mux16_2_1;
+end MUX16_2x1;
 
-architecture arch of Mux16_2_1 is
-	component Mux1_2_1 is
+architecture arch of MUX16_2x1 is
+	component MUX1_2x1 is
 		port (
 			A, B, S0 : in std_logic;
 			y        : out std_logic);
 	end component;
 begin
-	muxg : for i in 15 downto 0 generate
-		mx : Mux1_2_1 port map(A => A(i), B => B(i), S0 => S0, y => y(i));
-	end generate muxg;
+	MUXg : for i in 15 downto 0 generate
+		mx : MUX1_2x1 port map(A => A(i), B => B(i), S0 => S0, y => y(i));
+	end generate MUXg;
 end arch;
 
--- Mux16_4_1
+-- MUX16_4x1
 library ieee;
 use ieee.std_logic_1164.all;
 library work;
 use work.Gates.all;
 
-entity Mux16_4_1 is
+entity MUX16_4x1 is
 	port (
 		A, B, C, D : in std_logic_vector(15 downto 0);
 		S1, S0     : in std_logic;
 		y          : out std_logic_vector(15 downto 0));
-end Mux16_4_1;
+end MUX16_4x1;
 
-architecture arch of Mux16_4_1 is
-	component Mux1_4_1 is
+architecture arch of MUX16_4x1 is
+	component MUX1_4x1 is
 		port (
 			A, B, C, D, S1, S0 : in std_logic;
 			y                  : out std_logic);
 	end component;
 begin
-	muxg4 : for i in 15 downto 0 generate
-		mx : Mux1_4_1 port map(A => A(i), B => B(i), C => C(i), D => D(i), S0 => S0, S1 => S1, y => y(i));
-	end generate muxg4;
+	MUXg4 : for i in 15 downto 0 generate
+		mx : MUX1_4x1 port map(A => A(i), B => B(i), C => C(i), D => D(i), S0 => S0, S1 => S1, y => y(i));
+	end generate MUXg4;
 end arch;

@@ -2,7 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 library work;
-use work.Muxes.all;
+use work.MUXes.all;
 
 entity iitb_proc is
 	port (
@@ -35,34 +35,34 @@ architecture Form of iitb_proc is
 			Reg_dataout    : out std_logic_vector(15 downto 0));
 	end component;
 
-	component Mux1_2_1 is
+	component MUX1_2x1 is
 		port (
 			A, B, S0 : in std_logic;
 			y        : out std_logic);
 	end component;
 
-	component Mux3_2_1 is
+	component MUX3_2x1 is
 		port (
 			A, B : in std_logic_vector(2 downto 0);
 			S0   : in std_logic;
 			y    : out std_logic_vector(2 downto 0));
 	end component;
 
-	component Mux3_4_1 is
+	component MUX3_4x1 is
 		port (
 			A, B, C, D : in std_logic_vector(2 downto 0);
 			S1, S0     : in std_logic;
 			y          : out std_logic_vector(2 downto 0));
 	end component;
 
-	component Mux16_2_1 is
+	component MUX16_2x1 is
 		port (
 			A, B : in std_logic_vector(15 downto 0);
 			S0   : in std_logic;
 			y    : out std_logic_vector(15 downto 0));
 	end component;
 
-	component Mux16_4_1 is
+	component MUX16_4x1 is
 		port (
 			A, B, C, D : in std_logic_vector(15 downto 0);
 			S1, S0     : in std_logic;
@@ -126,7 +126,7 @@ begin
 		zero => WZ, done => Done, alucont => alu_control, mem => memout, m12 => M12
 	);
 
-	Mux1 : Mux16_2_1
+	Mux1 : MUX16_2x1
 	port map(
 		-- in
 		A => alu_c, B => t2out,
@@ -146,7 +146,7 @@ begin
 		Reg_dataout => pcout
 	);
 
-	Mux2 : Mux16_4_1
+	Mux2 : MUX16_4x1
 	port map(
 		-- in
 		A => t2out, B => pcout, C => alu_c, D => t1out,
@@ -176,7 +176,7 @@ begin
 		Reg_dataout => irout
 	);
 
-	Mux4 : Mux3_2_1
+	Mux4 : MUX3_2x1
 	port map(
 		-- in
 		A => irout(11 downto 9), B => t3out(2 downto 0),
@@ -186,7 +186,7 @@ begin
 		y => tm4out
 	);
 
-	Mux3 : Mux3_4_1
+	Mux3 : MUX3_4x1
 	port map(
 		-- in
 		A => irout(11 downto 9), B => irout(8 downto 6),
@@ -207,7 +207,7 @@ begin
 
 	seImm9 <= temp2 & irout(8 downto 0);
 
-	Mux5 : Mux16_4_1
+	Mux5 : MUX16_4x1
 	port map(
 		-- in
 		A => pcout, B => Imm9e16, C => t2out, D => t3out,
@@ -228,7 +228,7 @@ begin
 		Reg_dataout1 => D1out, Reg_dataout2 => D2out
 	);
 
-	Mux8 : Mux16_2_1
+	Mux8 : MUX16_2x1
 	port map(
 		-- in
 		A => D1out, B => alu_c,
@@ -238,7 +238,7 @@ begin
 		y => m8out
 	);
 
-	Mux7 : Mux16_4_1
+	Mux7 : MUX16_4x1
 	port map(
 		-- in
 		A => D1out, B => D2out, C => alu_c, D => memout,
@@ -248,7 +248,7 @@ begin
 		y => m7out
 	);
 
-	Mux6 : Mux16_4_1
+	Mux6 : MUX16_4x1
 	port map(
 		-- in
 		A => memout, B => Z16, C => alu_c, D => Z16,
@@ -288,7 +288,7 @@ begin
 		Reg_dataout => t3out
 	);
 
-	Mux9 : Mux16_4_1
+	Mux9 : MUX16_4x1
 	port map(
 		-- in
 		A => seImm9, B => seImm6, C => t2out, D => O16,
@@ -298,7 +298,7 @@ begin
 		y => alu_b
 	);
 
-	Mux10 : Mux16_4_1
+	Mux10 : MUX16_4x1
 	port map(
 		-- in
 		A => t3out, B => pcout, C => t1out, D => t2out,
@@ -333,7 +333,7 @@ begin
 	T1_zero <= not(t1out(0) or t1out(1) or t1out(2) or t1out(3) or t1out(4) or t1out(5) or t1out(6) or t1out(7)
 		or t1out(8) or t1out(9) or t1out(10) or t1out(11) or t1out(12) or t1out(13) or t1out(14) or t1out(15));
 
-	Mux11 : Mux1_2_1
+	Mux11 : MUX1_2x1
 	port map(
 		-- in
 		A => Z_out, B => T1_zero,
@@ -353,7 +353,7 @@ begin
 		Reg_dataout => Zr_out
 	);
 
-	Mux12 : Mux16_2_1
+	Mux12 : MUX16_2x1
 	port map(
 		-- in
 		A => t1out, B => t2out,
