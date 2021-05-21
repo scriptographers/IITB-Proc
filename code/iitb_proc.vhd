@@ -8,7 +8,7 @@ entity iitb_proc is
 	port (
 		clk, reset : in std_logic;
 		O          : out std_logic_vector(15 downto 0);
-		Done       : out std_logic);
+		done       : out std_logic);
 end entity;
 
 architecture struct of iitb_proc is
@@ -89,9 +89,10 @@ architecture struct of iitb_proc is
 		port (
 			instruction, T1, T2, T3, mem    : in std_logic_vector(15 downto 0);
 			rst, clk, init_carry, init_zero : in std_logic;
-			w1, w2, w3, w4, w5, w6, w7,
-			m1, m20, m21, m30, m31, m4, m50, m51, m60, m61, m70, m71, m8, m90, m91, m100, m101, m12,
-			carry, zero, mux, done, alucont : out std_logic);
+			W1, W2, W3, W4, W5, W6, W7,
+			M1, M20, M21, M30, M31, M4, M50, M51, M60, M61,
+			M70, M71, M8, M90, M91, M100, M101, M11, M12,
+			carry_write, zero_write, done, alu_control : out std_logic);
 	end component;
 
 	signal PC_out, IR_out, ALU_a, ALU_b, ALU_c, T1_out, T2_out, T3_out, Mem_out, D1_out, D2_out,
@@ -100,15 +101,13 @@ architecture struct of iitb_proc is
 	signal M4_out, M3_out : std_logic_vector(2 downto 0);
 
 	signal W1, W2, W3, W4, W5, W7, W6,
-	M1, M21, M20, M4, M30, M31, M50, M51, M8, M70, M71, M61, M60, M91, M90, M100, M101, M12,
-	Z_out, C_out, WC, Cr_out, T1_zero, mux, M11_out, WZ, Zr_out, alu_control : std_logic;
+	M1, M21, M20, M4, M30, M31, M50, M51, M60, M61, M70, M71, M8, M90, M91, M100, M101, M12,
+	Z_out, C_out, WC, Cr_out, T1_zero, M11, M11_out, WZ, Zr_out, alu_control : std_logic;
 
 	signal temp1 : std_logic_vector(9 downto 0);
-
 	signal temp2 : std_logic_vector(6 downto 0);
 
 	constant Z16 : std_logic_vector(15 downto 0) := (others => '0');
-
 	constant O16 : std_logic_vector(15 downto 0) := (0 => '1', others => '0');
 
 begin
@@ -119,11 +118,11 @@ begin
 		instruction => IR_out, T1 => M8_out, T2 => M7_out, T3 => T3_out, mem => Mem_out,
 		rst => reset, clk => clk, init_carry => Cr_out, init_zero => Zr_out,
 		-- out
-		w1 => W1, w2 => W2, w3 => W3, w4 => W4, w5 => W5, w6 => W6, w7 => W7,
-		m1 => M1, m20 => M20, m21 => M21, m30 => M30, m31 => M31, m4 => M4,
-		m50 => M50, m51 => M51, m8 => M8, m70 => M70, m71 => M71, m61 => M61, m60 => M60,
-		m91 => M91, m90 => M90, m100 => M100, m101 => M101, m12 => M12, carry => WC,
-		zero => WZ, mux => mux, done => Done, alucont => alu_control
+		W1 => W1, W2 => W2, W3 => W3, W4 => W4, W5 => W5, W6 => W6, W7 => W7,
+		M1 => M1, M20 => M20, M21 => M21, M30 => M30, M31 => M31, M4 => M4,
+		M50 => M50, M51 => M51, M60 => M60, M61 => M61, M70 => M70, M71 => M71, M8 => M8,
+		M90 => M90, M91 => M91, M100 => M100, M101 => M101, M11 => M11, M12 => M12,
+		carry_write => WC, zero_write => WZ, done => done, alu_control => alu_control
 	);
 
 	MUX1 : MUX16_2x1
@@ -338,7 +337,7 @@ begin
 		-- in
 		A => Z_out, B => T1_zero,
 		-- select
-		S0 => mux,
+		S0 => M11,
 		-- out
 		y => M11_out
 	);
