@@ -1,6 +1,5 @@
 # Ignore Quartus generated files
 
-Testbench*
 *.qpf
 *.qsf
 *_generation_script*

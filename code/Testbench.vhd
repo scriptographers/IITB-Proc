@@ -2,10 +2,10 @@ library ieee, std;
 use ieee.std_logic_1164.all;
 use ieee.std_logic_textio.all;
 
-entity iitb_procTest is
+entity Testbench is
 end entity;
 
-architecture tb of iitb_procTest is
+architecture tb of Testbench is
 	component IITBProc is
 		port (
 			clk, reset : in std_logic;
