@@ -8,15 +8,15 @@ entity ALU is
 	port (
 		a, b : in std_logic_vector(15 downto 0);
 		op : in std_logic;
-		c : out std_logic_vector(15 downto 0);
-		z, cout : out std_logic
+		output : out std_logic_vector(15 downto 0);
+		zero, cout : out std_logic
 	);
 end ALU;
 
 architecture arch of ALU is
 
-	signal t1, t2, t3, t7 : std_logic_vector(15 downto 0);
-	signal t4, t5, t6 : std_logic;
+	signal carry: std_logic;
+	signal addition_result, nand_result, extended_op, temp : std_logic_vector(15 downto 0);
 
 	component SixteenBitAdder is
 		port (
@@ -36,26 +36,32 @@ architecture arch of ALU is
 
 begin
 
-	c1 : SixteenBitAdder 
+	extended_op <= (others => op); -- Repeats op value at each of the 16 positions of extended_op
+
+	op_add : SixteenBitAdder 
 	port map(
 		a => a, 
 		b => b, 
-		sum => t1, 
-		cout => t4
+		sum => addition_result, 
+		cout => carry
 	);
 
-	c2 : SixteenBitNand 
-	port map(a => a, b => b, output => t2);
+	cout <= carry and (not op);
 
-	t3 <= (others => op);
-	t7 <= (t3 and t2) or (t1 and not t3);
+	op_nand : SixteenBitNand 
+	port map(a => a, b => b, output => nand_result);
 
-	c <= t7;
+	-- If op = 1, then return nand result, else return addition result
+	temp <= (extended_op and nand_result) or (addition_result and not extended_op);
 
-	cout <= t4 and not op;
-	t6 <= not(t7(0) or t7(1) or t7(2) or t7(3) or t7(4) or t7(5) or t7(6) or t7(7) or t7(8) or t7(9)
-		or t7(10) or t7(11) or t7(12) or t7(13) or t7(14) or t7(15));
+	-- zero is 1 iff all bits of the output are 0
+	zero <= not(
+		temp(0) or temp(1) or temp(2) or temp(3) or 
+		temp(4) or temp(5) or temp(6) or temp(7) or 
+		temp(8) or temp(9) or temp(10) or temp(11) or 
+		temp(12) or temp(13) or temp(14) or temp(15)
+	);
 
-	z <= t6;
+	output <= temp;
 
 end architecture;

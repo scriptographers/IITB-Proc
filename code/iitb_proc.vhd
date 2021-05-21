@@ -73,8 +73,8 @@ architecture Form of iitb_proc is
 		port (
 			a, b    : in std_logic_vector(15 downto 0);
 			op      : in std_logic;
-			c       : out std_logic_vector(15 downto 0);
-			z, cout : out std_logic
+			output  : out std_logic_vector(15 downto 0);
+			zero, cout : out std_logic
 		);
 	end component;
 
@@ -315,9 +315,9 @@ begin
 		-- control pin
 		op => alu_control,
 		-- out
-		c => alu_c,
+		output => alu_c,
 		--out flags
-		z => Z_out, cout => C_out
+		zero => Z_out, cout => C_out
 	);
 
 	C : Register1
