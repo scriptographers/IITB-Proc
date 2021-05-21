@@ -4,16 +4,16 @@ use work.all;
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity alu is
+entity ALU is
 	port (
-		A, B    : in std_logic_vector(15 downto 0);
-		op      : in std_logic;
-		C       : out std_logic_vector(15 downto 0);
-		Z, Cout : out std_logic
+		a, b : in std_logic_vector(15 downto 0);
+		op : in std_logic;
+		c : out std_logic_vector(15 downto 0);
+		z, cout : out std_logic
 	);
-end alu;
+end ALU;
 
-architecture arch of alu is
+architecture arch of ALU is
 
 	signal t1, t2, t3, t7 : std_logic_vector(15 downto 0);
 	signal t4, t5, t6 : std_logic;
@@ -38,24 +38,24 @@ begin
 
 	c1 : SixteenBitAdder 
 	port map(
-		a => A, 
-		b => B, 
+		a => a, 
+		b => b, 
 		sum => t1, 
 		cout => t4
 	);
 
 	c2 : SixteenBitNand 
-	port map(a => A, b => B, output => t2);
+	port map(a => a, b => b, output => t2);
 
 	t3 <= (others => op);
 	t7 <= (t3 and t2) or (t1 and not t3);
 
-	C <= t7;
+	c <= t7;
 
-	Cout <= t4 and not op;
+	cout <= t4 and not op;
 	t6 <= not(t7(0) or t7(1) or t7(2) or t7(3) or t7(4) or t7(5) or t7(6) or t7(7) or t7(8) or t7(9)
 		or t7(10) or t7(11) or t7(12) or t7(13) or t7(14) or t7(15));
 
-	Z <= t6;
+	z <= t6;
 
 end architecture;
