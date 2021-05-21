@@ -71,10 +71,11 @@ architecture Form of iitb_proc is
 
 	component ALU is
 		port (
-			A, B    : in std_logic_vector(15 downto 0);
-			op      : in std_logic;
-			C       : out std_logic_vector(15 downto 0);
-			Z, Cout : out std_logic);
+			a, b : in std_logic_vector(15 downto 0);
+			op : in std_logic;
+			c : out std_logic_vector(15 downto 0);
+			z, cout : out std_logic
+		);
 	end component;
 
 	component Memory_asyncread_syncwrite is
@@ -228,7 +229,12 @@ begin
 
 	ALU_en : ALU
 	port map(
-		A => alu_a, B => alu_b, C => alu_c, op => alu_control, Z => Z_out, Cout => C_out
+		a => alu_a, 
+		b => alu_b, 
+		c => alu_c, 
+		op => alu_control, 
+		z => Z_out, 
+		cout => C_out
 	);
 
 	C : Register1
