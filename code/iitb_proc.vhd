@@ -21,7 +21,7 @@ architecture struct of iitb_proc is
 			Reg_dataout1, Reg_dataout2   : out std_logic_vector(15 downto 0));
 	end component;
 
-	component Register1 is
+	component OneBitRegister is
 		port (
 			Reg_datain     : in std_logic;
 			clk, Reg_wrbar : in std_logic;
@@ -320,7 +320,7 @@ begin
 		zero => Z_out, cout => C_out
 	);
 
-	C : Register1
+	C : OneBitRegister
 	port map(
 		-- in
 		Reg_datain => C_out, clk => clk,
@@ -343,7 +343,7 @@ begin
 		y => M11_out
 	);
 
-	Z : Register1
+	Z : OneBitRegister
 	port map(
 		-- in
 		Reg_datain => M11_out, clk => clk,
