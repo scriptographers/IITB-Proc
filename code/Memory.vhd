@@ -17,7 +17,7 @@ entity Memory is
 end entity;
 
 architecture arch of Memory is
-	
+
 	-- A new type: Array of 32 elements, where each element is a 16-bit vector
 	type MemoryArray is array(31 downto 0) of std_logic_vector(15 downto 0);
 	signal mem : MemoryArray := (
@@ -47,7 +47,7 @@ architecture arch of Memory is
 	);
 
 begin
-	
+
 	-- Read
 	data_read <= mem(conv_integer(addr));
 
