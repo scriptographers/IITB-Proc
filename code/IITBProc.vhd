@@ -8,7 +8,10 @@ entity IITBProc is
 	port (
 		clk, reset : in std_logic;
 		O          : out std_logic_vector(15 downto 0);
-		done       : out std_logic
+		done       : out std_logic;
+		PC_deb, IR_deb, ALU_a_deb, ALU_b_deb, ALU_c_deb,
+		T1_deb, T2_deb, T3_deb, Mem_deb,
+		D1_deb, D2_deb : out std_logic_vector(15 downto 0)
 	);
 end entity;
 
@@ -16,24 +19,24 @@ architecture arch of IITBProc is
 
 	component RegisterFile is
 		port (
-			addr1, addr2, addr3 : in std_logic_vector(2 downto 0);
-			data_write3                  : in std_logic_vector(15 downto 0);
-			clk, write_flag               : in std_logic;
-			data_read1, data_read2   : out std_logic_vector(15 downto 0));
+			addr1, addr2, addr3    : in std_logic_vector(2 downto 0);
+			data_write3            : in std_logic_vector(15 downto 0);
+			clk, write_flag        : in std_logic;
+			data_read1, data_read2 : out std_logic_vector(15 downto 0));
 	end component;
 
 	component OneBitRegister is
 		port (
 			clk, write_flag, data_write : in std_logic;
-			data_read : out std_logic
+			data_read                   : out std_logic
 		);
 	end component;
 
 	component SixteenBitRegister is
 		port (
-			data_write     : in std_logic_vector(15 downto 0);
+			data_write      : in std_logic_vector(15 downto 0);
 			clk, write_flag : in std_logic;
-			data_read    : out std_logic_vector(15 downto 0));
+			data_read       : out std_logic_vector(15 downto 0));
 	end component;
 
 	component MUX1_2x1 is
@@ -82,8 +85,8 @@ architecture arch of IITBProc is
 	component Memory is
 		port (
 			addr, data_write : in std_logic_vector(15 downto 0);
-			clk, write_flag      : in std_logic;
-			data_read         : out std_logic_vector(15 downto 0));
+			clk, write_flag  : in std_logic;
+			data_read        : out std_logic_vector(15 downto 0));
 	end component;
 
 	component FSM is
@@ -323,8 +326,8 @@ begin
 	C : OneBitRegister
 	port map(
 		-- in
-		data_write => C_out, 
-		clk => clk,
+		data_write => C_out,
+		clk        => clk,
 		-- control pin
 		write_flag => WC,
 		-- out
@@ -347,8 +350,8 @@ begin
 	Z : OneBitRegister
 	port map(
 		-- in
-		data_write => M11_out, 
-		clk => clk,
+		data_write => M11_out,
+		clk        => clk,
 		-- control pin
 		write_flag => WZ,
 		--out
@@ -366,5 +369,16 @@ begin
 	);
 
 	O <= Mem_out;
+	PC_deb <= PC_out;
+	IR_deb <= IR_out;
+	ALU_a_deb <= ALU_a;
+	ALU_b_deb <= ALU_b;
+	ALU_c_deb <= ALU_c;
+	T1_deb <= T1_out;
+	T2_deb <= T2_out;
+	T3_deb <= T3_out;
+	Mem_deb <= Mem_out;
+	D1_deb <= D1_out;
+	D2_deb <= D2_out;
 
 end architecture;
