@@ -11,10 +11,11 @@ entity FSM is
 		W1, W2, W3, W4, W5, W6, W7,
 		M1, M20, M21, M30, M31, M4, M50, M51, M60, M61,
 		M70, M71, M8, M90, M91, M100, M101, M11, M12,
-		carry_write, zero_write, done, alu_control : out std_logic);
+		carry_write, zero_write, done, alu_control : out std_logic
+	);
 end entity;
 
-architecture struct of FSM is
+architecture arch of FSM is
 
 	type StateSymbol is (S0, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16, S17, S18, S_alpha);
 	signal fsm_state_symbol : StateSymbol;
@@ -380,4 +381,4 @@ begin
 
 	end process;
 
-end struct;
+end architecture;

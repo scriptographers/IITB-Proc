@@ -8,10 +8,11 @@ entity IITBProc is
 	port (
 		clk, reset : in std_logic;
 		O          : out std_logic_vector(15 downto 0);
-		done       : out std_logic);
+		done       : out std_logic
+	);
 end entity;
 
-architecture struct of IITBProc is
+architecture arch of IITBProc is
 
 	component RegisterFile is
 		port (
@@ -366,4 +367,4 @@ begin
 
 	O <= Mem_out;
 
-end struct;
+end architecture;

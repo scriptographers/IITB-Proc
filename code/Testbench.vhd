@@ -10,11 +10,13 @@ entity Testbench is
 end entity;
 
 architecture tb of Testbench is
+
 	component IITBProc is
 		port (
 			clk, reset : in std_logic;
 			O          : out std_logic_vector(15 downto 0);
-			done       : out std_logic);
+			done       : out std_logic
+		);
 	end component;
 
 	signal clk : std_logic := '1';
@@ -23,12 +25,15 @@ architecture tb of Testbench is
 	signal d : std_logic;
 
 begin
+
 	dut_instance : IITBProc
 	port map(clk => clk, reset => rst, O => o, done => d);
 
 	clk <= not clk after 5 ns;
+	
 	process
 	begin
+
 		rst <= '1';
 		wait for 14 ns;
 
