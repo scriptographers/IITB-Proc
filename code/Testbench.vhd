@@ -18,7 +18,9 @@ architecture tb of Testbench is
 			done       : out std_logic;
 			PC_deb, IR_deb, ALU_a_deb, ALU_b_deb, ALU_c_deb,
 			T1_deb, T2_deb, T3_deb, Mem_deb,
-			D1_deb, D2_deb : out std_logic_vector(15 downto 0)
+			D1_deb, D2_deb : out std_logic_vector(15 downto 0);
+			reg0_deb, reg1_deb, reg2_deb, reg3_deb,
+			reg4_deb, reg5_deb, reg6_deb, reg7_deb : out std_logic_vector(15 downto 0)
 		);
 	end component;
 
@@ -28,7 +30,9 @@ architecture tb of Testbench is
 	signal d : std_logic;
 	signal PC_deb, IR_deb, ALU_a_deb, ALU_b_deb, ALU_c_deb,
 	T1_deb, T2_deb, T3_deb, Mem_deb,
-	D1_deb, D2_deb : std_logic_vector(15 downto 0);
+	D1_deb, D2_deb,
+	reg0_deb, reg1_deb, reg2_deb, reg3_deb,
+	reg4_deb, reg5_deb, reg6_deb, reg7_deb : std_logic_vector(15 downto 0);
 
 begin
 
@@ -38,7 +42,9 @@ begin
 		PC_deb => PC_deb, IR_deb => IR_deb,
 		ALU_a_deb => ALU_a_deb, ALU_b_deb => ALU_b_deb, ALU_c_deb => ALU_c_deb,
 		T1_deb => T1_deb, T2_deb => T2_deb, T3_deb => T3_deb, Mem_deb => Mem_deb,
-		D1_deb => D1_deb, D2_deb => D2_deb
+		D1_deb => D1_deb, D2_deb => D2_deb,
+		reg0_deb => reg0_deb, reg1_deb => reg1_deb, reg2_deb => reg2_deb, reg3_deb => reg3_deb,
+		reg4_deb => reg4_deb, reg5_deb => reg5_deb, reg6_deb => reg6_deb, reg7_deb => reg7_deb
 	);
 
 	clk <= not clk after 5 ns;
