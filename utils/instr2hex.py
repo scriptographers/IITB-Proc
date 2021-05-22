@@ -80,10 +80,5 @@ elif op in ["LHI", "JAL"]:
 
     binary = op_bits + RA_bits + IMM_bits
 
-
-hexa = str(hex(int(binary, 2)))
-
-hexa = 'x"' + hexa[2:] + '"'
-
-print(hexa)
+print('x"{0:04x}"'.format(int(binary, 2)))
 
