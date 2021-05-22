@@ -15,7 +15,7 @@ architecture struct of IITBProc is
 
 	component RegisterFile is
 		port (
-			address1, address2, address3 : in std_logic_vector(2 downto 0);
+			addr1, addr2, addr3 : in std_logic_vector(2 downto 0);
 			data_write3                  : in std_logic_vector(15 downto 0);
 			clk, write_flag               : in std_logic;
 			data_read1, data_read2   : out std_logic_vector(15 downto 0));
@@ -219,7 +219,7 @@ begin
 	Rf : RegisterFile
 	port map(
 		-- in
-		address1 => M4_out, address2 => IR_out(8 downto 6), address3 => M3_out,
+		addr1 => M4_out, addr2 => IR_out(8 downto 6), addr3 => M3_out,
 		data_write3 => M5_out, clk => clk,
 		-- control pin
 		write_flag => W4,

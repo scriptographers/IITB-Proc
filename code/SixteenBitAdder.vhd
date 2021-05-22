@@ -1,4 +1,4 @@
--- Component: 16 Bit Full Adder
+-- Component: 16 Bit Ripple Carry Adder
 library work;
 use work.all;
 library ieee;

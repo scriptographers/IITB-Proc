@@ -11,11 +11,11 @@ entity SixteenBitNand is
 	);
 end entity;
 
-architecture struct of SixteenBitNand is
+architecture arch of SixteenBitNand is
 begin
 
 	nand_loop : for i in 0 to 15 generate
 		output(i) <= not((a(i) and b(i)));
 	end generate nand_loop;
 
-end struct;
+end architecture;
