@@ -36,8 +36,8 @@ architecture struct of ALU is
 
 	component MUX16_2x1 is
 		port (
-			A, B : in std_logic_vector(15 downto 0);
-			S0   : in std_logic;
+			a, b : in std_logic_vector(15 downto 0);
+			s0   : in std_logic;
 			y    : out std_logic_vector(15 downto 0)
 		);
 	end component MUX16_2x1;
@@ -66,9 +66,9 @@ begin
 	selector : MUX16_2x1
 	port map(
 		-- in
-		A => addition_result, B => nand_result,
+		a => addition_result, b => nand_result,
 		-- select
-		S0 => op,
+		s0 => op,
 		-- out
 		y => temp
 	);

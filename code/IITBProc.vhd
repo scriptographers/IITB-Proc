@@ -37,35 +37,35 @@ architecture struct of IITBProc is
 
 	component MUX1_2x1 is
 		port (
-			A, B, S0 : in std_logic;
+			a, b, s0 : in std_logic;
 			y        : out std_logic);
 	end component;
 
 	component MUX3_2x1 is
 		port (
-			A, B : in std_logic_vector(2 downto 0);
-			S0   : in std_logic;
+			a, b : in std_logic_vector(2 downto 0);
+			s0   : in std_logic;
 			y    : out std_logic_vector(2 downto 0));
 	end component;
 
 	component MUX3_4x1 is
 		port (
-			A, B, C, D : in std_logic_vector(2 downto 0);
-			S1, S0     : in std_logic;
+			a, b, c, d : in std_logic_vector(2 downto 0);
+			s1, s0     : in std_logic;
 			y          : out std_logic_vector(2 downto 0));
 	end component;
 
 	component MUX16_2x1 is
 		port (
-			A, B : in std_logic_vector(15 downto 0);
-			S0   : in std_logic;
+			a, b : in std_logic_vector(15 downto 0);
+			s0   : in std_logic;
 			y    : out std_logic_vector(15 downto 0));
 	end component;
 
 	component MUX16_4x1 is
 		port (
-			A, B, C, D : in std_logic_vector(15 downto 0);
-			S1, S0     : in std_logic;
+			a, b, c, d : in std_logic_vector(15 downto 0);
+			s1, s0     : in std_logic;
 			y          : out std_logic_vector(15 downto 0));
 	end component;
 
@@ -128,9 +128,9 @@ begin
 	MUX1 : MUX16_2x1
 	port map(
 		-- in
-		A => ALU_c, B => T2_out,
+		a => ALU_c, b => T2_out,
 		-- select
-		S0 => M1,
+		s0 => M1,
 		-- out
 		y => M1_out
 	);
@@ -148,9 +148,9 @@ begin
 	MUX2 : MUX16_4x1
 	port map(
 		-- in
-		A => T2_out, B => PC_out, C => ALU_c, D => T1_out,
+		a => T2_out, b => PC_out, c => ALU_c, d => T1_out,
 		-- select
-		S1 => M21, S0 => M20,
+		s1 => M21, s0 => M20,
 		-- out
 		y => M2_out
 	);
@@ -178,9 +178,9 @@ begin
 	MUX4 : MUX3_2x1
 	port map(
 		-- in
-		A => IR_out(11 downto 9), B => T3_out(2 downto 0),
+		a => IR_out(11 downto 9), b => T3_out(2 downto 0),
 		-- select
-		S0 => M4,
+		s0 => M4,
 		-- out
 		y => M4_out
 	);
@@ -188,10 +188,10 @@ begin
 	MUX3 : MUX3_4x1
 	port map(
 		-- in
-		A => IR_out(11 downto 9), B => IR_out(8 downto 6),
-		C => IR_out(5 downto 3), D => T3_out(2 downto 0),
+		a => IR_out(11 downto 9), b => IR_out(8 downto 6),
+		c => IR_out(5 downto 3), d => T3_out(2 downto 0),
 		-- select
-		S1 => M31, S0 => M30,
+		s1 => M31, s0 => M30,
 		-- out
 		y => M3_out
 	);
@@ -209,9 +209,9 @@ begin
 	MUX5 : MUX16_4x1
 	port map(
 		-- in
-		A => PC_out, B => Imm9e16, C => T2_out, D => T3_out,
+		a => PC_out, b => Imm9e16, c => T2_out, d => T3_out,
 		-- select
-		S1 => M51, S0 => M50,
+		s1 => M51, s0 => M50,
 		-- out
 		y => M5_out
 	);
@@ -230,9 +230,9 @@ begin
 	MUX8 : MUX16_2x1
 	port map(
 		-- in
-		A => D1_out, B => ALU_c,
+		a => D1_out, b => ALU_c,
 		-- select
-		S0 => M8,
+		s0 => M8,
 		-- out
 		y => M8_out
 	);
@@ -240,9 +240,9 @@ begin
 	MUX7 : MUX16_4x1
 	port map(
 		-- in
-		A => D1_out, B => D2_out, C => ALU_c, D => Mem_out,
+		a => D1_out, b => D2_out, c => ALU_c, d => Mem_out,
 		-- select
-		S0 => M70, S1 => M71,
+		s0 => M70, s1 => M71,
 		--out
 		y => M7_out
 	);
@@ -250,9 +250,9 @@ begin
 	MUX6 : MUX16_4x1
 	port map(
 		-- in
-		A => Mem_out, B => Z16, C => ALU_c, D => Z16,
+		a => Mem_out, b => Z16, c => ALU_c, d => Z16,
 		-- select
-		S1 => M61, S0 => M60,
+		s1 => M61, s0 => M60,
 		--out
 		y => M6_out
 	);
@@ -290,9 +290,9 @@ begin
 	MUX9 : MUX16_4x1
 	port map(
 		-- in
-		A => SEImm9, B => SEImm6, C => T2_out, D => O16,
+		a => SEImm9, b => SEImm6, c => T2_out, d => O16,
 		-- select
-		S1 => M91, S0 => M90,
+		s1 => M91, s0 => M90,
 		-- out
 		y => ALU_b
 	);
@@ -300,9 +300,9 @@ begin
 	MUX10 : MUX16_4x1
 	port map(
 		-- in
-		A => T3_out, B => PC_out, C => T1_out, D => T2_out,
+		a => T3_out, b => PC_out, c => T1_out, d => T2_out,
 		-- select
-		S1 => M101, S0 => M100,
+		s1 => M101, s0 => M100,
 		-- out
 		y => ALU_a
 	);
@@ -336,9 +336,9 @@ begin
 	MUX11 : MUX1_2x1
 	port map(
 		-- in
-		A => Z_out, B => T1_zero,
+		a => Z_out, b => T1_zero,
 		-- select
-		S0 => M11,
+		s0 => M11,
 		-- out
 		y => M11_out
 	);
@@ -357,9 +357,9 @@ begin
 	MUX12 : MUX16_2x1
 	port map(
 		-- in
-		A => T1_out, B => T2_out,
+		a => T1_out, b => T2_out,
 		-- select
-		S0 => M12,
+		s0 => M12,
 		--out
 		y => M12_out
 	);
