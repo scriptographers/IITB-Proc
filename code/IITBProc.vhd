@@ -80,9 +80,9 @@ architecture struct of IITBProc is
 
 	component MemoryReadWrite is
 		port (
-			address, Mem_datain : in std_logic_vector(15 downto 0);
-			clk, Mem_wrbar      : in std_logic;
-			Mem_dataout         : out std_logic_vector(15 downto 0));
+			addr, data_write : in std_logic_vector(15 downto 0);
+			clk, write_flag      : in std_logic;
+			data_read         : out std_logic_vector(15 downto 0));
 	end component;
 
 	component FSM is
@@ -158,11 +158,11 @@ begin
 	Mem1 : MemoryReadWrite
 	port map(
 		-- in
-		address => M2_out, Mem_datain => M12_out, clk => clk,
+		addr => M2_out, data_write => M12_out, clk => clk,
 		-- control pin
-		Mem_wrbar => W2,
+		write_flag => W2,
 		-- out
-		Mem_dataout => Mem_out
+		data_read => Mem_out
 	);
 
 	IR : SixteenBitRegister

@@ -20,7 +20,7 @@ begin
 	-- Read
 	data_read <= r;
 
-	proc_write : process (write_flag, data_write, clk)
+	proc_write : process(write_flag, data_write, clk)
 	begin
 		if (write_flag = '0') then
 			if (rising_edge(clk)) then

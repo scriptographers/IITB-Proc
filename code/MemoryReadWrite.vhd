@@ -1,4 +1,4 @@
--- Component: Memory Read/Write
+-- Component: Async Memory Read/Write
 library work;
 use work.all;
 library ieee;
@@ -10,16 +10,17 @@ use ieee.std_logic_unsigned.all;
 
 entity MemoryReadWrite is
 	port (
-		address, Mem_datain : in std_logic_vector(15 downto 0);
-		clk, Mem_wrbar      : in std_logic;
-		Mem_dataout         : out std_logic_vector(15 downto 0)
+		clk, write_flag  : in std_logic;
+		addr, data_write : in std_logic_vector(15 downto 0);
+		data_read        : out std_logic_vector(15 downto 0)
 	);
 end entity;
 
 architecture arch of MemoryReadWrite is
-
-	type regarray is array(31 downto 0) of std_logic_vector(15 downto 0);
-	signal Memory : regarray := (
+	
+	-- A new type: Array of 32 elements, where each element is a 16-bit vector
+	type MemoryArray is array(31 downto 0) of std_logic_vector(15 downto 0);
+	signal memory : MemoryArray := (
 		0 => x"4054",
 		1 => x"6000",
 		2 => x"c042",
@@ -46,13 +47,16 @@ architecture arch of MemoryReadWrite is
 	);
 
 begin
+	
+	-- Read
+	data_read <= memory(conv_integer(addr));
 
-	Mem_dataout <= Memory(conv_integer(address));
-	Mem_write : process (Mem_wrbar, Mem_datain, address, clk)
+	proc_write : process(write_flag, data_write, addr, clk)
 	begin
-		if (Mem_wrbar = '0') then
+		if (write_flag = '0') then
 			if (rising_edge(clk)) then
-				Memory(conv_integer(address)) <= Mem_datain;
+				-- Write
+				memory(conv_integer(addr)) <= data_write;
 			end if;
 		end if;
 	end process;

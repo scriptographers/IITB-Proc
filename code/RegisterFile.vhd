@@ -29,7 +29,7 @@ begin
 	data_read1 <= registers(conv_integer(addr1));
 	data_read2 <= registers(conv_integer(addr2));
 
-	proc_write : process (write_flag, data_write3, addr3, clk)
+	proc_write : process(write_flag, data_write3, addr3, clk)
 	begin
 		if (write_flag = '0') then
 			if (rising_edge(clk)) then
