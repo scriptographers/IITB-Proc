@@ -78,7 +78,7 @@ architecture struct of IITBProc is
 		);
 	end component;
 
-	component MemoryReadWrite is
+	component Memory is
 		port (
 			addr, data_write : in std_logic_vector(15 downto 0);
 			clk, write_flag      : in std_logic;
@@ -155,7 +155,7 @@ begin
 		y => M2_out
 	);
 
-	Mem1 : MemoryReadWrite
+	Mem1 : Memory
 	port map(
 		-- in
 		addr => M2_out, data_write => M12_out, clk => clk,

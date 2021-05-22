@@ -1,4 +1,4 @@
--- Component: Async Memory Read/Write
+-- Component: Async Memory with Read/Write
 library work;
 use work.all;
 library ieee;
@@ -8,7 +8,7 @@ use ieee.numeric_std.all;
 use ieee.std_logic_arith.all;
 use ieee.std_logic_unsigned.all;
 
-entity MemoryReadWrite is
+entity Memory is
 	port (
 		clk, write_flag  : in std_logic;
 		addr, data_write : in std_logic_vector(15 downto 0);
@@ -16,11 +16,11 @@ entity MemoryReadWrite is
 	);
 end entity;
 
-architecture arch of MemoryReadWrite is
+architecture arch of Memory is
 	
 	-- A new type: Array of 32 elements, where each element is a 16-bit vector
 	type MemoryArray is array(31 downto 0) of std_logic_vector(15 downto 0);
-	signal memory : MemoryArray := (
+	signal mem : MemoryArray := (
 		0 => x"4054",
 		1 => x"6000",
 		2 => x"c042",
@@ -49,14 +49,14 @@ architecture arch of MemoryReadWrite is
 begin
 	
 	-- Read
-	data_read <= memory(conv_integer(addr));
+	data_read <= mem(conv_integer(addr));
 
 	proc_write : process(write_flag, data_write, addr, clk)
 	begin
 		if (write_flag = '0') then
 			if (rising_edge(clk)) then
 				-- Write
-				memory(conv_integer(addr)) <= data_write;
+				mem(conv_integer(addr)) <= data_write;
 			end if;
 		end if;
 	end process;
