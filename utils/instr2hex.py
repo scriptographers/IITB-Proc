@@ -21,7 +21,12 @@ if op in ["ADD", "ADC", "ADZ", "NDU", "NDC", "NDZ"]:
     RB_bits = "{0:03b}".format(RB)
     RC_bits = "{0:03b}".format(RC)
 
-    CZ = tokens[-1]
+    if op[2] == "C":
+        CZ = "01"
+    elif op[2] == "Z":
+        CZ = "10"
+    else:
+        CZ = "00"
 
     binary = op_bits + RA_bits + RB_bits + RC_bits + "0" + CZ
 
