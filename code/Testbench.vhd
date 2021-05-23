@@ -16,7 +16,7 @@ architecture tb of Testbench is
 			clk, reset : in std_logic;
 			PC, IR     : out std_logic_vector(15 downto 0);
 			done       : out std_logic;
-			C, Z     : out std_logic;
+			C, Z       : out std_logic;
 			reg0, reg1, reg2, reg3,
 			reg4, reg5, reg6, reg7 : out std_logic_vector(15 downto 0)
 		);

@@ -5,7 +5,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 package MUXes is
-	
+
 	-- (a) MUX1_2x1: 2 inputs, 1 output, 1 selector, each input is a single bit
 	component MUX1_2x1 is
 		port (
@@ -59,8 +59,6 @@ package MUXes is
 	end component MUX16_4x1;
 
 end package MUXes;
-
-
 -- (a) MUX1_2x1: 2 inputs, 1 output, 1 selector, each input is a single bit
 library work;
 use work.all;
@@ -78,8 +76,6 @@ architecture arch of MUX1_2x1 is
 begin
 	y <= (a and not s0) or (b and s0);
 end architecture;
-
-
 -- (b) MUX1_4x1: 4 inputs, 1 output, 2 selectors, each input is a single bit
 library work;
 use work.all;
@@ -100,8 +96,6 @@ begin
 		or (c and (s1) and (not s0))
 		or (d and (s1) and (s0));
 end architecture;
-
-
 -- (c) MUX3_2x1: 2 inputs, 1 output, 1 selector, each input is a 3-bit vector
 library work;
 use work.all;
@@ -128,8 +122,6 @@ begin
 		mx : MUX1_2x1 port map(a => a(i), b => b(i), s0 => s0, y => y(i));
 	end generate MUXg;
 end architecture;
-
-
 -- (d) MUX3_4x1: 4 inputs, 1 output, 2 selectors, each input is a 3-bit vector
 library work;
 use work.all;
@@ -156,8 +148,6 @@ begin
 		mx : MUX1_4x1 port map(a => a(i), b => b(i), c => c(i), d => d(i), s0 => s0, s1 => s1, y => y(i));
 	end generate MUXg;
 end architecture;
-
-
 -- (e) MUX16_2x1: 2 inputs, 1 output, 1 selector, each input is a 16-bit vector
 library work;
 use work.all;
@@ -184,8 +174,6 @@ begin
 		mx : MUX1_2x1 port map(a => a(i), b => b(i), s0 => s0, y => y(i));
 	end generate MUXg;
 end architecture;
-
-
 -- (f) MUX16_4x1: 4 inputs, 1 output, 2 selectors, each input is a 16-bit vector
 library work;
 use work.all;
