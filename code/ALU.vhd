@@ -9,13 +9,13 @@ entity ALU is
 		a, b       : in std_logic_vector(15 downto 0);
 		op         : in std_logic;
 		output     : out std_logic_vector(15 downto 0);
-		zero, cout : out std_logic
+		zero, carry : out std_logic
 	);
 end ALU;
 
 architecture struct of ALU is
 
-	signal carry : std_logic;
+	signal cout : std_logic;
 	signal addition_result, nand_result, temp : std_logic_vector(15 downto 0);
 
 	component SixteenBitAdder is
@@ -49,10 +49,10 @@ begin
 		a    => a,
 		b    => b,
 		sum  => addition_result,
-		cout => carry
+		cout => cout
 	);
 
-	cout <= carry and (not op);
+	carry <= cout and (not op);
 
 	op_nand : SixteenBitNand
 	port map(

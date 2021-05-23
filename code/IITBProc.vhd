@@ -9,7 +9,7 @@ entity IITBProc is
 		clk, reset : in std_logic;
 		PC, IR     : out std_logic_vector(15 downto 0);
 		done       : out std_logic;
-		C, Z     : out std_logic;
+		C, Z       : out std_logic;
 		reg0, reg1, reg2, reg3,
 		reg4, reg5, reg6, reg7 : out std_logic_vector(15 downto 0)
 	);
@@ -81,7 +81,7 @@ architecture arch of IITBProc is
 			a, b       : in std_logic_vector(15 downto 0);
 			op         : in std_logic;
 			output     : out std_logic_vector(15 downto 0);
-			zero, cout : out std_logic
+			zero, carry : out std_logic
 		);
 	end component;
 
@@ -327,7 +327,7 @@ begin
 		-- out
 		output => ALU_c,
 		--out flags
-		zero => Z_out, cout => C_out
+		zero => Z_out, carry => C_out
 	);
 
 	C_R : OneBitRegister
