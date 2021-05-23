@@ -42,7 +42,7 @@ elif op in ["ADI", "LW", "SW", "BEQ"]:
 
     RA_bits  = "{0:03b}".format(RA)
     RB_bits  = "{0:03b}".format(RB)
-    IMM_bits = "{0:03b}".format(IMM)
+    IMM_bits = "{0:06b}".format(IMM)
 
     binary = op_bits + RA_bits + RB_bits + IMM_bits
 
