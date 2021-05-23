@@ -17,7 +17,7 @@ end entity;
 
 architecture arch of FSM is
 
-	type StateSymbol is (S0, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16, S17, S18, S_alpha);
+	type StateSymbol is (Si, S0, S1A, S1B, S2A, S2B, S3, S4, S5A, S5B, S6, S7A, S7B, S8A, S8B, S9, S10, S11, S12, Sf);
 	signal fsm_state_symbol : StateSymbol;
 
 begin
@@ -64,22 +64,22 @@ begin
 
 		-- compute next-state, output
 		case fsm_state_symbol is
-			when S0 =>
+			when Si =>
 				W3_v := '0';
 				M20_v := '1';
 				M21_v := '0';
 
 				if (mem(15 downto 12) = "0011") then
-					state_v := S6;
+					state_v := S3;
 				elsif (mem(15 downto 13) = "100") then
-					state_v := S16;
+					state_v := S10;
 				elsif (mem(15 downto 12) = "1111") then
-					state_v := S0;
+					state_v := Si;
 				else
-					state_v := S1;
+					state_v := S0;
 				end if;
 
-			when S1 =>
+			when S0 =>
 				W5_v := '0';
 				W6_v := '0';
 				W7_v := '0';
@@ -90,23 +90,23 @@ begin
 				M8_v := '0';
 
 				if (instruction(15 downto 13) = "010") then
-					state_v := S7;
+					state_v := S4;
 				elsif ((instruction(15 downto 12) = "0000" or instruction(15 downto 12) = "0010")
 					and ((instruction(1 downto 0) = "10" and init_carry = '1') or (instruction(1 downto 0) = "01" and init_zero = '1') or (instruction(1 downto 0) = "00"))) then
-					state_v := S2;
+					state_v := S1A;
 				elsif (instruction(15 downto 12) = "0001") then
-					state_v := S4;
+					state_v := S2A;
 				elsif (instruction(15 downto 12) = "1100" and (T1 = T2)) then
-					state_v := S17;
+					state_v := S9;
 				elsif (instruction(15 downto 12) = "0110") then
-					state_v := S11;
+					state_v := S7A;
 				elsif (instruction(15 downto 12) = "0111") then
-					state_v := S13;
+					state_v := S8A;
 				else
-					state_v := S_alpha;
+					state_v := Sf;
 				end if;
 
-			when S2 =>
+			when S1A =>
 				W5_v := '0';
 				M60_v := '0';
 				M61_v := '1';
@@ -126,18 +126,18 @@ begin
 					alu_v := '0';
 				end if;
 
-				state_v := S3;
+				state_v := S1B;
 
-			when S3 =>
+			when S1B =>
 				W4_v := '0';
 				M30_v := '0';
 				M31_v := '1';
 				M50_v := '1';
 				M51_v := '1';
 
-				state_v := S_alpha;
+				state_v := Sf;
 
-			when S4 =>
+			when S2A =>
 				W5_v := '0';
 				M60_v := '0';
 				M61_v := '1';
@@ -149,27 +149,27 @@ begin
 				carry_v := '0';
 				zero_v := '0';
 
-				state_v := S5;
+				state_v := S2B;
 
-			when S5 =>
+			when S2B =>
 				W4_v := '0';
 				M30_v := '1';
 				M31_v := '0';
 				M50_v := '1';
 				M51_v := '1';
 
-				state_v := S_alpha;
+				state_v := Sf;
 
-			when S6 =>
+			when S3 =>
 				W4_v := '0';
 				M30_v := '0';
 				M31_v := '0';
 				M50_v := '1';
 				M51_v := '0';
 
-				state_v := S_alpha;
+				state_v := Sf;
 
-			when S7 =>
+			when S4 =>
 				W6_v := '0';
 				M70_v := '0';
 				M71_v := '1';
@@ -179,12 +179,12 @@ begin
 				M101_v := '1';
 
 				if (instruction(15 downto 12) = "0100") then
-					state_v := S8;
+					state_v := S5A;
 				else
-					state_v := S9;
+					state_v := S6;
 				end if;
 
-			when S8 =>
+			when S5A =>
 				W5_v := '0';
 				M20_v := '0';
 				M21_v := '0';
@@ -194,25 +194,25 @@ begin
 
 				zero_v := '0';
 
-				state_v := S10;
+				state_v := S5B;
 
-			when S9 =>
-				W2_v := '0';
-				M20_v := '0';
-				M21_v := '0';
-
-				state_v := S_alpha;
-
-			when S10 =>
+			when S5B =>
 				W4_v := '0';
 				M30_v := '0';
 				M31_v := '0';
 				M50_v := '1';
 				M51_v := '1';
 
-				state_v := S_alpha;
+				state_v := Sf;
 
-			when S11 =>
+			when S6 =>
+				W2_v := '0';
+				M20_v := '0';
+				M21_v := '0';
+
+				state_v := Sf;
+
+			when S7A =>
 				W6_v := '0';
 				W7_v := '0';
 				M20_v := '1';
@@ -225,9 +225,9 @@ begin
 				M100_v := '0';
 				M101_v := '1';
 
-				state_v := S12;
+				state_v := S7B;
 
-			when S12 =>
+			when S7B =>
 				W4_v := '0';
 				W5_v := '0';
 				M30_v := '1';
@@ -242,12 +242,12 @@ begin
 				M101_v := '0';
 
 				if (T3(2 downto 0) = "111") then
-					state_v := S_alpha;
+					state_v := Sf;
 				else
-					state_v := S11;
+					state_v := S7A;
 				end if;
 
-			when S13 =>
+			when S8A =>
 				W5_v := '0';
 				W6_v := '0';
 				M4_v := '1';
@@ -260,9 +260,9 @@ begin
 				M100_v := '0';
 				M101_v := '0';
 
-				state_v := S14;
+				state_v := S8B;
 
-			when S14 =>
+			when S8B =>
 				W2_v := '0';
 				W7_v := '0';
 				M20_v := '1';
@@ -275,23 +275,23 @@ begin
 				M12_v := '1';
 
 				if (T3(2 downto 0) = "000") then
-					state_v := S_alpha;
+					state_v := Sf;
 				else
-					state_v := S13;
+					state_v := S8A;
 				end if;
 
-			when S15 =>
+			when S9 =>
 				W1_v := '0';
 				M1_v := '0';
-				M90_v := '0';
+				M90_v := '1';
 				M91_v := '0';
 				M100_v := '1';
 				M101_v := '0';
 
-				state_v := S0;
+				state_v := Si;
 				done_v := '1';
 
-			when S16 =>
+			when S10 =>
 				W4_v := '0';
 				W6_v := '0';
 				M30_v := '0';
@@ -302,30 +302,30 @@ begin
 				M71_v := '0';
 
 				if (instruction(15 downto 12) = "1000") then
-					state_v := S15;
+					state_v := S11;
 				else
-					state_v := S18;
+					state_v := S12;
 				end if;
 
-			when S17 =>
+			when S11 =>
 				W1_v := '0';
 				M1_v := '0';
-				M90_v := '1';
+				M90_v := '0';
 				M91_v := '0';
 				M100_v := '1';
 				M101_v := '0';
 
-				state_v := S0;
+				state_v := Si;
 				done_v := '1';
 
-			when S18 =>
+			when S12 =>
 				W1_v := '0';
 				M1_v := '1';
 
-				state_v := S0;
+				state_v := Si;
 				done_v := '1';
 
-			when S_alpha =>
+			when Sf =>
 				W1_v := '0';
 				M1_v := '0';
 				M90_v := '1';
@@ -333,7 +333,7 @@ begin
 				M100_v := '1';
 				M101_v := '0';
 
-				state_v := S0;
+				state_v := Si;
 				done_v := '1';
 
 			when others => null;
@@ -373,7 +373,7 @@ begin
 
 		if (rising_edge(clk)) then
 			if (rst = '1') then
-				fsm_state_symbol <= S0;
+				fsm_state_symbol <= Si;
 			else
 				fsm_state_symbol <= state_v;
 			end if;
