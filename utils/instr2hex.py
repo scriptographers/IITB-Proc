@@ -1,5 +1,10 @@
 import sys
 
+# Usage: python3 instr2hex.py "LW R2 R0 2"
+
+if len(sys.argv) != 2:
+    sys.exit('Usage: python3 instr2hex.py "<instruction>"\nExample: python3 instr2hex.py "LW R2 R0 2"')
+
 text = sys.argv[1]
 
 tokens = text.split(" ")
@@ -85,5 +90,5 @@ elif op in ["LHI", "JAL"]:
 
     binary = op_bits + RA_bits + IMM_bits
 
-print(binary)
+# print(binary)
 print('x"{0:04x}"'.format(int(binary, 2)))

@@ -2,6 +2,9 @@ import sys
 
 # Usage: python3 hex2instr.py 33ff
 
+if len(sys.argv) != 2:
+    sys.exit("Usage: python3 hex2instr.py <hex_value>\nExample: python3 hex2instr.py c042")
+
 text = sys.argv[1]
 
 binary = "{:016b}".format(int(text, 16))
