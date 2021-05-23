@@ -1,5 +1,7 @@
 import sys
 
+# Usage: python3 instr2hex.py "LHI R1 511"
+
 text = sys.argv[1]
 
 tokens = text.split(" ")
