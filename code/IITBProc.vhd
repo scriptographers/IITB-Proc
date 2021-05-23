@@ -80,7 +80,7 @@ architecture arch of IITBProc is
 		port (
 			a, b       : in std_logic_vector(15 downto 0);
 			op         : in std_logic;
-			output     : out std_logic_vector(15 downto 0);
+			c     : out std_logic_vector(15 downto 0);
 			zero, carry : out std_logic
 		);
 	end component;
@@ -325,7 +325,7 @@ begin
 		-- control pin
 		op => alu_control,
 		-- out
-		output => ALU_c,
+		c => ALU_c,
 		--out flags
 		zero => Z_out, carry => C_out
 	);

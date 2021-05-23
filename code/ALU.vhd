@@ -6,9 +6,9 @@ use ieee.std_logic_1164.all;
 
 entity ALU is
 	port (
-		a, b       : in std_logic_vector(15 downto 0);
-		op         : in std_logic;
-		output     : out std_logic_vector(15 downto 0);
+		a, b        : in std_logic_vector(15 downto 0);
+		op          : in std_logic;
+		c           : out std_logic_vector(15 downto 0);
 		zero, carry : out std_logic
 	);
 end ALU;
@@ -73,7 +73,7 @@ begin
 		y => temp
 	);
 
-	-- zero is 1 iff all bits of the output are 0
+	-- zero is 1 iff all bits of the c are 0
 	zero <= not(
 		temp(0) or temp(1) or temp(2) or temp(3) or
 		temp(4) or temp(5) or temp(6) or temp(7) or
@@ -81,6 +81,6 @@ begin
 		temp(12) or temp(13) or temp(14) or temp(15)
 		);
 
-	output <= temp;
+	c <= temp;
 
 end architecture;
