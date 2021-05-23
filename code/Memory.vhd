@@ -126,10 +126,19 @@ architecture arch of Memory is
 	-- );
 
 	-- JAL Test
+	-- signal mem : MemoryArray := (
+	-- 	0 => x"8003", -- JAL R0 3
+	-- 	3 => x"8207", -- JAL R1 7
+	-- 	10 => x"8400", -- JAL R2 0
+	-- 	others => x"0000"
+	-- );
+
+	-- JLR Test
 	signal mem : MemoryArray := (
-		0 => x"8003", -- JAL R0 3
-		3 => x"8207", -- JAL R1 7
-		10 => x"8400", -- JAL R2 0
+		0 => x"1003", -- ADI R0 R0 3
+		1 => x"9200", -- JLR R1 R0
+		3 => x"94c0", -- JLR R2 R3
+		6 => x"9800", -- JLR R4 R0
 		others => x"0000"
 	);
 
