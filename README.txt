@@ -14,7 +14,7 @@ code/
     IITBProc.vhd           : Top Level Entity
     MUXes.vhd              : Package of different MUXes
     Memory.vhd             : Async Memory with Read/Write
-    OneBitAdder.vhd        : Single bit Full Adder
+    OneBitAdder.vhd        : Single Bit Full Adder
     OneBitRegister.vhd     : Async Single Bit Register
     RegisterFile.vhd       : Async Register File
     SixteenBitAdder.vhd    : 16-bit Ripple Carry Adder
@@ -25,3 +25,6 @@ code/
 utils/
     hex2instr.py : Converts a hexadecimal instruction to it's human-readable string form
     instr2hex.py : Converts the string form of an instruction to the corresponding hexadecimal form
+
+report/
+    report.pdf: The Complete Design Document
