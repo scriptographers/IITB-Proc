@@ -22,9 +22,9 @@ if op in ["ADD", "ADC", "ADZ", "NDU", "NDC", "NDZ"]:
     RC_bits = "{0:03b}".format(RC)
 
     if op[2] == "C":
-        CZ = "01"
-    elif op[2] == "Z":
         CZ = "10"
+    elif op[2] == "Z":
+        CZ = "01"
     else:
         CZ = "00"
 
