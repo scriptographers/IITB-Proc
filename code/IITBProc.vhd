@@ -7,14 +7,11 @@ use ieee.std_logic_1164.all;
 entity IITBProc is
 	port (
 		clk, reset : in std_logic;
-		O          : out std_logic_vector(15 downto 0);
+		PC, IR     : out std_logic_vector(15 downto 0);
 		done       : out std_logic;
-		PC_deb, IR_deb, ALU_a_deb, ALU_b_deb, ALU_c_deb,
-		T1_deb, T2_deb, T3_deb, Mem_deb,
-		D1_deb, D2_deb : out std_logic_vector(15 downto 0);
-		Cr_deb, Zr_deb : out std_logic;
-		reg0_deb, reg1_deb, reg2_deb, reg3_deb,
-		reg4_deb, reg5_deb, reg6_deb, reg7_deb : out std_logic_vector(15 downto 0)
+		Cr, Zr     : out std_logic;
+		reg0, reg1, reg2, reg3,
+		reg4, reg5, reg6, reg7 : out std_logic_vector(15 downto 0)
 	);
 end entity;
 
@@ -105,7 +102,7 @@ architecture arch of IITBProc is
 			carry_write, zero_write, done, alu_control : out std_logic);
 	end component;
 
-	signal reg0, reg1, reg2, reg3, reg4, reg5, reg6, reg7 : std_logic_vector(15 downto 0);
+	signal reg0_out, reg1_out, reg2_out, reg3_out, reg4_out, reg5_out, reg6_out, reg7_out : std_logic_vector(15 downto 0);
 
 	signal PC_out, IR_out, ALU_a, ALU_b, ALU_c, T1_out, T2_out, T3_out, Mem_out, D1_out, D2_out,
 	M1_out, M2_out, M5_out, M6_out, M7_out, M8_out, M12_out, Imm9e16, SEImm9, SEImm6 : std_logic_vector(15 downto 0);
@@ -124,7 +121,7 @@ architecture arch of IITBProc is
 
 begin
 
-	FSM_en : FSM
+	FSM_R : FSM
 	port map(
 		-- in
 		instruction => IR_out, T1 => M8_out, T2 => M7_out, T3 => T3_out, mem => Mem_out,
@@ -147,7 +144,7 @@ begin
 		y => M1_out
 	);
 
-	PC : SixteenBitRegister
+	PC_R : SixteenBitRegister
 	port map(
 		-- in
 		data_write => M1_out, clk => clk,
@@ -177,7 +174,7 @@ begin
 		data_read => Mem_out
 	);
 
-	IR : SixteenBitRegister
+	IR_R : SixteenBitRegister
 	port map(
 		-- in
 		data_write => Mem_out, clk => clk,
@@ -237,8 +234,8 @@ begin
 		write_flag => W4,
 		-- out
 		data_read1 => D1_out, data_read2 => D2_out,
-		reg0 => reg0, reg1 => reg1, reg2 => reg2, reg3 => reg3,
-		reg4 => reg4, reg5 => reg5, reg6 => reg6, reg7 => reg7
+		reg0 => reg0_out, reg1 => reg1_out, reg2 => reg2_out, reg3 => reg3_out,
+		reg4 => reg4_out, reg5 => reg5_out, reg6 => reg6_out, reg7 => reg7_out
 	);
 
 	MUX8 : MUX16_2x1
@@ -321,7 +318,7 @@ begin
 		y => ALU_a
 	);
 
-	ALU_en : ALU
+	ALU_R : ALU
 	port map(
 		-- in
 		a => ALU_a, b => ALU_b,
@@ -378,27 +375,17 @@ begin
 		y => M12_out
 	);
 
-	O <= Mem_out;
-	PC_deb <= PC_out;
-	IR_deb <= IR_out;
-	ALU_a_deb <= ALU_a;
-	ALU_b_deb <= ALU_b;
-	ALU_c_deb <= ALU_c;
-	T1_deb <= T1_out;
-	T2_deb <= T2_out;
-	T3_deb <= T3_out;
-	Mem_deb <= Mem_out;
-	D1_deb <= D1_out;
-	D2_deb <= D2_out;
-	Cr_deb <= Cr_out;
-	Zr_deb <= Zr_out;
-	reg0_deb <= reg0;
-	reg1_deb <= reg1;
-	reg2_deb <= reg2;
-	reg3_deb <= reg3;
-	reg4_deb <= reg4;
-	reg5_deb <= reg5;
-	reg6_deb <= reg6;
-	reg7_deb <= reg7;
+	PC <= PC_out;
+	IR <= IR_out;
+	Cr <= Cr_out;
+	Zr <= Zr_out;
+	reg0 <= reg0_out;
+	reg1 <= reg1_out;
+	reg2 <= reg2_out;
+	reg3 <= reg3_out;
+	reg4 <= reg4_out;
+	reg5 <= reg5_out;
+	reg6 <= reg6_out;
+	reg7 <= reg7_out;
 
 end architecture;
