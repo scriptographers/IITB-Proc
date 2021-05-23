@@ -1,4 +1,4 @@
--- Component: 16-bit NAND operation
+-- Component: 16-bit NAND Operation
 library work;
 use work.all;
 library ieee;

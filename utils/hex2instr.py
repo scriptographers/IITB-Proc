@@ -1,3 +1,5 @@
+# Converts a hexadecimal instruction to it's human-readable string form
+
 import sys
 
 # Usage: python3 hex2instr.py 33ff

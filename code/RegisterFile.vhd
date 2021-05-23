@@ -1,4 +1,4 @@
--- Component: Async Register file
+-- Component: Async Register File
 library work;
 use work.all;
 library ieee;

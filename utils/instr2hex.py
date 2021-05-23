@@ -1,3 +1,5 @@
+# Converts the string form of an instruction to the corresponding hexadecimal form
+
 import sys
 
 # Usage: python3 instr2hex.py "LW R2 R0 2"

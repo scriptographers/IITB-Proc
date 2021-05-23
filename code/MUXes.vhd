@@ -1,4 +1,4 @@
--- Component: Package of MUXes used
+-- Component: Package of different MUXes
 library work;
 use work.all;
 library ieee;

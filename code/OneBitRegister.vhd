@@ -1,4 +1,4 @@
--- Component: Async single bit register
+-- Component: Async Single Bit Register
 library work;
 use work.all;
 library ieee;
