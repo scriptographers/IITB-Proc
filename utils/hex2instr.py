@@ -19,7 +19,7 @@ if op_bits == "0000":
     RC = int(binary[10:13], 2)
 
     CZ = binary[-2:]
-    
+
     if CZ == "00":
         op = "ADD"
     elif CZ == "10":
@@ -37,7 +37,7 @@ if op_bits == "0010":
     RC = int(binary[10:13], 2)
 
     CZ = binary[-2:]
-    
+
     if CZ == "00":
         op = "NDU"
     elif CZ == "10":
@@ -84,7 +84,7 @@ elif op_bits == "1001":
     op = "JLR"
     RA = int(binary[4:7], 2)
     RB = int(binary[7:10], 2)
-    s = f"{op} R{RA} R{RB} " + "0"*6
+    s = f"{op} R{RA} R{RB} " + "0" * 6
 
 # LHI
 elif op_bits == "0011":
@@ -104,12 +104,12 @@ elif op_bits == "1000":
 elif op_bits == "0110":
     op = "LA"
     RA = int(binary[4:7], 2)
-    s = f"{op} R{RA} " + "0"*9
+    s = f"{op} R{RA} " + "0" * 9
 
 # SA
 elif op_bits == "0111":
     op = "SA"
     RA = int(binary[4:7], 2)
-    s = f"{op} R{RA} " + "0"*9
+    s = f"{op} R{RA} " + "0" * 9
 
 print(s)
