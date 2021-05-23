@@ -73,15 +73,16 @@ architecture arch of Memory is
 		3 => x"3602", -- LHI R3 2
 		4 => x"04e0", -- ADD R2 R3 R4
 		5 => x"24e0", -- NDU R2 R3 R4
-		6 => x"00e1", -- ADC R0 R3 R4
-		7 => x"00e2", -- ADZ R0 R3 R4
-		8 => x"20e1", -- NDC R0 R3 R4
-		9 => x"20e2", -- NDZ R0 R3 R4
+		6 => x"00e2", -- ADC R0 R3 R4
+		7 => x"00e1", -- ADZ R0 R3 R4
+		8 => x"20e2", -- NDC R0 R3 R4
+		9 => x"20e1", -- NDZ R0 R3 R4
 		10 => x"00e0", -- ADD R0 R3 R4
-		11 => x"00a1", -- ADC R0 R2 R4
-		12 => x"00e2", -- ADZ R0 R3 R4
-		13 => x"2ba1", -- NDC R5 R6 R4
-		14 => x"20e2", -- NDZ R0 R3 R4
+		11 => x"00a2", -- ADC R0 R2 R4
+		12 => x"00e1", -- ADZ R0 R3 R4
+		13 => x"2ba2", -- NDC R5 R6 R4
+		14 => x"2922", -- NDC R4 R4 R4
+		15 => x"20e1", -- NDZ R0 R3 R4
 		others => x"0000"
 	);
 
