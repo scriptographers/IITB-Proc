@@ -15,7 +15,7 @@ entity IITBProc is
 	);
 end entity;
 
-architecture arch of IITBProc is
+architecture struct of IITBProc is
 
 	component RegisterFile is
 		port (
@@ -96,7 +96,7 @@ architecture arch of IITBProc is
 		port (
 			instruction, T1, T2, T3, mem    : in std_logic_vector(15 downto 0);
 			rst, clk, init_carry, init_zero : in std_logic;
-			W1, W2, W3, W4, W5, W6, W7,
+			W_PC, W_MEM, W_IR, W_RF, W_T3, W_T2, W_T1,
 			M1, M20, M21, M3, M40, M41,
 			M50, M51, M6, M70, M71, M80, M81,
 			M90, M91, M100, M101, M11, M12,
@@ -106,12 +106,12 @@ architecture arch of IITBProc is
 
 	signal reg0_out, reg1_out, reg2_out, reg3_out, reg4_out, reg5_out, reg6_out, reg7_out : std_logic_vector(15 downto 0);
 
-	signal PC_out, IR_out, ALU_a, ALU_b, ALU_c, T1_out, T2_out, T3_out, Mem_out, D1_out, D2_out,
+	signal PC_out, IR_out, ALU_a, ALU_b, ALU_c, T1_out, T2_out, T3_out, MEM_out, D1_out, D2_out,
 	M1_out, M2_out, M5_out, M6_out, M7_out, M8_out, M12_out, Imm9e16, SEImm9, SEImm6 : std_logic_vector(15 downto 0);
 
 	signal M3_out, M4_out : std_logic_vector(2 downto 0);
 
-	signal W1, W2, W3, W4, W5, W7, W6,
+	signal W_PC, W_MEM, W_IR, W_RF, W_T3, W_T1, W_T2,
 	M1, M21, M20, M3, M40, M41, M50, M51, M6, M70, M71, M80, M81, M90, M91, M100, M101, M11, M12,
 	Z_out, C_out, WC, WZ, Cr_out, Zr_out, T1_zero, M11_out, alu_control : std_logic;
 
@@ -128,10 +128,10 @@ begin
 	FSM_R : FSM
 	port map(
 		-- in
-		instruction => IR_out, T1 => M6_out, T2 => M7_out, T3 => T3_out, mem => Mem_out,
+		instruction => IR_out, T1 => M6_out, T2 => M7_out, T3 => T3_out, mem => MEM_out,
 		rst => reset, clk => clk, init_carry => Cr_out, init_zero => Zr_out,
 		-- out
-		W1 => W1, W2 => W2, W3 => W3, W4 => W4, W5 => W5, W6 => W6, W7 => W7,
+		W_PC => W_PC, W_MEM => W_MEM, W_IR => W_IR, W_RF => W_RF, W_T3 => W_T3, W_T2 => W_T2, W_T1 => W_T1,
 		M1 => M1, M20 => M20, M21 => M21, M3 => M3, M40 => M40, M41 => M41,
 		M50 => M50, M51 => M51, M6 => M6, M70 => M70, M71 => M71, M80 => M80, M81 => M81,
 		M90 => M90, M91 => M91, M100 => M100, M101 => M101, M11 => M11, M12 => M12,
@@ -145,27 +145,27 @@ begin
 		-- in
 		data_write => M1_out, clk => clk,
 		-- control pin
-		write_flag => W1,
+		write_flag => W_PC,
 		-- out
 		data_read => PC_out
 	);
 
-	Mem_R : Memory
+	MEM_R : Memory
 	port map(
 		-- in
 		addr => M2_out, data_write => M12_out, clk => clk,
 		-- control pin
-		write_flag => W2,
+		write_flag => W_MEM,
 		-- out
-		data_read => Mem_out
+		data_read => MEM_out
 	);
 
 	IR_R : SixteenBitRegister
 	port map(
 		-- in
-		data_write => Mem_out, clk => clk,
+		data_write => MEM_out, clk => clk,
 		-- control pin
-		write_flag => W3,
+		write_flag => W_IR,
 		--out
 		data_read => IR_out
 	);
@@ -186,7 +186,7 @@ begin
 		addr1 => M3_out, addr2 => IR_out(8 downto 6), addr3 => M4_out,
 		data_write3 => M5_out, clk => clk,
 		-- control pin
-		write_flag => W4,
+		write_flag => W_RF,
 		-- out
 		data_read1 => D1_out, data_read2 => D2_out,
 		reg0 => reg0_out, reg1 => reg1_out, reg2 => reg2_out, reg3 => reg3_out,
@@ -198,7 +198,7 @@ begin
 		-- in
 		data_write => M6_out, clk => clk,
 		-- control pin
-		write_flag => W7,
+		write_flag => W_T1,
 		--out
 		data_read => T1_out
 	);
@@ -208,7 +208,7 @@ begin
 		-- in
 		data_write => M7_out, clk => clk,
 		-- control pin
-		write_flag => W6,
+		write_flag => W_T2,
 		--out
 		data_read => T2_out
 	);
@@ -218,7 +218,7 @@ begin
 		-- in
 		data_write => M8_out, clk => clk,
 		-- control pin
-		write_flag => W5,
+		write_flag => W_T3,
 		-- out
 		data_read => T3_out
 	);
@@ -323,7 +323,7 @@ begin
 	MUX7 : MUX16_4x1
 	port map(
 		-- in
-		a => D1_out, b => D2_out, c => ALU_c, d => Mem_out,
+		a => D1_out, b => D2_out, c => ALU_c, d => MEM_out,
 		-- select
 		s0 => M70, s1 => M71,
 		--out
@@ -333,7 +333,7 @@ begin
 	MUX8 : MUX16_4x1
 	port map(
 		-- in
-		a => Mem_out, b => Z16, c => ALU_c, d => Z16,
+		a => MEM_out, b => Z16, c => ALU_c, d => Z16,
 		-- select
 		s1 => M81, s0 => M80,
 		--out

@@ -8,7 +8,7 @@ entity FSM is
 	port (
 		instruction, T1, T2, T3, mem    : in std_logic_vector(15 downto 0);
 		rst, clk, init_carry, init_zero : in std_logic;
-		W1, W2, W3, W4, W5, W6, W7,
+		W_PC, W_MEM, W_IR, W_RF, W_T3, W_T2, W_T1,
 		M1, M20, M21, M3, M40, M41,
 		M50, M51, M6, M70, M71, M80, M81,
 		M90, M91, M100, M101, M11, M12,
@@ -24,7 +24,7 @@ architecture arch of FSM is
 begin
 	process (rst, clk, instruction, init_carry, init_zero, T1, T2, T3, fsm_state_symbol)
 		variable state_v : StateSymbol;
-		variable W1_v, W2_v, W3_v, W4_v, W5_v, W6_v, W7_v,
+		variable W_PC_v, W_MEM_v, W_IR_v, W_RF_v, W_T3_v, W_T2_v, W_T1_v,
 		M1_v, M20_v, M21_v, M40_v, M41_v, M3_v, M50_v, M51_v, M80_v, M81_v,
 		M70_v, M71_v, M6_v, M90_v, M91_v, M100_v, M101_v, M12_v,
 		carry_v, zero_v, M11_v, done_v, alu_v : std_logic;
@@ -32,13 +32,13 @@ begin
 	begin
 
 		state_v := fsm_state_symbol;
-		W1_v := '1';
-		W2_v := '1';
-		W3_v := '1';
-		W4_v := '1';
-		W5_v := '1';
-		W6_v := '1';
-		W7_v := '1';
+		W_PC_v := '1';
+		W_MEM_v := '1';
+		W_IR_v := '1';
+		W_RF_v := '1';
+		W_T3_v := '1';
+		W_T2_v := '1';
+		W_T1_v := '1';
 		M1_v := '0';
 		M20_v := '1';
 		M21_v := '0';
@@ -66,7 +66,7 @@ begin
 		-- compute next-state, output
 		case fsm_state_symbol is
 			when Si =>
-				W3_v := '0';
+				W_IR_v := '0';
 				M20_v := '1';
 				M21_v := '0';
 
@@ -81,9 +81,9 @@ begin
 				end if;
 
 			when S0 =>
-				W5_v := '0';
-				W6_v := '0';
-				W7_v := '0';
+				W_T3_v := '0';
+				W_T2_v := '0';
+				W_T1_v := '0';
 				M80_v := '1';
 				M81_v := '0';
 				M70_v := '1';
@@ -108,7 +108,7 @@ begin
 				end if;
 
 			when S1A =>
-				W5_v := '0';
+				W_T3_v := '0';
 				M80_v := '0';
 				M81_v := '1';
 				M90_v := '0';
@@ -130,7 +130,7 @@ begin
 				state_v := S1B;
 
 			when S1B =>
-				W4_v := '0';
+				W_RF_v := '0';
 				M40_v := '0';
 				M41_v := '1';
 				M50_v := '1';
@@ -139,7 +139,7 @@ begin
 				state_v := Sf;
 
 			when S2A =>
-				W5_v := '0';
+				W_T3_v := '0';
 				M80_v := '0';
 				M81_v := '1';
 				M90_v := '1';
@@ -153,7 +153,7 @@ begin
 				state_v := S2B;
 
 			when S2B =>
-				W4_v := '0';
+				W_RF_v := '0';
 				M40_v := '1';
 				M41_v := '0';
 				M50_v := '1';
@@ -162,7 +162,7 @@ begin
 				state_v := Sf;
 
 			when S3 =>
-				W4_v := '0';
+				W_RF_v := '0';
 				M40_v := '0';
 				M41_v := '0';
 				M50_v := '1';
@@ -171,7 +171,7 @@ begin
 				state_v := Sf;
 
 			when S4 =>
-				W6_v := '0';
+				W_T2_v := '0';
 				M70_v := '0';
 				M71_v := '1';
 				M90_v := '1';
@@ -186,7 +186,7 @@ begin
 				end if;
 
 			when S5A =>
-				W5_v := '0';
+				W_T3_v := '0';
 				M20_v := '0';
 				M21_v := '0';
 				M80_v := '0';
@@ -198,7 +198,7 @@ begin
 				state_v := S5B;
 
 			when S5B =>
-				W4_v := '0';
+				W_RF_v := '0';
 				M40_v := '0';
 				M41_v := '0';
 				M50_v := '1';
@@ -207,15 +207,15 @@ begin
 				state_v := Sf;
 
 			when S6 =>
-				W2_v := '0';
+				W_MEM_v := '0';
 				M20_v := '0';
 				M21_v := '0';
 
 				state_v := Sf;
 
 			when S7A =>
-				W6_v := '0';
-				W7_v := '0';
+				W_T2_v := '0';
+				W_T1_v := '0';
 				M20_v := '1';
 				M21_v := '1';
 				M70_v := '1';
@@ -229,8 +229,8 @@ begin
 				state_v := S7B;
 
 			when S7B =>
-				W4_v := '0';
-				W5_v := '0';
+				W_RF_v := '0';
+				W_T3_v := '0';
 				M40_v := '1';
 				M41_v := '1';
 				M50_v := '0';
@@ -249,8 +249,8 @@ begin
 				end if;
 
 			when S8A =>
-				W5_v := '0';
-				W6_v := '0';
+				W_T3_v := '0';
+				W_T2_v := '0';
 				M3_v := '1';
 				M80_v := '0';
 				M81_v := '1';
@@ -264,8 +264,8 @@ begin
 				state_v := S8B;
 
 			when S8B =>
-				W2_v := '0';
-				W7_v := '0';
+				W_MEM_v := '0';
+				W_T1_v := '0';
 				M20_v := '1';
 				M21_v := '1';
 				M6_v := '1';
@@ -282,7 +282,7 @@ begin
 				end if;
 
 			when S9 =>
-				W1_v := '0';
+				W_PC_v := '0';
 				M1_v := '0';
 				M90_v := '1';
 				M91_v := '0';
@@ -293,8 +293,8 @@ begin
 				done_v := '1';
 
 			when S10 =>
-				W4_v := '0';
-				W6_v := '0';
+				W_RF_v := '0';
+				W_T2_v := '0';
 				M40_v := '0';
 				M41_v := '0';
 				M50_v := '0';
@@ -309,7 +309,7 @@ begin
 				end if;
 
 			when S11 =>
-				W1_v := '0';
+				W_PC_v := '0';
 				M1_v := '0';
 				M90_v := '0';
 				M91_v := '0';
@@ -320,14 +320,14 @@ begin
 				done_v := '1';
 
 			when S12 =>
-				W1_v := '0';
+				W_PC_v := '0';
 				M1_v := '1';
 
 				state_v := Si;
 				done_v := '1';
 
 			when Sf =>
-				W1_v := '0';
+				W_PC_v := '0';
 				M1_v := '0';
 				M90_v := '1';
 				M91_v := '1';
@@ -341,13 +341,13 @@ begin
 
 		end case;
 
-		W1 <= W1_v;
-		W2 <= W2_v;
-		W3 <= W3_v;
-		W4 <= W4_v;
-		W5 <= W5_v;
-		W6 <= W6_v;
-		W7 <= W7_v;
+		W_PC <= W_PC_v;
+		W_MEM <= W_MEM_v;
+		W_IR <= W_IR_v;
+		W_RF <= W_RF_v;
+		W_T3 <= W_T3_v;
+		W_T2 <= W_T2_v;
+		W_T1 <= W_T1_v;
 		M1 <= M1_v;
 		M20 <= M20_v;
 		M21 <= M21_v;
