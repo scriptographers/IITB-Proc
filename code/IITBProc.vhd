@@ -123,6 +123,8 @@ architecture arch of IITBProc is
 
 begin
 
+	-- Finite State Machine
+
 	FSM_R : FSM
 	port map(
 		-- in
@@ -136,15 +138,7 @@ begin
 		carry_write => WC, zero_write => WZ, done => done, alu_control => alu_control
 	);
 
-	MUX1 : MUX16_2x1
-	port map(
-		-- in
-		a => ALU_c, b => T2_out,
-		-- select
-		s0 => M1,
-		-- out
-		y => M1_out
-	);
+	-- Registers
 
 	PC_R : SixteenBitRegister
 	port map(
@@ -156,17 +150,7 @@ begin
 		data_read => PC_out
 	);
 
-	MUX2 : MUX16_4x1
-	port map(
-		-- in
-		a => T2_out, b => PC_out, c => ALU_c, d => T1_out,
-		-- select
-		s1 => M21, s0 => M20,
-		-- out
-		y => M2_out
-	);
-
-	Mem1 : Memory
+	Mem_R : Memory
 	port map(
 		-- in
 		addr => M2_out, data_write => M12_out, clk => clk,
@@ -184,6 +168,115 @@ begin
 		write_flag => W3,
 		--out
 		data_read => IR_out
+	);
+
+	Imm9e16 <= IR_out(8 downto 0) & "0000000";
+
+	temp1 <= (others => IR_out(5));
+
+	SEImm6 <= temp1 & IR_out(5 downto 0);
+
+	temp2 <= (others => IR_out(8));
+
+	SEImm9 <= temp2 & IR_out(8 downto 0);
+
+	RF_R : RegisterFile
+	port map(
+		-- in
+		addr1 => M3_out, addr2 => IR_out(8 downto 6), addr3 => M4_out,
+		data_write3 => M5_out, clk => clk,
+		-- control pin
+		write_flag => W4,
+		-- out
+		data_read1 => D1_out, data_read2 => D2_out,
+		reg0 => reg0_out, reg1 => reg1_out, reg2 => reg2_out, reg3 => reg3_out,
+		reg4 => reg4_out, reg5 => reg5_out, reg6 => reg6_out, reg7 => reg7_out
+	);
+
+	T1_R : SixteenBitRegister
+	port map(
+		-- in
+		data_write => M6_out, clk => clk,
+		-- control pin
+		write_flag => W7,
+		--out
+		data_read => T1_out
+	);
+
+	T2_R : SixteenBitRegister
+	port map(
+		-- in
+		data_write => M7_out, clk => clk,
+		-- control pin
+		write_flag => W6,
+		--out
+		data_read => T2_out
+	);
+
+	T3_R : SixteenBitRegister
+	port map(
+		-- in
+		data_write => M8_out, clk => clk,
+		-- control pin
+		write_flag => W5,
+		-- out
+		data_read => T3_out
+	);
+
+	ALU_R : ALU
+	port map(
+		-- in
+		a => ALU_a, b => ALU_b,
+		-- control pin
+		op => alu_control,
+		-- out
+		c => ALU_c,
+		--out flags
+		zero => Z_out, carry => C_out
+	);
+
+	C_R : OneBitRegister
+	port map(
+		-- in
+		data_write => C_out,
+		clk        => clk,
+		-- control pin
+		write_flag => WC,
+		-- out
+		data_read => Cr_out
+	);
+
+	Z_R : OneBitRegister
+	port map(
+		-- in
+		data_write => M11_out,
+		clk        => clk,
+		-- control pin
+		write_flag => WZ,
+		--out
+		data_read => Zr_out
+	);
+
+	-- MUXes
+
+	MUX1 : MUX16_2x1
+	port map(
+		-- in
+		a => ALU_c, b => T2_out,
+		-- select
+		s0 => M1,
+		-- out
+		y => M1_out
+	);
+
+	MUX2 : MUX16_4x1
+	port map(
+		-- in
+		a => T2_out, b => PC_out, c => ALU_c, d => T1_out,
+		-- select
+		s1 => M21, s0 => M20,
+		-- out
+		y => M2_out
 	);
 
 	MUX3 : MUX3_2x1
@@ -207,16 +300,6 @@ begin
 		y => M4_out
 	);
 
-	Imm9e16 <= IR_out(8 downto 0) & "0000000";
-
-	temp1 <= (others => IR_out(5));
-
-	SEImm6 <= temp1 & IR_out(5 downto 0);
-
-	temp2 <= (others => IR_out(8));
-
-	SEImm9 <= temp2 & IR_out(8 downto 0);
-
 	MUX5 : MUX16_4x1
 	port map(
 		-- in
@@ -225,19 +308,6 @@ begin
 		s1 => M51, s0 => M50,
 		-- out
 		y => M5_out
-	);
-
-	Rf : RegisterFile
-	port map(
-		-- in
-		addr1 => M3_out, addr2 => IR_out(8 downto 6), addr3 => M4_out,
-		data_write3 => M5_out, clk => clk,
-		-- control pin
-		write_flag => W4,
-		-- out
-		data_read1 => D1_out, data_read2 => D2_out,
-		reg0 => reg0_out, reg1 => reg1_out, reg2 => reg2_out, reg3 => reg3_out,
-		reg4 => reg4_out, reg5 => reg5_out, reg6 => reg6_out, reg7 => reg7_out
 	);
 
 	MUX6 : MUX16_2x1
@@ -270,36 +340,6 @@ begin
 		y => M8_out
 	);
 
-	T1_reg : SixteenBitRegister
-	port map(
-		-- in
-		data_write => M6_out, clk => clk,
-		-- control pin
-		write_flag => W7,
-		--out
-		data_read => T1_out
-	);
-
-	T2_reg : SixteenBitRegister
-	port map(
-		-- in
-		data_write => M7_out, clk => clk,
-		-- control pin
-		write_flag => W6,
-		--out
-		data_read => T2_out
-	);
-
-	T3_reg : SixteenBitRegister
-	port map(
-		-- in
-		data_write => M8_out, clk => clk,
-		-- control pin
-		write_flag => W5,
-		-- out
-		data_read => T3_out
-	);
-
 	MUX9 : MUX16_4x1
 	port map(
 		-- in
@@ -320,29 +360,6 @@ begin
 		y => ALU_a
 	);
 
-	ALU_R : ALU
-	port map(
-		-- in
-		a => ALU_a, b => ALU_b,
-		-- control pin
-		op => alu_control,
-		-- out
-		c => ALU_c,
-		--out flags
-		zero => Z_out, carry => C_out
-	);
-
-	C_R : OneBitRegister
-	port map(
-		-- in
-		data_write => C_out,
-		clk        => clk,
-		-- control pin
-		write_flag => WC,
-		-- out
-		data_read => Cr_out
-	);
-
 	T1_zero <= not(T1_out(0) or T1_out(1) or T1_out(2) or T1_out(3) or T1_out(4) or T1_out(5) or T1_out(6) or T1_out(7)
 		or T1_out(8) or T1_out(9) or T1_out(10) or T1_out(11) or T1_out(12) or T1_out(13) or T1_out(14) or T1_out(15));
 
@@ -356,17 +373,6 @@ begin
 		y => M11_out
 	);
 
-	Z_R : OneBitRegister
-	port map(
-		-- in
-		data_write => M11_out,
-		clk        => clk,
-		-- control pin
-		write_flag => WZ,
-		--out
-		data_read => Zr_out
-	);
-
 	MUX12 : MUX16_2x1
 	port map(
 		-- in
@@ -376,6 +382,8 @@ begin
 		--out
 		y => M12_out
 	);
+
+	-- Output to Testbench
 
 	PC <= PC_out;
 	IR <= IR_out;
@@ -390,4 +398,4 @@ begin
 	reg6 <= reg6_out;
 	reg7 <= reg7_out;
 
-end architecture;
+end struct;
