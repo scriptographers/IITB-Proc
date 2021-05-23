@@ -52,9 +52,6 @@ begin
 	process
 	begin
 
-		rst <= '1';
-		wait for 14 ns;
-
 		rst <= '0';
 		wait for 1000 ns;
 
