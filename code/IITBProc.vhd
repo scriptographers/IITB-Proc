@@ -9,7 +9,7 @@ entity IITBProc is
 		clk, reset : in std_logic;
 		PC, IR     : out std_logic_vector(15 downto 0);
 		done       : out std_logic;
-		Cr, Zr     : out std_logic;
+		C, Z     : out std_logic;
 		reg0, reg1, reg2, reg3,
 		reg4, reg5, reg6, reg7 : out std_logic_vector(15 downto 0)
 	);
@@ -330,7 +330,7 @@ begin
 		zero => Z_out, cout => C_out
 	);
 
-	C : OneBitRegister
+	C_R : OneBitRegister
 	port map(
 		-- in
 		data_write => C_out,
@@ -354,7 +354,7 @@ begin
 		y => M11_out
 	);
 
-	Z : OneBitRegister
+	Z_R : OneBitRegister
 	port map(
 		-- in
 		data_write => M11_out,
@@ -377,8 +377,8 @@ begin
 
 	PC <= PC_out;
 	IR <= IR_out;
-	Cr <= Cr_out;
-	Zr <= Zr_out;
+	C <= Cr_out;
+	Z <= Zr_out;
 	reg0 <= reg0_out;
 	reg1 <= reg1_out;
 	reg2 <= reg2_out;
