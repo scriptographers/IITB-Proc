@@ -48,11 +48,20 @@ architecture arch of Memory is
 	-- );
 
 	-- LHI Test
+	-- signal mem : MemoryArray := (
+	-- 	0 => x"3009", -- LHI R0 9
+	-- 	1 => x"33ff", -- LHI R1 511
+	-- 	2 => x"3400", -- LHI R2 0
+	-- 	3 => x"3601", -- LHI R3 1
+	-- 	others => x"0000"
+	-- );
+
+	-- ADI Test
 	signal mem : MemoryArray := (
-		0 => x"3009", -- LHI R0 9
-		1 => x"33ff", -- LHI R1 511
-		2 => x"3400", -- LHI R2 0
-		3 => x"3601", -- LHI R3 1
+		0 => x"1009", -- ADI R0 R0 9
+		1 => x"1046", -- ADI R0 R1 6
+		2 => x"1281", -- ADI R1 R2 1
+		3 => x"14c0", -- ADI R2 R3 0
 		others => x"0000"
 	);
 
