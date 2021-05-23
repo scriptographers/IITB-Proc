@@ -19,6 +19,10 @@
 \usepackage[dvipsnames]{xcolor}
 \usepackage[perpage]{footmisc}
 
+\usepackage{wrapfig}
+\usepackage{lscape}
+\usepackage{rotating}
+
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
@@ -62,281 +66,337 @@
 \section*{Data Paths}
 \addcontentsline{toc}{section}{Data Paths}
 
-\subsection*{S0}
+\subsection*{\centering Si}
+\begin{figure}[H]
+    \centering
+    \includegraphics{DataPath/DataPath_Si.PNG}
+\end{figure}
+\begin{center}
+\textbf{Control pins}: \\
+Register IR write \\
+MUX 2 select 01 \\
+\end{center}
+
+\bigskip
+
+\subsection*{\centering S0}
 \begin{figure}[H]
     \centering
     \includegraphics{DataPath/DataPath_S0.PNG}
 \end{figure}
+\begin{center}
 \textbf{Control pins}: \\
-Register 3 write (IR) \\
-MUX 2 select 01 \\
-
-\subsection*{S1}
-\begin{figure}[H]
-    \centering
-    \includegraphics{DataPath/DataPath_S1.PNG}
-\end{figure}
-\textbf{Control pins}: \\
-Register 5 write (T1) \\
-Register 6 write (T2) \\
-Register 7 write (T3) \\
-MUX 6 select 01 \\
+Register T1 write \\
+Register T2 write \\
+Register T3 write \\
+MUX 6 select 0 \\
 MUX 7 select 01 \\
-MUX 8 select 0 \\
+MUX 8 select 01 \\
+\end{center}
 
-\subsection*{S2}
+\bigskip
+
+\subsection*{\centering S1A}
 \begin{figure}[H]
     \centering
-    \includegraphics{DataPath/DataPath_S2.PNG}
+    \includegraphics{DataPath/DataPath_S1A.PNG}
 \end{figure}
+\begin{center}
 \textbf{Control pins}: \\
-Register 5 write (T1) \\
-MUX 6 select 10 \\
+Register T3 write \\
+MUX 8 select 10 \\
 MUX 9 select 10 \\
 MUX 10 select 10 \\
 if (op\_code is "0000") then alu\_control is 0, carry write, zero write \\
 else alu\_control is 1, zero write \\
+\end{center}
 
-\subsection*{S3}
+\bigskip
+
+\subsection*{\centering S1B}
 \begin{figure}[H]
     \centering
-    \includegraphics{DataPath/DataPath_S3.PNG}
+    \includegraphics{DataPath/DataPath_S1B.PNG}
 \end{figure}
+\begin{center}
 \textbf{Control pins}: \\
-Register 4 write (RF) \\
-MUX 3 select 10 \\
+Register RF write \\
+MUX 4 select 10 \\
 MUX 5 select 11 \\
+\end{center}
 
-\subsection*{S4}
+\bigskip
+
+\subsection*{\centering S2A}
 \begin{figure}[H]
     \centering
-    \includegraphics{DataPath/DataPath_S4.PNG}
+    \includegraphics{DataPath/DataPath_S2A.PNG}
 \end{figure}
+\begin{center}
 \textbf{Control pins}: \\
-Register 5 write (T1) \\
+Register T3 write \\
 MUX 6 select 10 \\
 MUX 9 select 01 \\
 MUX 10 select 10 \\
 carry write, zero write \\
+\end{center}
 
-\subsection*{S5}
+\bigskip
+
+\subsection*{\centering S2B}
 \begin{figure}[H]
     \centering
-    \includegraphics{DataPath/DataPath_S5.PNG}
+    \includegraphics{DataPath/DataPath_S2B.PNG}
 \end{figure}
+\begin{center}
 \textbf{Control pins}: \\
-Register 4 write (RF) \\
-MUX 3 select 10 \\
+Register RF write \\
+MUX 4 select 10 \\
 MUX 5 select 11 \\
+\end{center}
 
-\subsection*{S6}
+\bigskip
+
+\subsection*{\centering S3}
+\begin{figure}[H]
+    \centering
+    \includegraphics{DataPath/DataPath_S3.PNG}
+\end{figure}
+\begin{center}
+\textbf{Control pins}: \\
+Register RF write \\
+MUX 4 select 00 \\
+MUX 5 select 01 \\
+\end{center}
+
+\bigskip
+
+\subsection*{\centering S4}
+\begin{figure}[H]
+    \centering
+    \includegraphics{DataPath/DataPath_S4.PNG}
+\end{figure}
+\begin{center}
+\textbf{Control pins}: \\
+Register T2 write \\
+MUX 7 select 10 \\
+MUX 9 select 01 \\
+MUX 10 select 11 \\
+\end{center}
+
+\bigskip
+
+\subsection*{\centering S5A}
+\begin{figure}[H]
+    \centering
+    \includegraphics{DataPath/DataPath_S5A.PNG}
+\end{figure}
+\begin{center}
+\textbf{Control pins}: \\
+Register T3 write \\
+MUX 2 select 00 \\
+MUX 8 select 00 \\
+MUX 11 select 1 \\
+zero write \\
+\end{center}
+
+\bigskip
+
+\subsection*{\centering S5B}
+\begin{figure}[H]
+    \centering
+    \includegraphics{DataPath/DataPath_S5B.PNG}
+\end{figure}
+\begin{center}
+\textbf{Control pins}: \\
+Register RF write \\
+MUX 4 select 00 \\
+MUX 5 select 11 \\
+\end{center}
+
+\bigskip
+
+\subsection*{\centering S6}
 \begin{figure}[H]
     \centering
     \includegraphics{DataPath/DataPath_S6.PNG}
 \end{figure}
+\begin{center}
 \textbf{Control pins}: \\
-Register 4 write (RF) \\
-MUX 3 select 00 \\
-MUX 5 select 01 \\
-
-\subsection*{S7}
-\begin{figure}[H]
-    \centering
-    \includegraphics{DataPath/DataPath_S7.PNG}
-\end{figure}
-\textbf{Control pins}: \\
-Register 6 write (T2) \\
-MUX 7 select 10 \\
-MUX 9 select 01 \\
-MUX 10 select 11 \\
-
-\subsection*{S8}
-\begin{figure}[H]
-    \centering
-    \includegraphics{DataPath/DataPath_S8.PNG}
-\end{figure}
-\textbf{Control pins}: \\
-Register 5 write (T1) \\
+Register MEM write \\
 MUX 2 select 00 \\
-MUX 6 select 00 \\
-MUX 11 select 1 \\
-zero write \\
+\end{center}
 
-\subsection*{S9}
+\bigskip
+
+\subsection*{\centering S7A}
+\begin{figure}[H]
+    \centering
+    \includegraphics{DataPath/DataPath_S7A.PNG}
+\end{figure}
+\begin{center}
+\textbf{Control pins}: \\
+Register T1 write \\
+Register T2 write \\
+MUX 2 select 11 \\
+MUX 6 select 1 \\
+MUX 7 select 11 \\
+MUX 9 select 11 \\
+MUX 10 select 01 \\
+\end{center}
+
+\bigskip
+
+\subsection*{\centering S7B}
+\begin{figure}[H]
+    \centering
+    \includegraphics{DataPath/DataPath_S7B.PNG}
+\end{figure}
+\begin{center}
+\textbf{Control pins}: \\
+Register RF write \\
+Register T3 write \\
+MUX 4 select 11 \\
+MUX 5 select 10 \\
+MUX 8 select 10 \\
+MUX 9 select 11 \\
+MUX 10 select 00 \\
+\end{center}
+
+\bigskip
+
+\subsection*{\centering S8A}
+\begin{figure}[H]
+    \centering
+    \includegraphics{DataPath/DataPath_S8A.PNG}
+\end{figure}
+\begin{center}
+\textbf{Control pins}: \\
+Register T2 write \\
+Register T3 write \\
+MUX 3 select 1 \\
+MUX 7 select 00 \\
+MUX 8 select 10 \\
+MUX 9 select 11 \\
+MUX 10 select 00 \\
+\end{center}
+
+\bigskip
+
+\subsection*{\centering S8B}
+\begin{figure}[H]
+    \centering
+    \includegraphics{DataPath/DataPath_S8B.PNG}
+\end{figure}
+\begin{center}
+\textbf{Control pins}: \\
+Register MEM write \\
+Register T1 write \\
+MUX 2 select 11 \\
+MUX 6 select 1 \\
+MUX 9 select 11 \\
+MUX 10 select 10 \\
+MUX 12 select 1 \\
+\end{center}
+
+\bigskip
+
+\subsection*{\centering S9}
 \begin{figure}[H]
     \centering
     \includegraphics{DataPath/DataPath_S9.PNG}
 \end{figure}
+\begin{center}
 \textbf{Control pins}: \\
-Register 2 write (MEM) \\
-MUX 2 select 00 \\
+Register PC write \\
+MUX 1 select 0 \\
+MUX 9 select 01 \\
+MUX 10 select 01 \\
+\end{center}
 
-\subsection*{S10}
+\bigskip
+
+\subsection*{\centering S10}
 \begin{figure}[H]
     \centering
     \includegraphics{DataPath/DataPath_S10.PNG}
 \end{figure}
+\begin{center}
 \textbf{Control pins}: \\
-Register 4 write (RF) \\
-MUX 3 select 00 \\
-MUX 5 select 11 \\
+Register RF write \\
+Register T2 write \\
+MUX 4 select 00 \\
+MUX 5 select 00 \\
+MUX 7 select 01 \\
+\end{center}
 
-\subsection*{S11}
+\bigskip
+
+\subsection*{\centering S11}
 \begin{figure}[H]
     \centering
     \includegraphics{DataPath/DataPath_S11.PNG}
 \end{figure}
+\begin{center}
 \textbf{Control pins}: \\
-Register 6 write (T2) \\
-Register 7 write (T3) \\
-MUX 2 select 11 \\
-MUX 7 select 11 \\
-MUX 8 select 1 \\
-MUX 9 select 11 \\
+Register PC write \\
+MUX 1 select 0 \\
+MUX 9 select 00 \\
 MUX 10 select 01 \\
+\end{center}
 
-\subsection*{S12}
+\bigskip
+
+\subsection*{\centering S12}
 \begin{figure}[H]
     \centering
     \includegraphics{DataPath/DataPath_S12.PNG}
 \end{figure}
+\begin{center}
 \textbf{Control pins}: \\
-Register 4 write (RF) \\
-Register 5 write (T1) \\
-MUX 3 select 11 \\
-MUX 5 select 10 \\
-MUX 6 select 10 \\
-MUX 9 select 11 \\
-MUX 10 select 00 \\
-
-\subsection*{S13}
-\begin{figure}[H]
-    \centering
-    \includegraphics{DataPath/DataPath_S13.PNG}
-\end{figure}
-\textbf{Control pins}: \\
-Register 5 write (T1) \\
-Register 6 write (T2) \\
-MUX 4 select 1 \\
-MUX 6 select 10 \\
-MUX 7 select 00 \\
-MUX 9 select 11 \\
-MUX 10 select 00 \\
-
-\subsection*{S14}
-\begin{figure}[H]
-    \centering
-    \includegraphics{DataPath/DataPath_S14.PNG}
-\end{figure}
-\textbf{Control pins}: \\
-Register 2 write (MEM) \\
-Register 7 write (T3) \\
-MUX 2 select 11 \\
-MUX 8 select 1 \\
-MUX 9 select 11 \\
-MUX 10 select 10 \\
-MUX 12 select 1 \\
-
-\subsection*{S15}
-\begin{figure}[H]
-    \centering
-    \includegraphics{DataPath/DataPath_S15.PNG}
-\end{figure}
-\textbf{Control pins}: \\
-Register 1 write (PC) \\
-MUX 1 select 0 \\
-MUX 9 select 00 \\
-MUX 10 select 01 \\
-
-\subsection*{S16}
-\begin{figure}[H]
-    \centering
-    \includegraphics{DataPath/DataPath_S16.PNG}
-\end{figure}
-\textbf{Control pins}: \\
-Register 4 write (RF) \\
-Register 6 write (T2) \\
-MUX 3 select 00 \\
-MUX 5 select 00 \\
-MUX 7 select 01 \\
-
-\subsection*{S17}
-\begin{figure}[H]
-    \centering
-    \includegraphics{DataPath/DataPath_S17.PNG}
-\end{figure}
-\textbf{Control pins}: \\
-Register 1 write (PC) \\
-MUX 1 select 0 \\
-MUX 9 select 01 \\
-MUX 10 select 01 \\
-
-\subsection*{S18}
-\begin{figure}[H]
-    \centering
-    \includegraphics{DataPath/DataPath_S18.PNG}
-\end{figure}
-\textbf{Control pins}: \\
-Register 1 write (PC) \\
+Register PC write \\
 MUX 1 select 1 \\
+\end{center}
 
-\subsection*{S$_\alpha$}
+\bigskip
+
+\subsection*{\centering Sf}
 \begin{figure}[H]
     \centering
-    \includegraphics{DataPath/DataPath_S_alpha.PNG}
+    \includegraphics{DataPath/DataPath_Sf.PNG}
 \end{figure}
+\begin{center}
 \textbf{Control pins}: \\
-Register 1 write (PC) \\
+Register PC write \\
 MUX 1 select 0 \\
 MUX 9 select 11 \\
 MUX 10 select 01 \\
+\end{center}
 
 \newpage
 \section*{State Transition Diagram}
 \addcontentsline{toc}{section}{State Transition Diagram}
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.12]{STG.png}
+    \includegraphics[scale=0.2]{STG.png}
 \end{figure}
 
-\textbf{Edge labels:} \\
-\texttt{sb0}: OpCode is not (0011 or 1000 or 1001); \\
-\texttt{sb1}: [OpCode is (0000 or 0010) with (last two bits are 01 and carry flag unset) or (last two bits are 10 and zero flag unset)] or [OpCode is 1100 with  RF\_D1 != RF\_D2]; \\
-\texttt{sb2}: [OpCode is (0000 or 0010) with (last two bits are 01 and carry flag set) or (last two bits are 10 and zero flag set) or (last two bits are 00)]; \\
-\texttt{sb3}: OpCode is 0001; \\
-\texttt{sb4}: OpCode is 0011; \\
-\texttt{sb5}: OpCode is (0100 or 0101); \\
-\texttt{sb6}: OpCode is 0100; \hspace*{2em} \texttt{sb7}: OpCode is 0101; \\
-\texttt{sb8}: OpCode is 0110; \\
-\texttt{sb9}: T3(2-0) is not 111; \hspace*{2em} \texttt{sb10}: T3(2-0) is 111; \\
-\texttt{sb11}: OpCode is 0111; \\
-\texttt{sb12}: T3(2-0) is not 111; \hspace*{2em} \texttt{sb13}: T3(2-0) is 111; \\
-\texttt{sb14}: OpCode is 1100 with RF\_D1 == RF\_D2; \\
-\texttt{sb15}: OpCode is (1000 or 1001); \\
-\texttt{sb16}: OpCode is 1000; \hspace*{2em} \texttt{sb17}: OpCode is 1001;
-
 \newpage
-\section*{Circuit Diagram}
+\section*{Circuit Diagram}%
 \addcontentsline{toc}{section}{Circuit Diagram}
-\begin{figure}[H]
+\vspace*{-0.5cm}
+\begin{sidewaysfigure}[H]
     \centering
-    \includegraphics[scale=0.65]{crd.jpeg}
-\end{figure}
-
-\newpage
-\section*{RTL Viewer}
-\addcontentsline{toc}{section}{RTL Viewer}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.65]{crd.jpeg}
-\end{figure}
+    \includegraphics[scale=0.58]{crd.jpeg}
+\end{sidewaysfigure}
 
 \newpage
 \section*{State Machine Viewer}
 \addcontentsline{toc}{section}{State Machine Viewer}
-\begin{figure}[H]
+\vspace*{-0.5cm}
+\begin{sidewaysfigure}[H]
     \centering
-    \includegraphics[scale=0.65]{crd.jpeg}
-\end{figure}
+    \includegraphics[scale=0.33]{FSM.png}
+\end{sidewaysfigure}
 
 \end{document}
