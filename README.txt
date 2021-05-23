@@ -1,4 +1,4 @@
-CS 254: Course Project
+CS 226: Course Project
 
 Team Members:
 - Ankit Kumar Misra (190050020)
