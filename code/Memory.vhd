@@ -117,11 +117,19 @@ architecture arch of Memory is
 	-- );
 
 	-- BEQ Test
+	-- signal mem : MemoryArray := (
+	-- 	0 => x"105f", -- ADI R0 R1 31
+	-- 	1 => x"c042", -- BEQ R0 R1 2
+	-- 	2 => x"101f", -- ADI R0 R0 31
+	-- 	3 => x"c040", -- BEQ R0 R1 0
+	-- 	others => x"0000"
+	-- );
+
+	-- JAL Test
 	signal mem : MemoryArray := (
-		0 => x"105f", -- ADI R0 R1 31
-		1 => x"c042", -- BEQ R0 R1 2
-		2 => x"101f", -- ADI R0 R0 31
-		3 => x"c040", -- BEQ R0 R1 0
+		0 => x"8003", -- JAL R0 3
+		3 => x"8207", -- JAL R1 7
+		10 => x"8400", -- JAL R2 0
 		others => x"0000"
 	);
 
