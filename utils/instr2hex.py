@@ -45,8 +45,8 @@ elif op in ["ADI", "LW", "SW", "BEQ"]:
     RB = int(tokens[2][1])
     IMM = int(tokens[3])
 
-    RA_bits  = "{0:03b}".format(RA)
-    RB_bits  = "{0:03b}".format(RB)
+    RA_bits = "{0:03b}".format(RA)
+    RB_bits = "{0:03b}".format(RB)
     IMM_bits = "{0:06b}".format(IMM)
 
     binary = op_bits + RA_bits + RB_bits + IMM_bits
@@ -55,9 +55,9 @@ elif op == "JLR":
     op_bits = "1001"
     RA = int(tokens[1][1])
     RB = int(tokens[2][1])
-    RA_bits  = "{0:03b}".format(RA)
-    RB_bits  = "{0:03b}".format(RB)
-    binary = op_bits + RA_bits + RB_bits + "0"*6
+    RA_bits = "{0:03b}".format(RA)
+    RB_bits = "{0:03b}".format(RB)
+    binary = op_bits + RA_bits + RB_bits + "0" * 6
 
 elif op in ["LA", "SA"]:
 
@@ -67,8 +67,8 @@ elif op in ["LA", "SA"]:
         op_bits = "0111"
 
     RA = int(tokens[1][1])
-    RA_bits  = "{0:03b}".format(RA)
-    binary = op_bits + RA_bits + "0"*9
+    RA_bits = "{0:03b}".format(RA)
+    binary = op_bits + RA_bits + "0" * 9
 
 elif op in ["LHI", "JAL"]:
 
@@ -80,7 +80,7 @@ elif op in ["LHI", "JAL"]:
     RA = int(tokens[1][1])
     IMM = int(tokens[2])
 
-    RA_bits  = "{0:03b}".format(RA)
+    RA_bits = "{0:03b}".format(RA)
     IMM_bits = "{0:09b}".format(IMM)
 
     binary = op_bits + RA_bits + IMM_bits
