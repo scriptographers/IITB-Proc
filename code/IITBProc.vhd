@@ -223,18 +223,6 @@ begin
 		data_read => T3_out
 	);
 
-	ALU_R : ALU
-	port map(
-		-- in
-		a => ALU_a, b => ALU_b,
-		-- control pin
-		op => alu_control,
-		-- out
-		c => ALU_c,
-		--out flags
-		zero => Z_out, carry => C_out
-	);
-
 	C_R : OneBitRegister
 	port map(
 		-- in
@@ -255,6 +243,20 @@ begin
 		write_flag => WZ,
 		--out
 		data_read => Zr_out
+	);
+
+	-- ALU
+
+	ALU_en : ALU
+	port map(
+		-- in
+		a => ALU_a, b => ALU_b,
+		-- control pin
+		op => alu_control,
+		-- out
+		c => ALU_c,
+		--out flags
+		zero => Z_out, carry => C_out
 	);
 
 	-- MUXes
