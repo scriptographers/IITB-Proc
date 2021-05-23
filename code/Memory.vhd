@@ -73,22 +73,22 @@ architecture arch of Memory is
 	-- );
 
 	-- LA-SA Test
-	-- signal mem : MemoryArray := (
-	-- 	0 => x"101f", -- ADI R0 R0 31
-	-- 	1 => x"6000", -- LA R0
-	-- 	2 => x"7000", -- SA R0
-	-- 	3 => x"6200", -- LA R1
-	-- 	31 => x"001f", -- Memory address 31
-	-- 	32 => x"0020", -- Memory address 32
-	-- 	33 => x"01f0", -- Memory address 33
-	-- 	34 => x"002f", -- Memory address 34
-	-- 	35 => x"ff00", -- Memory address 35
-	-- 	36 => x"f0f0", -- Memory address 36
-	-- 	37 => x"f00f", -- Memory address 37
-	-- 	38 => x"11ff", -- Memory address 38
-	-- 	39 => x"ffff", -- Memory address 39
-	-- 	others => x"0000"
-	-- );
+	signal mem : MemoryArray := (
+		0 => x"101f", -- ADI R0 R0 31
+		1 => x"6000", -- LA R0
+		2 => x"7000", -- SA R0
+		3 => x"6200", -- LA R1
+		31 => x"001f", -- Memory address 31
+		32 => x"0020", -- Memory address 32
+		33 => x"01f0", -- Memory address 33
+		34 => x"002f", -- Memory address 34
+		35 => x"ff00", -- Memory address 35
+		36 => x"f0f0", -- Memory address 36
+		37 => x"f00f", -- Memory address 37
+		38 => x"11ff", -- Memory address 38
+		39 => x"ffff", -- Memory address 39
+		others => x"0000"
+	);
 
 	-- BEQ Test
 	-- signal mem : MemoryArray := (
@@ -108,13 +108,13 @@ architecture arch of Memory is
 	-- );
 
 	-- JLR Test
-	signal mem : MemoryArray := (
-		0 => x"1003", -- ADI R0 R0 3
-		1 => x"9200", -- JLR R1 R0
-		3 => x"94c0", -- JLR R2 R3
-		6 => x"9800", -- JLR R4 R0
-		others => x"0000"
-	);
+	-- signal mem : MemoryArray := (
+	-- 	0 => x"1003", -- ADI R0 R0 3
+	-- 	1 => x"9200", -- JLR R1 R0
+	-- 	3 => x"94c0", -- JLR R2 R3
+	-- 	6 => x"9800", -- JLR R4 R0
+	-- 	others => x"0000"
+	-- );
 
 begin
 
