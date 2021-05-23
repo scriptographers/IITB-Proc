@@ -12,6 +12,7 @@ entity IITBProc is
 		PC_deb, IR_deb, ALU_a_deb, ALU_b_deb, ALU_c_deb,
 		T1_deb, T2_deb, T3_deb, Mem_deb,
 		D1_deb, D2_deb : out std_logic_vector(15 downto 0);
+		Cr_deb, Zr_deb : out std_logic;
 		reg0_deb, reg1_deb, reg2_deb, reg3_deb,
 		reg4_deb, reg5_deb, reg6_deb, reg7_deb : out std_logic_vector(15 downto 0)
 	);
@@ -113,7 +114,7 @@ architecture arch of IITBProc is
 
 	signal W1, W2, W3, W4, W5, W7, W6,
 	M1, M21, M20, M4, M30, M31, M50, M51, M60, M61, M70, M71, M8, M90, M91, M100, M101, M12,
-	Z_out, C_out, WC, Cr_out, T1_zero, M11, M11_out, WZ, Zr_out, alu_control : std_logic;
+	Z_out, C_out, WC, WZ, Cr_out, Zr_out, T1_zero, M11, M11_out, alu_control : std_logic;
 
 	signal temp1 : std_logic_vector(9 downto 0);
 	signal temp2 : std_logic_vector(6 downto 0);
@@ -389,6 +390,8 @@ begin
 	Mem_deb <= Mem_out;
 	D1_deb <= D1_out;
 	D2_deb <= D2_out;
+	Cr_deb <= Cr_out;
+	Zr_deb <= Zr_out;
 	reg0_deb <= reg0;
 	reg1_deb <= reg1;
 	reg2_deb <= reg2;

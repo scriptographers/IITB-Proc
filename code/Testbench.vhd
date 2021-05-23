@@ -19,6 +19,7 @@ architecture tb of Testbench is
 			PC_deb, IR_deb, ALU_a_deb, ALU_b_deb, ALU_c_deb,
 			T1_deb, T2_deb, T3_deb, Mem_deb,
 			D1_deb, D2_deb : out std_logic_vector(15 downto 0);
+			Cr_deb, Zr_deb : out std_logic;
 			reg0_deb, reg1_deb, reg2_deb, reg3_deb,
 			reg4_deb, reg5_deb, reg6_deb, reg7_deb : out std_logic_vector(15 downto 0)
 		);
@@ -28,6 +29,7 @@ architecture tb of Testbench is
 	signal rst : std_logic := '0';
 	signal o : std_logic_vector(15 downto 0);
 	signal d : std_logic;
+	signal Cr_deb, Zr_deb : std_logic;
 	signal PC_deb, IR_deb, ALU_a_deb, ALU_b_deb, ALU_c_deb,
 	T1_deb, T2_deb, T3_deb, Mem_deb,
 	D1_deb, D2_deb,
@@ -43,6 +45,7 @@ begin
 		ALU_a_deb => ALU_a_deb, ALU_b_deb => ALU_b_deb, ALU_c_deb => ALU_c_deb,
 		T1_deb => T1_deb, T2_deb => T2_deb, T3_deb => T3_deb, Mem_deb => Mem_deb,
 		D1_deb => D1_deb, D2_deb => D2_deb,
+		Cr_deb => Cr_deb, Zr_deb => Zr_deb,
 		reg0_deb => reg0_deb, reg1_deb => reg1_deb, reg2_deb => reg2_deb, reg3_deb => reg3_deb,
 		reg4_deb => reg4_deb, reg5_deb => reg5_deb, reg6_deb => reg6_deb, reg7_deb => reg7_deb
 	);
