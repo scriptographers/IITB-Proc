@@ -57,11 +57,31 @@ architecture arch of Memory is
 	-- );
 
 	-- ADI Test
+	-- signal mem : MemoryArray := (
+	-- 	0 => x"1009", -- ADI R0 R0 9
+	-- 	1 => x"1046", -- ADI R0 R1 6
+	-- 	2 => x"1281", -- ADI R1 R2 1
+	-- 	3 => x"14c0", -- ADI R2 R3 0
+	-- 	others => x"0000"
+	-- );
+
+	-- ADD-NAND Test
 	signal mem : MemoryArray := (
-		0 => x"1009", -- ADI R0 R0 9
-		1 => x"1046", -- ADI R0 R1 6
-		2 => x"1281", -- ADI R1 R2 1
-		3 => x"14c0", -- ADI R2 R3 0
+		0 => x"31ff", -- LHI R0 511
+		1 => x"33fe", -- LHI R1 510
+		2 => x"3401", -- LHI R2 1
+		3 => x"3602", -- LHI R3 2
+		4 => x"04e0", -- ADD R2 R3 R4
+		5 => x"24e0", -- NDU R2 R3 R4
+		6 => x"00e1", -- ADC R0 R3 R4
+		7 => x"00e2", -- ADZ R0 R3 R4
+		8 => x"20e1", -- NDC R0 R3 R4
+		9 => x"20e2", -- NDZ R0 R3 R4
+		10 => x"00e0", -- ADD R0 R3 R4
+		11 => x"00a1", -- ADC R0 R2 R4
+		12 => x"00e2", -- ADZ R0 R3 R4
+		13 => x"2ba1", -- NDC R5 R6 R4
+		14 => x"20e2", -- NDZ R0 R3 R4
 		others => x"0000"
 	);
 
