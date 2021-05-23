@@ -76,9 +76,9 @@ elif op in ["LHI", "JAL"]:
     IMM = int(tokens[2])
 
     RA_bits  = "{0:03b}".format(RA)
-    IMM_bits = "{0:03b}".format(IMM)
+    IMM_bits = "{0:09b}".format(IMM)
 
     binary = op_bits + RA_bits + IMM_bits
 
+print(binary)
 print('x"{0:04x}"'.format(int(binary, 2)))
-
