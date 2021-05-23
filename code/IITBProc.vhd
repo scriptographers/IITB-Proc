@@ -97,7 +97,7 @@ architecture arch of IITBProc is
 			instruction, T1, T2, T3, mem    : in std_logic_vector(15 downto 0);
 			rst, clk, init_carry, init_zero : in std_logic;
 			W1, W2, W3, W4, W5, W6, W7,
-			M1, M20, M21, M30, M31, M4, M50, M51, M60, M61,
+			M1, M20, M21, M3, M40, M41, M50, M51, M60, M61,
 			M70, M71, M8, M90, M91, M100, M101, M11, M12,
 			carry_write, zero_write, done, alu_control : out std_logic);
 	end component;
@@ -107,10 +107,10 @@ architecture arch of IITBProc is
 	signal PC_out, IR_out, ALU_a, ALU_b, ALU_c, T1_out, T2_out, T3_out, Mem_out, D1_out, D2_out,
 	M1_out, M2_out, M5_out, M6_out, M7_out, M8_out, M12_out, Imm9e16, SEImm9, SEImm6 : std_logic_vector(15 downto 0);
 
-	signal M4_out, M3_out : std_logic_vector(2 downto 0);
+	signal M3_out, M4_out : std_logic_vector(2 downto 0);
 
 	signal W1, W2, W3, W4, W5, W7, W6,
-	M1, M21, M20, M4, M30, M31, M50, M51, M60, M61, M70, M71, M8, M90, M91, M100, M101, M12,
+	M1, M21, M20, M3, M40, M41, M50, M51, M60, M61, M70, M71, M8, M90, M91, M100, M101, M12,
 	Z_out, C_out, WC, WZ, Cr_out, Zr_out, T1_zero, M11, M11_out, alu_control : std_logic;
 
 	signal temp1 : std_logic_vector(9 downto 0);
@@ -128,7 +128,7 @@ begin
 		rst => reset, clk => clk, init_carry => Cr_out, init_zero => Zr_out,
 		-- out
 		W1 => W1, W2 => W2, W3 => W3, W4 => W4, W5 => W5, W6 => W6, W7 => W7,
-		M1 => M1, M20 => M20, M21 => M21, M30 => M30, M31 => M31, M4 => M4,
+		M1 => M1, M20 => M20, M21 => M21, M3 => M3, M40 => M40, M41 => M41,
 		M50 => M50, M51 => M51, M60 => M60, M61 => M61, M70 => M70, M71 => M71, M8 => M8,
 		M90 => M90, M91 => M91, M100 => M100, M101 => M101, M11 => M11, M12 => M12,
 		carry_write => WC, zero_write => WZ, done => done, alu_control => alu_control
@@ -184,25 +184,25 @@ begin
 		data_read => IR_out
 	);
 
-	MUX4 : MUX3_2x1
+	MUX3 : MUX3_2x1
 	port map(
 		-- in
 		a => IR_out(11 downto 9), b => T3_out(2 downto 0),
 		-- select
-		s0 => M4,
+		s0 => M3,
 		-- out
-		y => M4_out
+		y => M3_out
 	);
 
-	MUX3 : MUX3_4x1
+	MUX4 : MUX3_4x1
 	port map(
 		-- in
 		a => IR_out(11 downto 9), b => IR_out(8 downto 6),
 		c => IR_out(5 downto 3), d => T3_out(2 downto 0),
 		-- select
-		s1 => M31, s0 => M30,
+		s1 => M41, s0 => M40,
 		-- out
-		y => M3_out
+		y => M4_out
 	);
 
 	Imm9e16 <= IR_out(8 downto 0) & "0000000";
@@ -228,7 +228,7 @@ begin
 	Rf : RegisterFile
 	port map(
 		-- in
-		addr1 => M4_out, addr2 => IR_out(8 downto 6), addr3 => M3_out,
+		addr1 => M3_out, addr2 => IR_out(8 downto 6), addr3 => M4_out,
 		data_write3 => M5_out, clk => clk,
 		-- control pin
 		write_flag => W4,
