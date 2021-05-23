@@ -78,9 +78,9 @@ architecture arch of IITBProc is
 
 	component ALU is
 		port (
-			a, b       : in std_logic_vector(15 downto 0);
-			op         : in std_logic;
-			c     : out std_logic_vector(15 downto 0);
+			a, b        : in std_logic_vector(15 downto 0);
+			op          : in std_logic;
+			c           : out std_logic_vector(15 downto 0);
 			zero, carry : out std_logic
 		);
 	end component;
@@ -100,7 +100,8 @@ architecture arch of IITBProc is
 			M1, M20, M21, M3, M40, M41,
 			M50, M51, M6, M70, M71, M80, M81,
 			M90, M91, M100, M101, M11, M12,
-			carry_write, zero_write, done, alu_control : out std_logic);
+			carry_write, zero_write, done, alu_control : out std_logic
+		);
 	end component;
 
 	signal reg0_out, reg1_out, reg2_out, reg3_out, reg4_out, reg5_out, reg6_out, reg7_out : std_logic_vector(15 downto 0);
