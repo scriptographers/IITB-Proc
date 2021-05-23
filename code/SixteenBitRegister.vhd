@@ -17,13 +17,13 @@ architecture arch of SixteenBitRegister is
 	signal r : std_logic_vector(15 downto 0) := (others => '0');
 
 begin
-	
+
 	-- Read
 	data_read <= r;
 
-	proc_write : process(write_flag, data_write, clk)
+	proc_write : process (write_flag, data_write, clk)
 	begin
-		if (write_flag = '0') then
+		if (write_flag = '1') then
 			if (rising_edge(clk)) then
 				-- Write
 				r <= data_write;

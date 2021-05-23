@@ -123,7 +123,7 @@ begin
 
 	proc_write : process (write_flag, data_write, addr, clk)
 	begin
-		if (write_flag = '0') then
+		if (write_flag = '1') then
 			if (rising_edge(clk)) then
 				-- Write
 				mem(conv_integer(addr)) <= data_write;

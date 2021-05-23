@@ -33,7 +33,7 @@ begin
 
 	proc_write : process (write_flag, data_write3, addr3, clk)
 	begin
-		if (write_flag = '0') then
+		if (write_flag = '1') then
 			if (rising_edge(clk)) then
 				-- Write
 				registers(conv_integer(addr3)) <= data_write3;
