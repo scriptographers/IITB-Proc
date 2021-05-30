@@ -61,8 +61,8 @@ begin
 		M11_v := '0';
 		M12_v := '0';
 
-		carry_v := '1';
-		zero_v := '1';
+		carry_v := '0';
+		zero_v := '0';
 		done_v := '0';
 		alu_v := '0';
 
@@ -120,7 +120,7 @@ begin
 				M101_v := '1';
 
 				if (instruction(15 downto 12) = "0000") then
-					carry_v := '0';
+					carry_v := '1';
 				end if;
 				zero_v := '0';
 
@@ -150,8 +150,8 @@ begin
 				M100_v := '0';
 				M101_v := '1';
 
-				carry_v := '0';
-				zero_v := '0';
+				carry_v := '1';
+				zero_v := '1';
 
 				state_v := S2B;
 
@@ -196,7 +196,7 @@ begin
 				M81_v := '0';
 				M11_v := '1';
 
-				zero_v := '0';
+				zero_v := '1';
 
 				state_v := S5B;
 
