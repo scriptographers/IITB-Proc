@@ -113,7 +113,7 @@ architecture struct of IITBProc is
 
 	signal W_PC, W_MEM, W_IR, W_RF, W_T3, W_T1, W_T2,
 	M1, M21, M20, M3, M40, M41, M50, M51, M6, M70, M71, M80, M81, M90, M91, M100, M101, M11, M12,
-	Z_out, C_out, WC, WZ, Cr_out, Zr_out, T1_zero, M11_out, alu_control : std_logic;
+	Z_out, C_out, WC, WZ, Cr_out, Zr_out, T3_zero, M11_out, alu_control : std_logic;
 
 	signal temp1 : std_logic_vector(9 downto 0);
 	signal temp2 : std_logic_vector(6 downto 0);
@@ -362,13 +362,13 @@ begin
 		y => ALU_a
 	);
 
-	T1_zero <= not(T1_out(0) or T1_out(1) or T1_out(2) or T1_out(3) or T1_out(4) or T1_out(5) or T1_out(6) or T1_out(7)
-		or T1_out(8) or T1_out(9) or T1_out(10) or T1_out(11) or T1_out(12) or T1_out(13) or T1_out(14) or T1_out(15));
+	T3_zero <= not(T3_out(0) or T3_out(1) or T3_out(2) or T3_out(3) or T3_out(4) or T3_out(5) or T3_out(6) or T3_out(7)
+		or T3_out(8) or T3_out(9) or T3_out(10) or T3_out(11) or T3_out(12) or T3_out(13) or T3_out(14) or T3_out(15));
 
 	MUX11 : MUX1_2x1
 	port map(
 		-- in
-		a => Z_out, b => T1_zero,
+		a => Z_out, b => T3_zero,
 		-- select
 		s0 => M11,
 		-- out
