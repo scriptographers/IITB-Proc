@@ -122,7 +122,7 @@ begin
 				if (instruction(15 downto 12) = "0000") then
 					carry_v := '1';
 				end if;
-				zero_v := '0';
+				zero_v := '1';
 
 				if (instruction(15 downto 12) = "0010") then
 					alu_v := '1';
